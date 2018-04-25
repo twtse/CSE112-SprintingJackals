@@ -1,0 +1,26 @@
+{
+  "name": "cse112",
+  "version": "1.0.0",
+  "description": "cse112-sp18-sprinting-jackals",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twtse/CSE112-SprintingJackals.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/twtse/CSE112-SprintingJackals/issues"
+  },
+  "homepage": "https://github.com/twtse/CSE112-SprintingJackals#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.7.0"
+  },
+  "dependencies": {
+    "mocha": "^5.1.1"
+  }
+}
