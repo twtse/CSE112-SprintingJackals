@@ -4,7 +4,9 @@
   "description": "cse112-sp18-sprinting-jackals",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test.js"
+    "test": "mocha test.js",
+    "style-check": "eslint \"./*.js\"",
+    "build-docs": "jsdoc ./*.js -r -d docs"
   },
   "repository": {
     "type": "git",

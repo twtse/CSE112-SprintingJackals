@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - '8'
+script:
+  - npm test
+  - npm run style-check
+after_success:
+  - npm run build-docs 
+deploy:
+  provider: firebase
+  token: $FIREBASE_DEPLOY_KEY
+  on:
+    branch: master
+env:
+  - FIREBASE_DEPLOY_KEY=OFjeJMI5ZM1eKD5BIFARYxZIB9Sy/XwB23GhLus4IRd7YJF7SgLyJ+RbQtMIBvA/2zhGKpZbzi9AVbDVx3E5hxePQXQXq/dp45i0PyLJYHXC4lJ0lHdhqcide/q4zyNzt4dlJ+egRuLaCMI55t8QV1RlkR19BjXRcNJ18LG8ZfMblWq5cNGqyXdeGPXC7753B/Nt2NEdNzgBewaMbru36R1mXsliPwoJGzWWjy40chuVbiylq9a97SmWxYs8ylytTZwdr+U1FrPgxTFSEUQ4HnuCP1fS25xRStcCCfJRpLud4be12qaORELJeR/rr7iGoiiIGYmDl15/xpCqi1D8wGQWZ2ow/vyCFknst7SQ95MIwZEIHtXRBg+JRWEuSNVA76idtMUyh8fwZwTMWyboOsgBirgQVZvrh8NrJ35nwnGpdbPekA14bataaAOfriZlhpUMWS+8p3kn93tj2vMQ3awWLlyzicwdhXdJU40jkSGfxUm9TKnain7cmbUkF4XuQsSQG3liuT6Tw/I/x7U8QUGjwB3PlJb12ypOoIYyY+ILpNE4I3VtuLwTCX3wqtEZqfwVF706HE5B4I8IKv74Z2e3cv/hM/kXh0AoUK4ekpznM61XITnwFlLtkj9aRd4xLuOjs+WPeKiO6XEY4FDTL9s3Ox0dQCsyJmwws8vgNVo=
