@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test.js",
-    "style-check": "eslint \"./*.js\"",
-    "build-docs": "jsdoc ./*.js -r -d docs"
+    "style-check": "eslint \"./*.js\""
   },
   "repository": {
     "type": "git",
