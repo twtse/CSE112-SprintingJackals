@@ -1,8 +1,9 @@
 language: node_js
 node_js:
   - '8'
-after_install:
-  - cd functions && npm install && cd ..
+install:
+  - npm install --no-save
+  - cd functions && npm install --no-save && cd ..
 script:
   - npm test
   - npm run style-check
