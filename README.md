@@ -5,7 +5,7 @@ Please check out the [wiki](https://github.com/twtse/CSE112-SprintingJackals/wik
 ### Team Members
 * [Truman Tse](https://github.com/twtse) - Team Lead
 * [Kunal Parulekar](https://github.com/KunalParulekar) - Team Lead
-* Rebecca Tomlinson - Front End
+* [Rebecca Tomlinson](https://github.com/tomlinson-rebecca) - Front End
 * [Zi Ying Liu](https://github.com/ziyliu) - Front End
 * [Jeffrey Phung](https://github.com/jjphung) - Back End
 * [Guangyan "Gavin" Li](https://github.com/gavim) - Back End
