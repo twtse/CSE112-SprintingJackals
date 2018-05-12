@@ -1,27 +1,44 @@
 {
-  "name": "cse112",
+  "name": "Peterbook",
   "version": "1.0.0",
-  "description": "cse112-sp18-sprinting-jackals",
+  "description": "Sprinting Jackals' attempt at private social media",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server --mode development",
     "test": "mocha",
-    "style-check": "eslint . "
+    "style-check": "eslint . && echo 'Looking good! Style-check passed.'"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/twtse/CSE112-SprintingJackals.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Sprinting Jackals",
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/twtse/CSE112-SprintingJackals/issues"
   },
   "homepage": "https://github.com/twtse/CSE112-SprintingJackals#readme",
   "dependencies": {
+    "firebase": "^5.0.2",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "chai": "^4.1.2",
+    "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.7.0",
     "jsdoc": "^3.5.5",
-    "mocha": "^5.1.1"
-  }
+    "mocha": "^5.1.1",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.8.1",
+    "webpack-cli": "^2.1.3",
+    "webpack-dev-server": "^3.1.4"
+  },
+  "private": true
 }
