@@ -57,6 +57,4 @@ typings/
 # dotenv environment variables file
 .env
 
-.babelrc
-webpack.config.js
 bundle.js
