@@ -59,3 +59,4 @@ typings/
 
 .babelrc
 webpack.config.js
+bundle.js

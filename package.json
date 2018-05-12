@@ -4,6 +4,7 @@
   "description": "Sprinting Jackals' attempt at private social media",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --mode production --output-path public/",
     "start": "webpack-dev-server --mode development",
     "test": "mocha",
     "style-check": "eslint . && echo 'Looking good! Style-check passed.'"
