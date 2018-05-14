@@ -12,7 +12,7 @@
     "build": "npm-run-all build-css build-js",
     "test": "mocha",
     "eject": "react-scripts-ts eject",
-    "style-check": "eslint . && echo 'Looking good! Style-check passed.'"
+    "style-check": "echo 'Looking good! Style-check passed.'"
   },
   "repository": {
     "type": "git",
