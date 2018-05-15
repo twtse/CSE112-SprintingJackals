@@ -43,7 +43,7 @@ import CommentGroup from 'components/commentGroup'
 import ShareDialog from 'components/shareDialog'
 import PostWrite from 'components/postWrite'
 import Img from 'components/img'
-import IconButtonElement from 'layouts/IconButtonElement'
+import IconButtonElement from 'layouts/iconButtonElement'
 import UserAvatar from 'components/userAvatar'
 
 // - Import actions
@@ -378,15 +378,15 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
       </Manager>
     )
 
-    const { 
-      ownerUserId, 
-      ownerDisplayName, 
-      creationDate, 
-      image, 
-      body, 
-      id, 
-      disableComments, 
-      commentCounter, 
+    const {
+      ownerUserId,
+      ownerDisplayName,
+      creationDate,
+      image,
+      body,
+      id,
+      disableComments,
+      commentCounter,
       disableSharing ,
     } = post.toJS()
     // Define variables
@@ -459,15 +459,15 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
 
         <CommentGroup open={this.state.openComments} comments={commentList} ownerPostUserId={ownerUserId!} onToggleRequest={this.handleOpenComments} isPostOwner={this.props.isPostOwner!} disableComments={disableComments!} postId={id} />
 
-        <ShareDialog 
-        onClose={this.handleCloseShare} 
-        shareOpen={this.state.shareOpen} 
-        onCopyLink={this.handleCopyLink} 
+        <ShareDialog
+        onClose={this.handleCloseShare}
+        shareOpen={this.state.shareOpen}
+        onCopyLink={this.handleCopyLink}
         openCopyLink={this.state.openCopyLink}
-        post={post} 
+        post={post}
 
         />
-       
+
         <PostWrite
           open={this.state.openPostWrite}
           onRequestClose={this.handleClosePostWrite}
