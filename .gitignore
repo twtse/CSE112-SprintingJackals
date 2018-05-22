@@ -57,3 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
+bundle.js
+build/
+
+public/*
+!public/index.html
+!public/favicon.ico
