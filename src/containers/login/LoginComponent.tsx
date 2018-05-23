@@ -167,18 +167,20 @@ export class LoginComponent extends Component<ILoginComponentProps, ILoginCompon
     )
 
     return (
-      <Grid container spacing={24}>
-        <Grid item xs={12} className={classes.contain}>
-
+        <div> 
           <h1 className='g__app-name'>{config.settings.appName}</h1>
-
-          <div className='animate-bottom'>
+          <div className='animate-bottom' style={{float: 'none'}}>
+          
+            <img src='https://i.imgur.com/N8xn0Sr.jpg' width='50%'/>
+         
+          <div  style={{float: 'right'}}>
             <Paper className={classes.paper} elevation={1} >
               <form>
                 <div style={{ padding: '48px 40px 36px' }}>
                   <div style={{
                     paddingLeft: '40px',
-                    paddingRight: '40px'
+                    paddingRight: '40px',
+                    
                   }}>
 
                     <h2 className='zoomOutLCorner animated g__paper-title'>{translate!('login.title')}</h2>
@@ -221,9 +223,9 @@ export class LoginComponent extends Component<ILoginComponentProps, ILoginCompon
                 </div>
               </form>
             </Paper>
+            </div>
           </div>
-        </Grid>
-      </Grid>
+       </div>
     )
   }
 }
