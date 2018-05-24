@@ -358,7 +358,7 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
         >
           <ClickAwayListener onClickAway={this.closePostMenu}>
             <Grow in={isPostMenuOpen} >
-              <Paper>
+              <Paper elevation={20}>
                 <MenuList role='menu'>
                   <MenuItem onClick={this.handleOpenPostWrite} > {translate!('post.edit')} </MenuItem>
                   <MenuItem onClick={this.handleDelete} > {translate!('post.delete')} </MenuItem>

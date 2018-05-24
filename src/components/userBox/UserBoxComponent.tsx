@@ -315,7 +315,7 @@ export class UserBoxComponent extends Component<IUserBoxComponentProps, IUserBox
     } = this.props
 
     return (
-      <Paper key={userId} elevation={1} className={classNames('grid-cell', classes.paper)}>
+      <Paper key={userId} elevation={20} className={classNames('grid-cell', classes.paper)}>
         <div style={{
           display: 'flex',
           flexDirection: 'column',
