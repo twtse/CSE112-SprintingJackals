@@ -325,6 +325,10 @@ export class PostWriteComponent extends Component<IPostWriteComponentProps, IPos
     })
   }
 
+  handleTime = () => {
+    alert('How many hours should post live?')
+  }
+
   /**
    * Handle close more menu
    */
@@ -514,9 +518,17 @@ export class PostWriteComponent extends Component<IPostWriteComponentProps, IPos
                     <div style={{ flexDirection: 'row', display: 'flex' }}>
                       <div onClick={this.handleOpenGallery} style={{ outline: 'none', width: '48px', zIndex: 0, overflow: 'hidden', position: 'relative', textAlign: 'center', transition: 'background .3s', border: 0, borderRadius: '50%', display: 'inlineBlock', height: '48px' }}>
                         <span style={{ top: '15px', display: 'block', position: 'relative', cursor: 'pointer' }}>
-                          <SvgCamera style={{ color: 'grey' }} />
+                          <SvgCamera style={{ color: 'gray' }} />
                         </span>
                       </div>
+
+                      <IconButton onClick={this.handleTime}>
+                        
+                        <i className='material-icons' style={{ color: 'gray' }}>
+                          alarm
+                        </i>
+                        </IconButton>
+                       
                     </div>
                   </div>
                 </div>
