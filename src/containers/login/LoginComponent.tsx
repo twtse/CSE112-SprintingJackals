@@ -8,11 +8,15 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/Button'
 import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
+import AppBar from 'material-ui/AppBar'
+import Toolbar from 'material-ui/Toolbar'
+import Typography from 'material-ui/Typography'
 import Divider from 'material-ui/Divider'
 import ActionAndroid from 'material-ui-icons/Android'
 import { withStyles } from 'material-ui/styles'
 import config from 'src/config'
 import { localize } from 'react-localize-redux'
+import HomeHeader from 'src/components/homeHeader'
 
 // - Import actions
 import * as authorizeActions from 'src/store/actions/authorizeActions'
@@ -167,18 +171,24 @@ export class LoginComponent extends Component<ILoginComponentProps, ILoginCompon
     )
 
     return (
-      <Grid container spacing={24}>
-        <Grid item xs={12} className={classes.contain}>
-
-          <h1 className='g__app-name'>{config.settings.appName}</h1>
-
-          <div className='animate-bottom'>
-            <Paper className={classes.paper} elevation={1} >
+        <div> 
+        
+         <AppBar position='static' style={{ backgroundColor: '#4d545d'}}>
+           <h1 className='g__app-name'>{config.settings.appName}</h1>
+         </AppBar>
+      
+          <div className='animate-bottom' style={{float: 'left'}}>
+            <h2 className='g__blurb-name'>Peterbook is super secret. Security snake keeps your data private, unlike other lizard people.</h2>
+            <img src='https://i.imgur.com/N8xn0Sr.jpg' width='50%'/>
+         
+          <div  style={{float: 'right'}}>
+            <Paper className={classes.paper} elevation={20} >
               <form>
                 <div style={{ padding: '48px 40px 36px' }}>
                   <div style={{
                     paddingLeft: '40px',
-                    paddingRight: '40px'
+                    paddingRight: '40px',
+                    
                   }}>
 
                     <h2 className='zoomOutLCorner animated g__paper-title'>{translate!('login.title')}</h2>
@@ -214,16 +224,16 @@ export class LoginComponent extends Component<ILoginComponentProps, ILoginCompon
                       <Button onClick={this.props.signupPage} tabIndex={4}>{translate!('login.createAccountButton')}</Button>
                     </div>
                     <div >
-                      <Button variant='raised' color='primary' onClick={this.handleForm} tabIndex={3} >{translate!('login.loginButton')}</Button>
+                      <Button variant='raised' color='secondary' onClick={this.handleForm} tabIndex={3} >{translate!('login.loginButton')}</Button>
                     </div>
                   </div>
                   <span className={classes.bottomPaper}>{translate!('login.forgetPasswordMessage')} <NavLink to='/resetPassword' className={classes.link}>{translate!('login.resetPasswordLabel')}</NavLink></span>
                 </div>
               </form>
             </Paper>
+            </div>
           </div>
-        </Grid>
-      </Grid>
+       </div>
     )
   }
 }

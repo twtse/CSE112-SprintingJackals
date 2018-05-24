@@ -488,7 +488,16 @@ g__input-underline::after {
   font-weight: 500;
   line-height: 32px;
   margin: auto;
-  color: rgba(138, 148, 138, 0.2); }
+  color: #00A9A5; }
+
+.g__blurb-name {
+  text-align: left;
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 32px;
+  margin: auto;
+  color: white; }
 
 .g__paper-title {
   text-align: left;
