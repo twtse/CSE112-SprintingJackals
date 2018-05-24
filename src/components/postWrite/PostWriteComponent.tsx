@@ -326,7 +326,7 @@ export class PostWriteComponent extends Component<IPostWriteComponentProps, IPos
   }
 
   handleTime = () => {
-    alert('How many hours should post live?')
+    prompt('How many hours should post live?')
   }
 
   /**
