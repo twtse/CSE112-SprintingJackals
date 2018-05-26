@@ -5,11 +5,11 @@ export class FileResult {
   }
 
   public get fileURL (): string {
-    return this._fileURL
+    return this._fileURL;
   }
 
   public get fileFullPath (): string {
-    return this._fileFullPath
+    return this._fileFullPath;
   }
 
 }

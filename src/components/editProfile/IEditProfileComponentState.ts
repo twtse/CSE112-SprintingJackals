@@ -7,7 +7,7 @@ export interface IEditProfileComponentState {
    * @type {string}
    * @memberof IEditProfileComponentState
    */
-  fullNameInput: string
+  fullNameInput: string;
 
   /**
    * Full name input error message
@@ -15,7 +15,7 @@ export interface IEditProfileComponentState {
    * @type {string}
    * @memberof IEditProfileComponentState
    */
-  fullNameInputError: string
+  fullNameInputError: string;
 
   /**
    * Tag line input value
@@ -23,7 +23,7 @@ export interface IEditProfileComponentState {
    * @type {string}
    * @memberof IEditProfileComponentState
    */
-  tagLineInput: string
+  tagLineInput: string;
 
   /**
    * Edit profile page is small size {true} or big {false}
@@ -31,7 +31,7 @@ export interface IEditProfileComponentState {
    * @type {boolean}
    * @memberof IEditProfileComponentState
    */
-  isSmall: boolean
+  isSmall: boolean;
 
   /**
    * User's banner URL
@@ -39,7 +39,7 @@ export interface IEditProfileComponentState {
    * @type {string}
    * @memberof IEditProfileComponentState
    */
-  banner: string
+  banner: string;
 
   /**
    * User's avatar URL address
@@ -47,7 +47,7 @@ export interface IEditProfileComponentState {
    * @type {string}
    * @memberof IEditProfileComponentState
    */
-  avatar: string
+  avatar: string;
 
   /**
    * Image gallery dialog is open for choosing banner image {true} or not {false}
@@ -55,7 +55,7 @@ export interface IEditProfileComponentState {
    * @type {boolean}
    * @memberof IEditProfileComponentState
    */
-  openBanner: boolean
+  openBanner: boolean;
 
   /**
    * Image gallery dialog is open for choosing avatar image {true} or not {false}
@@ -63,31 +63,31 @@ export interface IEditProfileComponentState {
    * @type {boolean}
    * @memberof IEditProfileComponentState
    */
-  openAvatar: boolean
+  openAvatar: boolean;
 
   /**
    * Default birth day
    */
-  defaultBirthday: any
+  defaultBirthday: any;
 
   /**
    * Seleted birth day
    */
-  selectedBirthday: number
+  selectedBirthday: number;
 
   /**
    * Web URL
    */
-  webUrl: string
+  webUrl: string;
 
   /**
    * User company name
    */
-  companyName: string
+  companyName: string;
 
   /**
    * User twitter id
    */
-  twitterId: string
+  twitterId: string;
 
 }

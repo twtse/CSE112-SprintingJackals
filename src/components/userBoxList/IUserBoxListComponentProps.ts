@@ -1,6 +1,6 @@
-import { User } from 'core/domain/users'
-import { UserTie } from 'core/domain/circles'
-import {Map} from 'immutable'
+import { User } from "core/domain/users";
+import { UserTie } from "core/domain/circles";
+import {Map} from "immutable";
 
 export interface IUserBoxListComponentProps {
 
@@ -10,7 +10,7 @@ export interface IUserBoxListComponentProps {
      * @type {{[userId: string]: User}}
      * @memberof IUserBoxListComponentProps
      */
-  users: Map<string, UserTie>
+  users: Map<string, UserTie>;
 
     /**
      * User identifier
@@ -18,5 +18,5 @@ export interface IUserBoxListComponentProps {
      * @type {string}
      * @memberof IUserBoxListComponentProps
      */
-  uid?: string
+  uid?: string;
 }

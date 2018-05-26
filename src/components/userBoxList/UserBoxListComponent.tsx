@@ -1,15 +1,15 @@
 // - Import react components
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import {Map} from 'immutable'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import {Map} from "immutable";
 
 // - Import app components
-import UserBox from 'components/userBox'
+import UserBox from "components/userBox";
 
-import { IUserBoxListComponentProps } from './IUserBoxListComponentProps'
-import { IUserBoxListComponentState } from './IUserBoxListComponentState'
-import { UserTie } from 'core/domain/circles/userTie'
+import { IUserBoxListComponentProps } from "./IUserBoxListComponentProps";
+import { IUserBoxListComponentState } from "./IUserBoxListComponentState";
+import { UserTie } from "core/domain/circles/userTie";
 
 // - Import API
 
@@ -25,36 +25,36 @@ export class UserBoxListComponent extends Component<IUserBoxListComponentProps,I
          * List of users
          */
     users: PropTypes.object
-  }
+  };
 
     /**
      * Component constructor
      * @param  {object} props is an object properties of component
      */
   constructor (props: IUserBoxListComponentProps) {
-    super(props)
+    super(props);
 
         // Defaul state
     this.state = {
 
-    }
+    };
 
         // Binding functions to `this`
 
   }
 
   userList = () => {
-    let { uid } = this.props
-    const users = this.props.users
-    const userBoxList: any[] = []
+    let { uid } = this.props;
+    const users = this.props.users;
+    const userBoxList: any[] = [];
     if (users) {
        users.forEach((user: UserTie, key: string) => {
         if (uid !== key) {
-          userBoxList.push(<UserBox key={key} userId={key} user={user}/>)
+          userBoxList.push(<UserBox key={key} userId={key} user={user}/>);
         }
-      })
+      });
     }
-    return userBoxList
+    return userBoxList;
   }
 
     /**
@@ -65,15 +65,15 @@ export class UserBoxListComponent extends Component<IUserBoxListComponentProps,I
 
     const styles = {
 
-    }
+    };
 
     return (
 
-                <div className='grid grid__1of4 grid__space-around'>
+                <div className="grid grid__1of4 grid__space-around">
                   {this.userList()}
                 </div>
 
-    )
+    );
   }
 }
 
@@ -86,8 +86,8 @@ export class UserBoxListComponent extends Component<IUserBoxListComponentProps,I
 const mapDispatchToProps = (dispatch: Function, ownProps: IUserBoxListComponentProps) => {
   return {
 
-  }
-}
+  };
+};
 
 /**
  * Map state to props
@@ -96,11 +96,11 @@ const mapDispatchToProps = (dispatch: Function, ownProps: IUserBoxListComponentP
  * @return {object}          props of component
  */
 const mapStateToProps = (state: any, ownProps: IUserBoxListComponentProps) => {
-  const uid = state.getIn(['authorize', 'uid'], 0)
+  const uid = state.getIn(["authorize", "uid"], 0);
   return {
     uid
-  }
-}
+  };
+};
 
 // - Connect component to redux store
-export default connect(mapStateToProps, mapDispatchToProps)(UserBoxListComponent as any)
+export default connect(mapStateToProps, mapDispatchToProps)(UserBoxListComponent as any);

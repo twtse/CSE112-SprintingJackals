@@ -64,3 +64,5 @@ build/
 public/*
 !public/index.html
 !public/favicon.ico
+
+.idea/

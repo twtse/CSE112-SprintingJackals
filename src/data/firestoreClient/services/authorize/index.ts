@@ -1,5 +1,5 @@
-import { AuthorizeService } from './AuthorizeService'
+import { AuthorizeService } from "./AuthorizeService";
 
 export {
     AuthorizeService
-}
+};

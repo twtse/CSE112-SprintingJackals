@@ -1,2 +1,2 @@
-import SidebarContentComponent from './SidebarContentComponent'
-export default SidebarContentComponent
+import SidebarContentComponent from "./SidebarContentComponent";
+export default SidebarContentComponent;

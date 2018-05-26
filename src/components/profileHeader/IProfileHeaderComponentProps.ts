@@ -6,7 +6,7 @@ export interface IProfileHeaderComponentProps {
      * @type {boolean}
      * @memberof IProfileHeaderComponentProps
      */
-  isAuthedUser: boolean
+  isAuthedUser: boolean;
 
   /**
    * Image cover address
@@ -14,7 +14,7 @@ export interface IProfileHeaderComponentProps {
    * @type {string}
    * @memberof IProfileHeaderComponentProps
    */
-  banner: string
+  banner: string;
 
   /**
    * User full name
@@ -22,7 +22,7 @@ export interface IProfileHeaderComponentProps {
    * @type {string}
    * @memberof IProfileHeaderComponentProps
    */
-  fullName: string
+  fullName: string;
 
   /**
    * User tag line
@@ -30,7 +30,7 @@ export interface IProfileHeaderComponentProps {
    * @type {string}
    * @memberof IProfileHeaderComponentProps
    */
-  tagLine: string
+  tagLine: string;
 
   /**
    * User's avatar address
@@ -38,14 +38,14 @@ export interface IProfileHeaderComponentProps {
    * @type {string}
    * @memberof IProfileHeaderComponentProps
    */
-  avatar: string
+  avatar: string;
 
   /**
    * Open edit profile dialog
    *
    * @memberof IProfileHeaderComponentProps
    */
-  openEditor?: () => void
+  openEditor?: () => void;
 
   /**
    * Number of user followers
@@ -53,7 +53,7 @@ export interface IProfileHeaderComponentProps {
    * @type {number}
    * @memberof IProfileHeaderComponentProps
    */
-  followerCount?: number
+  followerCount?: number;
 
   /**
    * User identifier
@@ -61,15 +61,15 @@ export interface IProfileHeaderComponentProps {
    * @type {string}
    * @memberof IProfileHeaderComponentProps
    */
-  userId: string
+  userId: string;
 
   /**
    * Whether edit profile is open
    */
-  editProfileOpen?: boolean
+  editProfileOpen?: boolean;
 
   /**
    * Translate to locale string
    */
-  translate?: (state: any) => any
+  translate?: (state: any) => any;
 }

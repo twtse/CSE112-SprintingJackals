@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { Component } from "react";
 
 /**
  * Route interface
@@ -14,7 +14,7 @@ export interface IRoute {
    * @type {Component}
    * @memberof IRoute
    */
-  component: any
+  component: any;
 
   /**
    * Route path
@@ -22,7 +22,7 @@ export interface IRoute {
    * @type {string}
    * @memberof IRoute
    */
-  path: string
+  path: string;
 
   /**
    * If user is authorized {true} or not {false}
@@ -30,6 +30,6 @@ export interface IRoute {
    * @type {boolean}
    * @memberof IRoute
    */
-  authed?: boolean
+  authed?: boolean;
 
 }

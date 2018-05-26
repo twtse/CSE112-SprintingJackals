@@ -1,4 +1,4 @@
-import { BaseDomain } from 'core/domain/common'
+import { BaseDomain } from "core/domain/common";
 
 export class UserTie extends BaseDomain {
 
@@ -48,7 +48,7 @@ export class UserTie extends BaseDomain {
    */
   public circleIdList?: string[]
   ) {
-    super()
+    super();
   }
 
 }

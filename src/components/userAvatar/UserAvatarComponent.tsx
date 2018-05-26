@@ -1,19 +1,19 @@
 // - Import react components
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import Avatar from 'material-ui/Avatar'
-import { Map } from 'immutable'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Avatar from "material-ui/Avatar";
+import { Map } from "immutable";
 
 // - Import app components
 
 // - Import API
 
 // - Import actions
-import * as imageGalleryActions from 'store/actions/imageGalleryActions'
+import * as imageGalleryActions from "store/actions/imageGalleryActions";
 
-import { IUserAvatarComponentProps } from './IUserAvatarComponentProps'
-import { IUserAvatarComponentState } from './IUserAvatarComponentState'
+import { IUserAvatarComponentProps } from "./IUserAvatarComponentProps";
+import { IUserAvatarComponentState } from "./IUserAvatarComponentState";
 
 /**
  * Create component class
@@ -43,18 +43,18 @@ export class UserAvatarComponent extends Component<IUserAvatarComponentProps,IUs
      */
     onClick: PropTypes.func
 
-  }
+  };
 
   /**
    * Component constructor
    * @param  {object} props is an object properties of component
    */
   constructor (props: IUserAvatarComponentProps) {
-    super(props)
+    super(props);
 
     // Defaul state
     this.state = {
-    }
+    };
 
     // Binding functions to `this`
 
@@ -65,15 +65,15 @@ export class UserAvatarComponent extends Component<IUserAvatarComponentProps,IUs
    * @return {react element} return the DOM which rendered by component
    */
   render () {
-    let { fileName, fullName, style, size, onClick } = this.props
+    let { fileName, fullName, style, size, onClick } = this.props;
 
     return (
-      <div style={{display: 'inherit'}}>
-       {(fileName && fileName !== '' && fileName !== 'noImage' )
-       ? ( <Avatar src={fileName ? fileName : ' '} style={{...style, backgroundColor: '#ffffff', width: size || 36, height: size || 36}} onClick={onClick} />)
-        : (<Avatar style={{...style, backgroundColor: '#00bcd4', width: size || 36, height: size || 36}} onClick={onClick}>{fullName ? fullName.slice(0, 1) : ''}</Avatar>) }
+      <div style={{display: "inherit"}}>
+       {(fileName && fileName !== "" && fileName !== "noImage" )
+       ? ( <Avatar src={fileName ? fileName : " "} style={{...style, backgroundColor: "#ffffff", width: size || 36, height: size || 36}} onClick={onClick} />)
+        : (<Avatar style={{...style, backgroundColor: "#00bcd4", width: size || 36, height: size || 36}} onClick={onClick}>{fullName ? fullName.slice(0, 1) : ""}</Avatar>) }
       </div>
-    )
+    );
   }
 }
 
@@ -85,8 +85,8 @@ export class UserAvatarComponent extends Component<IUserAvatarComponentProps,IUs
  */
 const mapDispatchToProps = (dispatch: Function, ownProps: IUserAvatarComponentProps) => {
   return {
-  }
-}
+  };
+};
 
 /**
  * Map state to props
@@ -96,11 +96,11 @@ const mapDispatchToProps = (dispatch: Function, ownProps: IUserAvatarComponentPr
  */
 const mapStateToProps = (state: any, ownProps: IUserAvatarComponentProps) => {
   return {
-    avatarURL: state.getIn(['imageGallery', 'imageURLList']),
-    imageRequests: state.getIn(['imageGallery', 'imageRequests'])
+    avatarURL: state.getIn(["imageGallery", "imageURLList"]),
+    imageRequests: state.getIn(["imageGallery", "imageRequests"])
 
-  }
-}
+  };
+};
 
 // - Connect component to redux store
-export default connect(mapStateToProps, mapDispatchToProps)(UserAvatarComponent as any)
+export default connect(mapStateToProps, mapDispatchToProps)(UserAvatarComponent as any);

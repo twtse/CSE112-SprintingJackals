@@ -1,4 +1,4 @@
-import { BaseDomain } from '../common'
+import { BaseDomain } from "../common";
 
 export class Profile extends BaseDomain {
   constructor (
@@ -9,7 +9,7 @@ export class Profile extends BaseDomain {
     public creationDate: number,
     public email?: string | null
   ) {
-    super()
+    super();
 
   }
 

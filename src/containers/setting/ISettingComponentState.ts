@@ -7,7 +7,7 @@ export interface ISettingComponentState {
    * @type {string}
    * @memberof ISettingComponentState
    */
-  passwordInput: string
+  passwordInput: string;
 
   /**
    * Password input error text
@@ -15,7 +15,7 @@ export interface ISettingComponentState {
    * @type {string}
    * @memberof ISettingComponentState
    */
-  passwordInputError: string
+  passwordInputError: string;
 
   /**
    * Confirm input value
@@ -23,7 +23,7 @@ export interface ISettingComponentState {
    * @type {string}
    * @memberof ISettingComponentState
    */
-  confirmInput: string
+  confirmInput: string;
 
   /**
    * Confirm input error
@@ -31,5 +31,5 @@ export interface ISettingComponentState {
    * @type {string}
    * @memberof ISettingComponentState
    */
-  confirmInputError: string
+  confirmInputError: string;
 }

@@ -1,7 +1,7 @@
-import { User } from 'core/domain/users'
+import { User } from "core/domain/users";
 
-import { Comment } from 'core/domain/comments'
-import { postComments } from 'models/comments/commentTypes'
+import { Comment } from "core/domain/comments";
+import { postComments } from "models/comments/commentTypes";
 
 /**
  * Comment service interface
@@ -11,9 +11,9 @@ import { postComments } from 'models/comments/commentTypes'
  */
 export interface ICommentService {
 
-  addComment: (comment: Comment) => Promise<string>
-  getComments: (postId: string, next: (resultComments: postComments) => void) => () => void
-  updateComment: (comment: Comment) => Promise<void>
-  deleteComment: (commentId: string) => Promise<void>
+  addComment: (comment: Comment) => Promise<string>;
+  getComments: (postId: string, next: (resultComments: postComments) => void) => () => void;
+  updateComment: (comment: Comment) => Promise<void>;
+  deleteComment: (commentId: string) => Promise<void>;
 
 }

@@ -7,7 +7,7 @@ export interface ILoginComponentState {
    * @type {string}
    * @memberof ILoginComponentState
    */
-  emailInput: string
+  emailInput: string;
 
   /**
    * Email input error text
@@ -15,7 +15,7 @@ export interface ILoginComponentState {
    * @type {string}
    * @memberof ILoginComponentState
    */
-  emailInputError: string
+  emailInputError: string;
 
   /**
    * Password input value
@@ -23,7 +23,7 @@ export interface ILoginComponentState {
    * @type {string}
    * @memberof ILoginComponentState
    */
-  passwordInput: string
+  passwordInput: string;
 
   /**
    * Password input error text
@@ -31,7 +31,7 @@ export interface ILoginComponentState {
    * @type {string}
    * @memberof ILoginComponentState
    */
-  passwordInputError: string
+  passwordInputError: string;
 
   /**
    * Confirm input error text
@@ -39,5 +39,5 @@ export interface ILoginComponentState {
    * @type {string}
    * @memberof ILoginComponentState
    */
-  confirmInputError: string
+  confirmInputError: string;
 }

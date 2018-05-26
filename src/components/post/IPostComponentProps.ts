@@ -1,12 +1,12 @@
-import { Comment } from 'core/domain/comments'
-import { Post } from 'core/domain/posts/post'
-import {Map} from 'immutable'
+import { Comment } from "core/domain/comments";
+import { Post } from "core/domain/posts/post";
+import {Map} from "immutable";
 export interface IPostComponentProps {
 
   /**
    * Post object
    */
-  post: Map<string, any>
+  post: Map<string, any>;
 
   /**
    * Owner's post avatar
@@ -14,7 +14,7 @@ export interface IPostComponentProps {
    * @type {string}
    * @memberof IPostComponentProps
    */
-  avatar?: string
+  avatar?: string;
 
   /**
    * User full name
@@ -22,7 +22,7 @@ export interface IPostComponentProps {
    * @type {string}
    * @memberof IPostComponentProps
    */
-  fullName?: string
+  fullName?: string;
 
   /**
    * Number of vote on a post
@@ -30,7 +30,7 @@ export interface IPostComponentProps {
    * @type {number}
    * @memberof IPostComponentProps
    */
-  voteCount?: number
+  voteCount?: number;
 
   /**
    * Current user vote the post {true} or not {false}
@@ -38,7 +38,7 @@ export interface IPostComponentProps {
    * @type {boolean}
    * @memberof IPostComponentProps
    */
-  currentUserVote?: boolean
+  currentUserVote?: boolean;
 
   /**
    * Current user is the owner of the post {true} or not {false}
@@ -46,63 +46,63 @@ export interface IPostComponentProps {
    * @type {boolean}
    * @memberof IPostComponentProps
    */
-  isPostOwner?: boolean
+  isPostOwner?: boolean;
 
   /**
    * Vote a post
    *
    * @memberof IPostComponentProps
    */
-  vote?: () => any
+  vote?: () => any;
 
   /**
    * Delete a vote on the post
    *
    * @memberof IPostComponentProps
    */
-  unvote?: () => any
+  unvote?: () => any;
 
   /**
    * Delte a post
    *
    * @memberof IPostComponentProps
    */
-  delete?: (id: string) => any
+  delete?: (id: string) => any;
 
   /**
    * Toggle comment disable/enable
    *
    * @memberof IPostComponentProps
    */
-  toggleDisableComments?: (status: boolean) => any
+  toggleDisableComments?: (status: boolean) => any;
 
   /**
    * Toggle sharing disable/enable
    *
    * @memberof IPostComponentProps
    */
-  toggleSharingComments?: (status: boolean) => any
+  toggleSharingComments?: (status: boolean) => any;
 
   /**
    * Redirect to {url} route
    *
    * @memberof IPostComponentProps
    */
-  goTo?: (url: string) => any
+  goTo?: (url: string) => any;
 
   /**
    * Set tile of top bar
    *
    * @memberof IPostComponentProps
    */
-  setHomeTitle?: (title: string) => any
+  setHomeTitle?: (title: string) => any;
 
   /**
    * Get the comments of a post
    *
    * @memberof IPostComponentProps
    */
-  getPostComments?: (ownerUserId: string, postId: string) => any
+  getPostComments?: (ownerUserId: string, postId: string) => any;
 
   /**
    * Commnets
@@ -110,15 +110,15 @@ export interface IPostComponentProps {
    * @type {{[commentId: string]: Comment}}
    * @memberof ICommentGroupComponentProps
    */
-  commentList?: Map<string, Comment>
+  commentList?: Map<string, Comment>;
 
   /**
    * Styles
    */
-  classes?: any
+  classes?: any;
 
   /**
    * Translate to locale string
    */
-  translate?: (state: any) => any
+  translate?: (state: any) => any;
 }

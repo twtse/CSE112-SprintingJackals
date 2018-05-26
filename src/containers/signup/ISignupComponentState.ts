@@ -7,7 +7,7 @@ export interface ISignupComponentState {
    * @type {string}
    * @memberof ISignupComponentState
    */
-  fullNameInput: string
+  fullNameInput: string;
 
   /**
    * Full name input error text
@@ -15,7 +15,7 @@ export interface ISignupComponentState {
    * @type {string}
    * @memberof ISignupComponentState
    */
-  fullNameInputError: string
+  fullNameInputError: string;
 
   /**
    * Email input value
@@ -23,7 +23,7 @@ export interface ISignupComponentState {
    * @type {string}
    * @memberof ISignupComponentState
    */
-  emailInput: string
+  emailInput: string;
 
   /**
    * Email input error text
@@ -31,7 +31,7 @@ export interface ISignupComponentState {
    * @type {string}
    * @memberof ISignupComponentState
    */
-  emailInputError: string
+  emailInputError: string;
 
   /**
    * Password input value
@@ -39,7 +39,7 @@ export interface ISignupComponentState {
    * @type {string}
    * @memberof ISignupComponentState
    */
-  passwordInput: string
+  passwordInput: string;
 
   /**
    * Passwor input error text
@@ -47,7 +47,7 @@ export interface ISignupComponentState {
    * @type {string}
    * @memberof ISignupComponentState
    */
-  passwordInputError: string
+  passwordInputError: string;
 
   /**
    * Confirm input value
@@ -55,7 +55,7 @@ export interface ISignupComponentState {
    * @type {string}
    * @memberof ISignupComponentState
    */
-  confirmInput: string
+  confirmInput: string;
 
   /**
    * Confirm input error text
@@ -63,7 +63,7 @@ export interface ISignupComponentState {
    * @type {string}
    * @memberof ISignupComponentState
    */
-  confirmInputError: string
+  confirmInputError: string;
 
   /**
    * Checkbox input error text
@@ -71,5 +71,5 @@ export interface ISignupComponentState {
    * @type {string}
    * @memberof ISignupComponentState
    */
-  checkInputError?: string
+  checkInputError?: string;
 }

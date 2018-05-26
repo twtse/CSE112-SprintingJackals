@@ -6,21 +6,21 @@ export interface IMasterComponentState {
      * @type {boolean}
      * @memberof IMasterState
      */
-  loading: boolean,
+  loading: boolean;
      /**
       * It's true if user is authorized
       *
       * @type {boolean}
       * @memberof IMasterState
       */
-  authed: boolean
+  authed: boolean;
       /**
        * It's true if all default data loaded from database
        *
        * @type {boolean}
        * @memberof IMasterState
        */
-  dataLoaded: boolean
+  dataLoaded: boolean;
 
   /**
    * If user verifide it's email {true} or not {false}
@@ -28,5 +28,5 @@ export interface IMasterComponentState {
    * @type {boolean}
    * @memberof IMasterComponentState
    */
-  isVerifide: boolean
+  isVerifide: boolean;
 }

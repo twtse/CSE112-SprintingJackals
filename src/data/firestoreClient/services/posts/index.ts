@@ -1,5 +1,5 @@
-import { PostService } from './PostService'
+import { PostService } from "./PostService";
 
 export {
     PostService
-}
+};

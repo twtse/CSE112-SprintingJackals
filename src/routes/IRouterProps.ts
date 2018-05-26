@@ -5,7 +5,7 @@ export interface IRouterProps {
    * @type {boolean}
    * @memberof IRouterProps
    */
-  enabled: boolean
+  enabled: boolean;
 
   /**
    * Router data for the components in routing
@@ -13,7 +13,7 @@ export interface IRouterProps {
    * @type {*}
    * @memberof IRouterProps
    */
-  data?: any
+  data?: any;
 
   /**
    * Routing match
@@ -21,11 +21,11 @@ export interface IRouterProps {
    * @type {*}
    * @memberof IRouterProps
    */
-  match?: any
+  match?: any;
 
   /**
    * Translate to locale strting
    */
-  translate?: (state: any) => any
+  translate?: (state: any) => any;
 
 }

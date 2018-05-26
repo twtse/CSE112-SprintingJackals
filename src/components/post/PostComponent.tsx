@@ -1,58 +1,58 @@
 // - Import react components
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
-import { push } from 'react-router-redux'
-import PropTypes from 'prop-types'
-import moment from 'moment/moment'
-import Linkify from 'react-linkify'
-import copy from 'copy-to-clipboard'
-import { getTranslate, getActiveLanguage } from 'react-localize-redux'
-import { Map } from 'immutable'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { push } from "react-router-redux";
+import PropTypes from "prop-types";
+import moment from "moment/moment";
+import Linkify from "react-linkify";
+import copy from "copy-to-clipboard";
+import { getTranslate, getActiveLanguage } from "react-localize-redux";
+import { Map } from "immutable";
 
 // - Material UI
-import Card, { CardActions, CardHeader, CardMedia, CardContent } from 'material-ui/Card'
-import {  LinearProgress } from 'material-ui/Progress'
-import Typography from 'material-ui/Typography'
-import SvgShare from 'material-ui-icons/Share'
-import SvgComment from 'material-ui-icons/Comment'
-import SvgFavorite from 'material-ui-icons/Favorite'
-import SvgFavoriteBorder from 'material-ui-icons/FavoriteBorder'
-import Checkbox from 'material-ui/Checkbox'
-import Button from 'material-ui/Button'
-import Divider from 'material-ui/Divider'
-import { grey } from 'material-ui/colors'
-import Paper from 'material-ui/Paper'
-import Menu from 'material-ui/Menu'
-import { MenuList, MenuItem } from 'material-ui/Menu'
-import TextField from 'material-ui/TextField'
-import Dialog from 'material-ui/Dialog'
-import IconButton from 'material-ui/IconButton'
-import MoreVertIcon from 'material-ui-icons/MoreVert'
-import { ListItemIcon, ListItemText } from 'material-ui/List'
-import { withStyles } from 'material-ui/styles'
-import { Manager, Target, Popper } from 'react-popper'
-import Grow from 'material-ui/transitions/Grow'
-import ClickAwayListener from 'material-ui/utils/ClickAwayListener'
-import classNames from 'classnames'
+import Card, { CardActions, CardHeader, CardMedia, CardContent } from "material-ui/Card";
+import {  LinearProgress } from "material-ui/Progress";
+import Typography from "material-ui/Typography";
+import SvgShare from "material-ui-icons/Share";
+import SvgComment from "material-ui-icons/Comment";
+import SvgFavorite from "material-ui-icons/Favorite";
+import SvgFavoriteBorder from "material-ui-icons/FavoriteBorder";
+import Checkbox from "material-ui/Checkbox";
+import Button from "material-ui/Button";
+import Divider from "material-ui/Divider";
+import { grey } from "material-ui/colors";
+import Paper from "material-ui/Paper";
+import Menu from "material-ui/Menu";
+import { MenuList, MenuItem } from "material-ui/Menu";
+import TextField from "material-ui/TextField";
+import Dialog from "material-ui/Dialog";
+import IconButton from "material-ui/IconButton";
+import MoreVertIcon from "material-ui-icons/MoreVert";
+import { ListItemIcon, ListItemText } from "material-ui/List";
+import { withStyles } from "material-ui/styles";
+import { Manager, Target, Popper } from "react-popper";
+import Grow from "material-ui/transitions/Grow";
+import ClickAwayListener from "material-ui/utils/ClickAwayListener";
+import classNames from "classnames";
 
-import reactStringReplace from 'react-string-replace'
+import reactStringReplace from "react-string-replace";
 
 // - Import app components
-import CommentGroup from 'components/commentGroup'
-import ShareDialog from 'components/shareDialog'
-import PostWrite from 'components/postWrite'
-import Img from 'components/img'
-import IconButtonElement from 'layouts/iconButtonElement'
-import UserAvatar from 'components/userAvatar'
+import CommentGroup from "components/commentGroup";
+import ShareDialog from "components/shareDialog";
+import PostWrite from "components/postWrite";
+import Img from "components/img";
+import IconButtonElement from "layouts/iconButtonElement";
+import UserAvatar from "components/userAvatar";
 
 // - Import actions
-import * as voteActions from 'store/actions/voteActions'
-import * as postActions from 'store/actions/postActions'
-import * as commentActions from 'store/actions/commentActions'
-import * as globalActions from 'store/actions/globalActions'
-import { IPostComponentProps } from './IPostComponentProps'
-import { IPostComponentState } from './IPostComponentState'
+import * as voteActions from "store/actions/voteActions";
+import * as postActions from "store/actions/postActions";
+import * as commentActions from "store/actions/commentActions";
+import * as globalActions from "store/actions/globalActions";
+import { IPostComponentProps } from "./IPostComponentProps";
+import { IPostComponentState } from "./IPostComponentState";
 
 const styles = (theme: any) => ({
   iconButton: {
@@ -60,18 +60,18 @@ const styles = (theme: any) => ({
     marginLeft: 5
   },
   vote: {
-    display: 'flex',
+    display: "flex",
     flex: 1
   },
   voteCounter: {
-    color: 'rgb(134, 129, 129)',
+    color: "rgb(134, 129, 129)",
     fontSize: 10,
     fontWeight: 400,
     padding: 2,
     zIndex: 1
   },
   commentCounter: {
-    color: 'rgb(134, 129, 129)',
+    color: "rgb(134, 129, 129)",
     fontSize: 10,
     fontWeight: 400,
     padding: 4
@@ -80,55 +80,55 @@ const styles = (theme: any) => ({
     zIndex: 10
   },
   popperClose: {
-    pointerEvents: 'none',
+    pointerEvents: "none",
     zIndex: 0
   },
   postBody: {
-    wordWrap: 'break-word',
-    color: 'rgba(0, 0, 0, 0.87)',
-    fontSize: '0.875rem',
+    wordWrap: "break-word",
+    color: "rgba(0, 0, 0, 0.87)",
+    fontSize: "0.875rem",
     fontWeight: 400,
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    lineHeight: '1.46429em'
+    lineHeight: "1.46429em"
   },
   image: {
-    width: '100%',
+    width: "100%",
     height: 500
   },
   fullPageXs: {
-    [theme.breakpoints.down('xs')]: {
-      width: '100%',
-      height: '100%',
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+      height: "100%",
       margin: 0,
-      overflowY: 'auto'
+      overflowY: "auto"
     }
   }
-})
+});
 
 // - Create component class
 export class PostComponent extends Component<IPostComponentProps, IPostComponentState> {
 
   styles = {
     dialog: {
-      width: '',
-      maxWidth: '530px',
-      borderRadius: '4px'
+      width: "",
+      maxWidth: "530px",
+      borderRadius: "4px"
     }
 
-  }
+  };
 
   /**
    * Component constructor
    * @param  {object} props is an object properties of component
    */
   constructor (props: IPostComponentProps) {
-    super(props)
-    const { post } = props
+    super(props);
+    const { post } = props;
     this.state = {
       /**
        * Post text
        */
-      text: post.get('body', ''),
+      text: post.get("body", ""),
       /**
        * It's true if whole the text post is visible
        */
@@ -144,15 +144,15 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
       /**
        * If it's true comment will be disabled on post
        */
-      disableComments: post.get('disableComments', false),
+      disableComments: post.get("disableComments", false),
       /**
        * If it's true share will be disabled on post
        */
-      disableSharing: post.get('disableSharing', false),
+      disableSharing: post.get("disableSharing", false),
       /**
        * Title of share post
        */
-      shareTitle: 'Share On',
+      shareTitle: "Share On",
       /**
        * If it's true, post link will be visible in share post dialog
        */
@@ -169,19 +169,19 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
        * Whether post menu open
        */
       isPostMenuOpen: false
-    }
+    };
 
     // Binding functions to this
-    this.handleReadMore = this.handleReadMore.bind(this)
-    this.getOpenCommentGroup = this.getOpenCommentGroup.bind(this)
-    this.handleVote = this.handleVote.bind(this)
-    this.handleOpenShare = this.handleOpenShare.bind(this)
-    this.handleCloseShare = this.handleCloseShare.bind(this)
-    this.handleCopyLink = this.handleCopyLink.bind(this)
-    this.handleDelete = this.handleDelete.bind(this)
-    this.handleOpenPostWrite = this.handleOpenPostWrite.bind(this)
-    this.handleClosePostWrite = this.handleClosePostWrite.bind(this)
-    this.handleOpenComments = this.handleOpenComments.bind(this)
+    this.handleReadMore = this.handleReadMore.bind(this);
+    this.getOpenCommentGroup = this.getOpenCommentGroup.bind(this);
+    this.handleVote = this.handleVote.bind(this);
+    this.handleOpenShare = this.handleOpenShare.bind(this);
+    this.handleCloseShare = this.handleCloseShare.bind(this);
+    this.handleCopyLink = this.handleCopyLink.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleOpenPostWrite = this.handleOpenPostWrite.bind(this);
+    this.handleClosePostWrite = this.handleClosePostWrite.bind(this);
+    this.handleOpenComments = this.handleOpenComments.bind(this);
   }
 
   /**
@@ -189,15 +189,15 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
    * @param  {event} evt passed by clicking on comment slide show
    */
   handleOpenComments = () => {
-    const { getPostComments, commentList, post } = this.props
-    const id = post.get('id')
-    const ownerUserId = post.get('ownerUserId')
+    const { getPostComments, commentList, post } = this.props;
+    const id = post.get("id");
+    const ownerUserId = post.get("ownerUserId");
     if (!commentList) {
-      getPostComments!(ownerUserId!, id!)
+      getPostComments!(ownerUserId!, id!);
     }
     this.setState({
       openComments: !this.state.openComments
-    })
+    });
   }
 
   /**
@@ -209,7 +209,7 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
   handleOpenPostWrite = () => {
     this.setState({
       openPostWrite: true
-    })
+    });
   }
 
   /**
@@ -221,7 +221,7 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
   handleClosePostWrite = () => {
     this.setState({
       openPostWrite: false
-    })
+    });
   }
 
   /**
@@ -231,8 +231,8 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
    * @memberof Post
    */
   handleDelete = () => {
-    const { post } = this.props
-    this.props.delete!(post.get('id'))
+    const { post } = this.props;
+    this.props.delete!(post.get("id"));
   }
 
   /**
@@ -242,7 +242,7 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
     this.setState({
       postMenuAnchorEl: event.currentTarget,
       isPostMenuOpen: true
-    })
+    });
   }
 
   /**
@@ -252,7 +252,7 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
     this.setState({
       postMenuAnchorEl: event.currentTarget,
       isPostMenuOpen: false
-    })
+    });
   }
 
   /**
@@ -262,11 +262,11 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
    * @memberof Post
    */
   handleCopyLink = () => {
-    const {translate} = this.props
+    const {translate} = this.props;
     this.setState({
       openCopyLink: true,
-      shareTitle: translate!('post.copyLinkButton')
-    })
+      shareTitle: translate!("post.copyLinkButton")
+    });
   }
 
   /**
@@ -276,11 +276,11 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
    * @memberof Post
    */
   handleOpenShare = () => {
-    const {post} = this.props
-    copy(`${location.origin}/${post.get('ownerUserId')}/posts/${post.get('id')}`)
+    const {post} = this.props;
+    copy(`${location.origin}/${post.get("ownerUserId")}/posts/${post.get("id")}`);
     this.setState({
       shareOpen: true
-    })
+    });
   }
 
   /**
@@ -292,9 +292,9 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
   handleCloseShare = () => {
     this.setState({
       shareOpen: false,
-      shareTitle: 'Share On',
+      shareTitle: "Share On",
       openCopyLink: false
-    })
+    });
   }
 
   /**
@@ -305,9 +305,9 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
    */
   handleVote = () => {
     if (this.props.currentUserVote) {
-      this.props.unvote!()
+      this.props.unvote!();
     } else {
-      this.props.vote!()
+      this.props.vote!();
     }
   }
 
@@ -318,7 +318,7 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
   getOpenCommentGroup = (open: () => void) => {
     this.setState({
       openCommentGroup: open
-    })
+    });
   }
 
   /**
@@ -329,7 +329,7 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
     this.setState({
       readMoreState: !this.state.readMoreState
 
-    })
+    });
   }
 
   /**
@@ -337,14 +337,14 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
    * @return {react element} return the DOM which rendered by component
    */
   render () {
-    const { post, setHomeTitle, goTo, fullName, isPostOwner, commentList, avatar, classes , translate} = this.props
-    const { postMenuAnchorEl, isPostMenuOpen } = this.state
+    const { post, setHomeTitle, goTo, fullName, isPostOwner, commentList, avatar, classes , translate} = this.props;
+    const { postMenuAnchorEl, isPostMenuOpen } = this.state;
     const rightIconMenu = (
       <Manager>
         <Target>
           <IconButton
-            aria-owns={isPostMenuOpen! ? 'post-menu' : ''}
-            aria-haspopup='true'
+            aria-owns={isPostMenuOpen! ? "post-menu" : ""}
+            aria-haspopup="true"
             onClick={this.openPostMenu.bind(this)}
           >
             <MoreVertIcon />
@@ -352,23 +352,23 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
 
         </Target>
         <Popper
-          placement='bottom-start'
+          placement="bottom-start"
           eventsEnabled={isPostMenuOpen!}
           className={classNames({ [classes.popperClose]: !isPostMenuOpen }, { [classes.popperOpen]: isPostMenuOpen })}
         >
           <ClickAwayListener onClickAway={this.closePostMenu}>
             <Grow in={isPostMenuOpen} >
-              <Paper>
-                <MenuList role='menu'>
-                  <MenuItem onClick={this.handleOpenPostWrite} > {translate!('post.edit')} </MenuItem>
-                  <MenuItem onClick={this.handleDelete} > {translate!('post.delete')} </MenuItem>
+              <Paper elevation={20}>
+                <MenuList role="menu">
+                  <MenuItem onClick={this.handleOpenPostWrite} > {translate!("post.edit")} </MenuItem>
+                  <MenuItem onClick={this.handleDelete} > {translate!("post.delete")} </MenuItem>
                   <MenuItem
-                    onClick={() => this.props.toggleDisableComments!(!post.get('disableComments'))} >
-                    {post.get('disableComments') ? translate!('post.enableComments') : translate!('post.disableComments')}
+                    onClick={() => this.props.toggleDisableComments!(!post.get("disableComments"))} >
+                    {post.get("disableComments") ? translate!("post.enableComments") : translate!("post.disableComments")}
                   </MenuItem>
                   <MenuItem
-                    onClick={() => this.props.toggleSharingComments!(!post.get('disableSharing'))} >
-                    {post.get('disableSharing') ? translate!('post.enableSharing') : translate!('post.disableSharing')}
+                    onClick={() => this.props.toggleSharingComments!(!post.get("disableSharing"))} >
+                    {post.get("disableSharing") ? translate!("post.enableSharing") : translate!("post.disableSharing")}
                   </MenuItem>
                 </MenuList>
               </Paper>
@@ -376,7 +376,7 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
           </ClickAwayListener>
         </Popper>
       </Manager>
-    )
+    );
 
     const {
       ownerUserId,
@@ -388,33 +388,33 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
       disableComments,
       commentCounter,
       disableSharing ,
-    } = post.toJS()
+    } = post.toJS();
     // Define variables
     return (
       <Card key={`post-component-${id}`}>
         <CardHeader
           title={<NavLink to={`/${ownerUserId}`}>{ownerDisplayName}</NavLink>}
-          subheader={creationDate ? moment.unix(creationDate!).fromNow() + ' | ' + translate!('post.public') : <LinearProgress color='primary' />}
+          subheader={creationDate ? moment.unix(creationDate!).fromNow() + " | " + translate!("post.public") : <LinearProgress color="primary" />}
           avatar={<NavLink to={`/${ownerUserId}`}><UserAvatar fullName={fullName!} fileName={avatar!} size={36} /></NavLink>}
-          action={isPostOwner ? rightIconMenu : ''}
+          action={isPostOwner ? rightIconMenu : ""}
         >
         </CardHeader>
         {image ? (
           <CardMedia image={image}>
             <Img fileName={image} />
-          </CardMedia>) : ''}
+          </CardMedia>) : ""}
 
         <CardContent className={classes.postBody}>
-          <Linkify properties={{ target: '_blank', style: { color: 'blue' } }}>
+          <Linkify properties={{ target: "_blank", style: { color: "blue" } }}>
             {reactStringReplace(body, /#(\w+)/g, (match: string, i: string) => (
               <NavLink
-                style={{ color: 'green' }}
+                style={{ color: "green" }}
                 key={match + i}
                 to={`/tag/${match}`}
                 onClick={evt => {
-                  evt.preventDefault()
-                  goTo!(`/tag/${match}`)
-                  setHomeTitle!(`#${match}`)
+                  evt.preventDefault();
+                  goTo!(`/tag/${match}`);
+                  setHomeTitle!(`#${match}`);
                 }}
               >
                 #{match}
@@ -429,31 +429,31 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
             <IconButton
               className={classes.iconButton}
               onClick={this.handleVote}
-              aria-label='Love'>
+              aria-label="Love">
               <Checkbox
                 className={classes.iconButton}
-                checkedIcon={<SvgFavorite style={{ fill: '#4CAF50' }} />}
-                icon={<SvgFavoriteBorder style={{ fill: '#757575' }} />}
+                checkedIcon={<SvgFavorite style={{ fill: "#4CAF50" }} />}
+                icon={<SvgFavoriteBorder style={{ fill: "#757575" }} />}
                 checked={this.props.currentUserVote}
               />
-              <div className={classes.voteCounter}> {this.props.voteCount! > 0 ? this.props.voteCount : ''} </div>
+              <div className={classes.voteCounter}> {this.props.voteCount! > 0 ? this.props.voteCount : ""} </div>
             </IconButton>
           </div>
           {!disableComments ?
-            (<div style={{ display: 'inherit' }}><IconButton
+            (<div style={{ display: "inherit" }}><IconButton
               className={classes.iconButton}
               onClick={this.handleOpenComments}
-              aria-label='Comment'>
+              aria-label="Comment">
               <SvgComment />
-              <div className={classes.commentCounter}>{commentCounter! > 0 ? commentCounter : ''} </div>
+              <div className={classes.commentCounter}>{commentCounter! > 0 ? commentCounter : ""} </div>
             </IconButton>
-            </div>) : ''}
+            </div>) : ""}
           {!disableSharing ? (<IconButton
             className={classes.iconButton}
             onClick={this.handleOpenShare}
-            aria-label='Comment'>
+            aria-label="Comment">
             <SvgShare />
-          </IconButton>) : ''}
+          </IconButton>) : ""}
 
         </CardActions>
 
@@ -477,7 +477,7 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
 
       </Card>
 
-    )
+    );
   }
 }
 
@@ -488,23 +488,23 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
  * @return {object}          props of component
  */
 const mapDispatchToProps = (dispatch: any, ownProps: IPostComponentProps) => {
-  const { post } = ownProps
+  const { post } = ownProps;
   return {
-    vote: () => dispatch(voteActions.dbAddVote(post.get('id'), post.get('ownerUserId'))),
-    unvote: () => dispatch(voteActions.dbDeleteVote(post.get('id'), post.get('ownerUserId'))),
+    vote: () => dispatch(voteActions.dbAddVote(post.get("id"), post.get("ownerUserId"))),
+    unvote: () => dispatch(voteActions.dbDeleteVote(post.get("id"), post.get("ownerUserId"))),
     delete: (id: string) => dispatch(postActions.dbDeletePost(id)),
     toggleDisableComments: (status: boolean) => {
-      dispatch(postActions.dbUpdatePost(post.set('disableComments', status), (x: any) => x))
+      dispatch(postActions.dbUpdatePost(post.set("disableComments", status), (x: any) => x));
     },
     toggleSharingComments: (status: boolean) => {
-      dispatch(postActions.dbUpdatePost(post.set('disableSharing', status), (x: any) => x))
+      dispatch(postActions.dbUpdatePost(post.set("disableSharing", status), (x: any) => x));
     },
     goTo: (url: string) => dispatch(push(url)),
-    setHomeTitle: (title: string) => dispatch(globalActions.setHeaderTitle(title || '')),
+    setHomeTitle: (title: string) => dispatch(globalActions.setHeaderTitle(title || "")),
     getPostComments: (ownerUserId: string, postId: string) => dispatch(commentActions.dbFetchComments(ownerUserId, postId))
 
-  }
-}
+  };
+};
 
 /**
  * Map state to props
@@ -514,21 +514,21 @@ const mapDispatchToProps = (dispatch: any, ownProps: IPostComponentProps) => {
  */
 const mapStateToProps = (state: Map<string, any>, ownProps: IPostComponentProps) => {
 
-  const uid = state.getIn(['authorize', 'uid'])
-  let currentUserVote = ownProps.post.getIn(['votes', uid], false)
-  const voteCount = state.getIn(['post', 'userPosts', ownProps.post.get('ownerUserId'), ownProps.post.get('id'), 'score'], 0)
-  const commentList: { [commentId: string]: Comment } = state.getIn(['comment', 'postComments', ownProps.post.get('id')])
-  const user = state.getIn(['user', 'info', ownProps.post.get('ownerUserId')])
+  const uid = state.getIn(["authorize", "uid"]);
+  let currentUserVote = ownProps.post.getIn(["votes", uid], false);
+  const voteCount = state.getIn(["post", "userPosts", ownProps.post.get("ownerUserId"), ownProps.post.get("id"), "score"], 0);
+  const commentList: { [commentId: string]: Comment } = state.getIn(["comment", "postComments", ownProps.post.get("id")]);
+  const user = state.getIn(["user", "info", ownProps.post.get("ownerUserId")]);
   return {
-    translate: getTranslate(state.get('locale')),
+    translate: getTranslate(state.get("locale")),
     commentList,
-    avatar: user ? user.avatar : '',
-    fullName: user ? user.fullName : '',
+    avatar: user ? user.avatar : "",
+    fullName: user ? user.fullName : "",
     voteCount,
     currentUserVote,
-    isPostOwner: uid === ownProps.post.get('ownerUserId')
-  }
-}
+    isPostOwner: uid === ownProps.post.get("ownerUserId")
+  };
+};
 
 // - Connect component to redux store
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles as any)(PostComponent as any) as any)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles as any)(PostComponent as any) as any);

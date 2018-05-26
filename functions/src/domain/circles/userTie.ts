@@ -1,7 +1,5 @@
 import { BaseDomain } from "../common/baseDomain";
 
-
-
 export class UserTie extends BaseDomain {
 
   constructor (
@@ -46,7 +44,7 @@ export class UserTie extends BaseDomain {
   public approved?: Boolean,
 
   ) {
-    super()
+    super();
   }
 
 }

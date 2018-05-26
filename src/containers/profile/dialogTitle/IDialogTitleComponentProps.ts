@@ -6,7 +6,7 @@ export interface IDialogTitleComponentProps {
    * @type {string}
    * @memberof IDialogTitleComponentProps
    */
-  buttonLabel?: string 
+  buttonLabel?: string; 
 
   /**
    * Dialog tile
@@ -14,7 +14,7 @@ export interface IDialogTitleComponentProps {
    * @type {string}
    * @memberof IDialogTitleComponentProps
    */
-  title: string
+  title: string;
 
   /**
    * Button is disabled {true} or not {false}
@@ -22,19 +22,19 @@ export interface IDialogTitleComponentProps {
    * @type {boolean}
    * @memberof IDialogTitleComponentProps
    */
-  disabledButton?: boolean 
+  disabledButton?: boolean; 
 
   /**
    * On click event
    *
    * @memberof IDialogTitleComponentProps
    */
-  onClickButton?: (event: any) => void 
+  onClickButton?: (event: any) => void; 
 
   /**
    * On request close event
    *
    * @memberof IDialogTitleComponentProps
    */
-  onRequestClose: (event: any) => void
+  onRequestClose: (event: any) => void;
 }

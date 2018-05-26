@@ -1,13 +1,13 @@
 // - Import react components
-import { firebaseRef, firebaseAuth, db } from 'data/firestoreClient'
+import { firebaseRef, firebaseAuth, db } from "data/firestoreClient";
 
-import { SocialError } from 'core/domain/common'
-import { Post } from 'core/domain/posts'
-import { IPostService } from 'core/services/posts'
-import { IServiceProvider } from 'core/factories'
-import { ICommentService } from 'core/services/comments'
-import { ServiceProvide } from 'core/factories/serviceProvide'
-import { injectable } from 'inversify'
+import { SocialError } from "core/domain/common";
+import { Post } from "core/domain/posts";
+import { IPostService } from "core/services/posts";
+import { IServiceProvider } from "core/factories";
+import { ICommentService } from "core/services/comments";
+import { ServiceProvide } from "core/factories/serviceProvide";
+import { injectable } from "inversify";
 
 /**
  * Firbase post service
@@ -22,15 +22,15 @@ export class PostService implements IPostService {
   public addPost: (post: Post)
     => Promise<string> = (post) => {
       return new Promise<string>((resolve, reject) => {
-        let postRef = db.collection(`posts`).doc()
+        let postRef = db.collection(`posts`).doc();
         postRef.set({ ...post, id: postRef.id })
           .then(() => {
-            resolve(postRef.id)
+            resolve(postRef.id);
           })
           .catch((error: any) => {
-            reject(new SocialError(error.code, error.message))
-          })
-      })
+            reject(new SocialError(error.code, error.message));
+          });
+      });
     }
 
   /**
@@ -39,17 +39,17 @@ export class PostService implements IPostService {
   public updatePost: (post: Post)
     => Promise<void> = (post) => {
       return new Promise<void>((resolve, reject) => {
-        const batch = db.batch()
-        const postRef = db.doc(`posts/${post.id}`)
+        const batch = db.batch();
+        const postRef = db.doc(`posts/${post.id}`);
 
-        batch.update(postRef, { ...post })
+        batch.update(postRef, { ...post });
         batch.commit().then(() => {
-          resolve()
+          resolve();
         })
           .catch((error: any) => {
-            reject(new SocialError(error.code, error.message))
-          })
-      })
+            reject(new SocialError(error.code, error.message));
+          });
+      });
     }
 
   /**
@@ -58,17 +58,17 @@ export class PostService implements IPostService {
   public deletePost: (postId: string)
     => Promise<void> = (postId) => {
       return new Promise<void>((resolve, reject) => {
-        const batch = db.batch()
-        const postRef = db.doc(`posts/${postId}`)
+        const batch = db.batch();
+        const postRef = db.doc(`posts/${postId}`);
 
-        batch.delete(postRef)
+        batch.delete(postRef);
         batch.commit().then(() => {
-          resolve()
+          resolve();
         })
           .catch((error: any) => {
-            reject(new SocialError(error.code, error.message))
-          })
-      })
+            reject(new SocialError(error.code, error.message));
+          });
+      });
     }
 
   /**
@@ -77,50 +77,50 @@ export class PostService implements IPostService {
   public getPosts: (currentUserId: string, lastPostId: string, page: number, limit: number)
     => Promise<{ posts: { [postId: string]: Post }[], newLastPostId: string }> = (currentUserId, lastPostId, page = 0, limit = 10) => {
       return new Promise<{ posts: { [postId: string]: Post }[], newLastPostId: string }>((resolve, reject) => {
-        let postList: { [postId: string]: Post }[] = []
+        let postList: { [postId: string]: Post }[] = [];
 
         // Get user ties
-        db.collection('graphs:users').where('leftNode', '==', currentUserId)
+        db.collection("graphs:users").where("leftNode", "==", currentUserId)
           .get().then((tieUsers) => {
             if (!(tieUsers.size > 0)) {
                 // Get current user posts
               this.getPostsByUserId(currentUserId,lastPostId, page, limit).then((result) => {
-                resolve(result)
-              })
+                resolve(result);
+              });
             }
 
-            let userCounter = 0
-            const userIdList: Array<string> = []
+            let userCounter = 0;
+            const userIdList: Array<string> = [];
             tieUsers.forEach((item) => {
-              const userId = item.data().rightNode
+              const userId = item.data().rightNode;
               if (!userIdList.includes(userId)) {
 
               // Get user tie posts
                 this.getPostsByUserId(userId).then((posts) => {
-                  userCounter++
+                  userCounter++;
                   postList = [
                     ...postList,
                     ...posts.posts
-                  ]
+                  ];
                   if (userCounter === tieUsers.size) {
                   // Get current user posts
                     this.getPostsByUserId(currentUserId).then((result) => {
                       postList = [
                         ...postList,
                         ...result.posts
-                      ]
+                      ];
 
-                      resolve(this.pagingPosts(postList, lastPostId, limit))
-                    })
+                      resolve(this.pagingPosts(postList, lastPostId, limit));
+                    });
                   }
-                })
+                });
               }
-            })
+            });
           })
           .catch((error: any) => {
-            reject(new SocialError(error.code, error.message))
-          })
-      })
+            reject(new SocialError(error.code, error.message));
+          });
+      });
     }
 
   /**
@@ -130,19 +130,19 @@ export class PostService implements IPostService {
     => Promise<{ posts: { [postId: string]: Post }[], newLastPostId: string }> = (userId, lastPostId, page, limit) => {
       return new Promise<{ posts: { [postId: string]: Post }[], newLastPostId: string }>((resolve, reject) => {
 
-        let parsedData: { [postId: string]: Post }[] = []
+        let parsedData: { [postId: string]: Post }[] = [];
 
-        let query = db.collection('posts').where('ownerUserId', '==', userId)
-        if (lastPostId && lastPostId !== '') {
-          query = query.orderBy('id').orderBy('creationDate', 'desc').startAfter(lastPostId)
+        let query = db.collection("posts").where("ownerUserId", "==", userId);
+        if (lastPostId && lastPostId !== "") {
+          query = query.orderBy("id").orderBy("creationDate", "desc").startAfter(lastPostId);
         }
         if (limit) {
-          query = query.limit(limit)
+          query = query.limit(limit);
         }
         query.get().then((posts) => {
-          let newLastPostId = posts.size > 0 ? posts.docs[posts.docs.length - 1].id : ''
+          let newLastPostId = posts.size > 0 ? posts.docs[posts.docs.length - 1].id : "";
           posts.forEach((postResult) => {
-            const post = postResult.data() as Post
+            const post = postResult.data() as Post;
             parsedData = [
               ...parsedData,
               {
@@ -152,12 +152,12 @@ export class PostService implements IPostService {
                 }
               }
 
-            ]
-          })
-          resolve({ posts: parsedData, newLastPostId })
-        })
+            ];
+          });
+          resolve({ posts: parsedData, newLastPostId });
+        });
 
-      })
+      });
     }
 
   /**
@@ -167,20 +167,20 @@ export class PostService implements IPostService {
     => Promise<Post> = (postId) => {
       return new Promise<Post>((resolve, reject) => {
 
-        let postsRef = db.doc(`posts/${postId}`)
+        let postsRef = db.doc(`posts/${postId}`);
         postsRef.get().then((snapshot) => {
-          let newPost = snapshot.data() || {}
+          let newPost = snapshot.data() || {};
           let post: Post = {
             id: postId,
             ...newPost
-          }
-          resolve(post)
+          };
+          resolve(post);
         })
           .catch((error: any) => {
-            reject(new SocialError(error.code, error.message))
-          })
+            reject(new SocialError(error.code, error.message));
+          });
 
-      })
+      });
     }
 
   /**
@@ -190,24 +190,24 @@ export class PostService implements IPostService {
   private pagingPosts = (postList: { [postId: string]: Post }[], lastPostId: string, limit: number) => {
 
     let sortedObjects: { [postId: string]: Post }[] = postList.sort((a, b) => {
-      const aKey = Object.keys(a)[0]
-      const bKey = Object.keys(b)[0]
+      const aKey = Object.keys(a)[0];
+      const bKey = Object.keys(b)[0];
       // a = current item in array
       // b = next item in array
-      return b[bKey].creationDate! - a[aKey].creationDate!
-    })
-    if (lastPostId && lastPostId !== '') {
+      return b[bKey].creationDate! - a[aKey].creationDate!;
+    });
+    if (lastPostId && lastPostId !== "") {
       const lastPostIndex = sortedObjects.findIndex((arg) => {
-        return Object.keys(arg)[0] === lastPostId
-      })
-      sortedObjects = sortedObjects.slice(lastPostIndex + 1, lastPostIndex + limit + 1)
+        return Object.keys(arg)[0] === lastPostId;
+      });
+      sortedObjects = sortedObjects.slice(lastPostIndex + 1, lastPostIndex + limit + 1);
     } else if (sortedObjects.length > limit) {
-      sortedObjects = sortedObjects.slice(0, limit)
+      sortedObjects = sortedObjects.slice(0, limit);
     }
 
-    const newLastPostId = sortedObjects && sortedObjects.length > 0 ? Object.keys(sortedObjects[sortedObjects.length - 1])[0] : ''
+    const newLastPostId = sortedObjects && sortedObjects.length > 0 ? Object.keys(sortedObjects[sortedObjects.length - 1])[0] : "";
 
-    return { posts: sortedObjects, newLastPostId }
+    return { posts: sortedObjects, newLastPostId };
   }
 
 }

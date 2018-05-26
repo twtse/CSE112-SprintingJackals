@@ -5,23 +5,23 @@ export interface ISettingComponentProps {
    *
    * @memberof ISettingComponentProps
    */
-  login?: (email: string, password: string) => any
+  login?: (email: string, password: string) => any;
 
   /**
    * Redirect to home page
    *
    * @memberof ISettingComponentProps
    */
-  homePage?: () => void
+  homePage?: () => void;
 
   /**
    * Styles
    */
-  classes?: any
+  classes?: any;
 
   /**
    * Translate to locale string
    */
-  translate?: (state: any, param?: {}) => any
+  translate?: (state: any, param?: {}) => any;
 
 }

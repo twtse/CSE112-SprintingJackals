@@ -1,5 +1,5 @@
-import { Post } from 'src/core/domain/posts'
-import {Map} from 'immutable'
+import { Post } from "src/core/domain/posts";
+import {Map} from "immutable";
 
 export interface IStreamComponentProps {
 
@@ -9,7 +9,7 @@ export interface IStreamComponentProps {
    * @type {boolean}
    * @memberof IStreamComponentState
    */
-  disableComments?: boolean
+  disableComments?: boolean;
 
   /**
    * Sharing post is disabled {true} or not {false}
@@ -17,7 +17,7 @@ export interface IStreamComponentProps {
    * @type {boolean}
    * @memberof IStreamComponentState
    */
-  disableSharing?: boolean
+  disableSharing?: boolean;
 
   /**
    * Post writing input is displayed {true} or not {false}
@@ -25,7 +25,7 @@ export interface IStreamComponentProps {
    * @type {boolean}
    * @memberof IStreamComponentProps
    */
-  displayWriting?: boolean
+  displayWriting?: boolean;
 
   /**
    * Array of tags in a post
@@ -33,7 +33,7 @@ export interface IStreamComponentProps {
    * @type {string[]}
    * @memberof IStreamComponentProps
    */
-  tag?: string[]
+  tag?: string[];
 
   /**
    * The tile of top bar
@@ -41,7 +41,7 @@ export interface IStreamComponentProps {
    * @type {string}
    * @memberof IStreamComponentState
    */
-  homeTitle?: string
+  homeTitle?: string;
 
   /**
    * Set home title
@@ -49,7 +49,7 @@ export interface IStreamComponentProps {
    * @type {Function}
    * @memberof IStreamComponentProps
    */
-  setHomeTitle?: () => void
+  setHomeTitle?: () => void;
 
   /**
    * User full name
@@ -57,7 +57,7 @@ export interface IStreamComponentProps {
    * @type {string}
    * @memberof IStreamComponentProps
    */
-  fullName?: string
+  fullName?: string;
 
   /**
    * User avatar URL
@@ -65,17 +65,17 @@ export interface IStreamComponentProps {
    * @type {string}
    * @memberof IStreamComponentProps
    */
-  avatar?: string
+  avatar?: string;
 
   /**
    * Load the data for stream
    */
-  loadStream?: (page: number, limit: number) => any
+  loadStream?: (page: number, limit: number) => any;
 
   /**
    * If there is more post {true} or not {false}
    */
-  hasMorePosts?: boolean
+  hasMorePosts?: boolean;
 
   /**
    * Posts for stream
@@ -83,15 +83,15 @@ export interface IStreamComponentProps {
    * @type {{[postId: string]: Post}}
    * @memberof IStreamComponentProps
    */
-  posts: Map<string, Map<string, any>>
+  posts: Map<string, Map<string, any>>;
 
   /**
    * Router match property
    */
-  match?: any
+  match?: any;
 
   /**
    * Translate to locale string
    */
-  translate?: (state: any) => any
+  translate?: (state: any) => any;
 }

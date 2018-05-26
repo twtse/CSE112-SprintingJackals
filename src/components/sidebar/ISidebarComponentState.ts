@@ -1,17 +1,17 @@
 
 export interface ISidebarComponentState {
 
-  sidebarClass?: string
-  overlay?: boolean
-  mainStyle?: {}
+  sidebarClass?: string;
+  overlay?: boolean;
+  mainStyle?: {};
     // Is sidebar open or not
-  open?: boolean
+  open?: boolean;
     // If sidebar is closed by resizing or not
-  auto?: boolean
+  auto?: boolean;
     // If overlay should be open or not
-  overlayOpen?: boolean
+  overlayOpen?: boolean;
     // If side bar should be closed
-  shouldBeClosed?: boolean
+  shouldBeClosed?: boolean;
 
   /**
    * Sidebar style sheet
@@ -19,5 +19,5 @@ export interface ISidebarComponentState {
    * @type {{}}
    * @memberof ISidebarComponentState
    */
-  sidebarStyle?: {}
+  sidebarStyle?: {};
 }
