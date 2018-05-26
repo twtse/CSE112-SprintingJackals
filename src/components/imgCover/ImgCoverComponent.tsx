@@ -1,19 +1,19 @@
 // - Import react components
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import SvgImage from 'material-ui-icons/Image'
-import { getTranslate, getActiveLanguage } from 'react-localize-redux'
-import {Map} from 'immutable'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import SvgImage from "material-ui-icons/Image";
+import { getTranslate, getActiveLanguage } from "react-localize-redux";
+import {Map} from "immutable";
 
 // - Import app components
 
 // - Import API
 
 // - Import actions
-import * as imageGalleryActions from 'store/actions/imageGalleryActions'
-import { IImgCoverComponentProps } from './IImgCoverComponentProps'
-import { IImgCoverComponentState } from './IImgCoverComponentState'
+import * as imageGalleryActions from "store/actions/imageGalleryActions";
+import { IImgCoverComponentProps } from "./IImgCoverComponentProps";
+import { IImgCoverComponentState } from "./IImgCoverComponentState";
 
 /**
  * Create component class
@@ -47,50 +47,50 @@ export class ImgCoverComponent extends Component<IImgCoverComponentProps,IImgCov
       PropTypes.string,
       PropTypes.number
     ])
-  }
+  };
 
   styles = {
     cover: {
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center'
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center"
     },
     loding: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      height: '100px',
-      position: 'relative',
-      color: '#cacecd',
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100%",
+      height: "100px",
+      position: "relative",
+      color: "#cacecd",
       fontWeight: 400
     },
     loadingContent: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center"
     },
     loadingImage: {
-      fill: 'aliceblue',
-      width: '50px',
-      height: '50px'
+      fill: "aliceblue",
+      width: "50px",
+      height: "50px"
     }
-  }
+  };
 
   /**
    * Component constructor
    * @param  {object} props is an object properties of component
    */
   constructor (props: IImgCoverComponentProps) {
-    super(props)
+    super(props);
 
     // Defaul state
     this.state = {
       isImageLoaded: false
-    }
+    };
 
     // Binding functions to `this`
-    this.handleLoadImage = this.handleLoadImage.bind(this)
+    this.handleLoadImage = this.handleLoadImage.bind(this);
   }
 
   /**
@@ -101,7 +101,7 @@ export class ImgCoverComponent extends Component<IImgCoverComponentProps,IImgCov
   handleLoadImage = () => {
     this.setState({
       isImageLoaded: true
-    })
+    });
   }
 
   /**
@@ -110,28 +110,28 @@ export class ImgCoverComponent extends Component<IImgCoverComponentProps,IImgCov
    */
   render () {
 
-    let { fileName, style, translate } = this.props
-    let { isImageLoaded } = this.state
+    let { fileName, style, translate } = this.props;
+    let { isImageLoaded } = this.state;
 
     return (
       <div>
         <div style={Object.assign({},this.styles.cover,{
-          backgroundImage: 'url(' + (fileName || '') + ')',
+          backgroundImage: "url(" + (fileName || "") + ")",
           width: this.props.width,
           height: this.props.height,
           borderRadius: this.props.borderRadius
         },style)}>
           {this.props.children}
         </div>
-        <div style={Object.assign({},{ backgroundColor: 'blue' },isImageLoaded ? { display: 'none' } : this.styles.loding)}>
+        <div style={Object.assign({},{ backgroundColor: "blue" },isImageLoaded ? { display: "none" } : this.styles.loding)}>
           <div style={this.styles.loadingContent as any}>
             <SvgImage style={this.styles.loadingImage} />
-            <div>{translate!('image.notLoaded')}</div>
+            <div>{translate!("image.notLoaded")}</div>
           </div>
         </div>
-         <img onLoad={this.handleLoadImage} src={fileName || ''} style={{ display: 'none'}} />
+         <img onLoad={this.handleLoadImage} src={fileName || ""} style={{ display: "none"}} />
       </div>
-    )
+    );
   }
 }
 
@@ -143,8 +143,8 @@ export class ImgCoverComponent extends Component<IImgCoverComponentProps,IImgCov
  */
 const mapDispatchToProps = (dispatch: any, ownProps: IImgCoverComponentProps) => {
   return {
-  }
-}
+  };
+};
 
 /**
  * Map state to props
@@ -154,10 +154,10 @@ const mapDispatchToProps = (dispatch: any, ownProps: IImgCoverComponentProps) =>
  */
 const mapStateToProps = (state: any, ownProps: IImgCoverComponentProps) => {
   return {
-    translate: getTranslate(state.get('locale'))
+    translate: getTranslate(state.get("locale"))
 
-  }
-}
+  };
+};
 
 // - Connect component to redux store
-export default connect(mapStateToProps, mapDispatchToProps)(ImgCoverComponent as any)
+export default connect(mapStateToProps, mapDispatchToProps)(ImgCoverComponent as any);

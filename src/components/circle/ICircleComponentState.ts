@@ -7,7 +7,7 @@ export interface ICircleComponentState {
    * @type {string}
    * @memberof ICircleComponentState
    */
-  circleName: string
+  circleName: string;
 
   /**
    * If circle user list is open {true} or not {false}
@@ -15,7 +15,7 @@ export interface ICircleComponentState {
    * @type {boolean}
    * @memberof ICircleComponentState
    */
-  open: boolean
+  open: boolean;
 
   /**
    * Save button is disabled {true} or not false
@@ -23,10 +23,10 @@ export interface ICircleComponentState {
    * @type {boolean}
    * @memberof ICircleComponentState
    */
-  disabledSave: boolean
+  disabledSave: boolean;
 
   /**
    * Whether circle menu is open
    */
-  isMenuOpen: boolean
+  isMenuOpen: boolean;
 }

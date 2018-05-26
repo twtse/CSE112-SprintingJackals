@@ -1,5 +1,5 @@
-import { GraphService } from './GraphService'
+import { GraphService } from "./GraphService";
 
 export {
     GraphService
-}
+};

@@ -6,7 +6,7 @@ export class UserRegisterModel {
    * @type {string}
    * @memberof UserRegisterModel
    */
-  userId?: string
+  userId?: string;
 
   /**
    * User full name
@@ -14,7 +14,7 @@ export class UserRegisterModel {
    * @type {string}
    * @memberof UserRegisterModel
    */
-  fullName: string
+  fullName: string;
 
   /**
    * User email
@@ -22,7 +22,7 @@ export class UserRegisterModel {
    * @type {string}
    * @memberof UserRegisterModel
    */
-  email: string
+  email: string;
 
   /**
    * User password
@@ -30,6 +30,6 @@ export class UserRegisterModel {
    * @type {string}
    * @memberof UserRegisterModel
    */
-  password: string
+  password: string;
 
 }

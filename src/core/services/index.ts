@@ -1,13 +1,13 @@
-import { IAuthorizeService } from './authorize'
-import { ICircleService } from './circles'
-import { ICommentService } from './comments'
-import { ICommonService } from './common'
-import { IImageGalleryService } from './imageGallery'
-import { INotificationService } from './notifications'
-import { IPostService } from './posts'
-import { IUserService } from './users'
-import { IVoteService } from './votes'
-import { IStorageService } from './files'
+import { IAuthorizeService } from "./authorize";
+import { ICircleService } from "./circles";
+import { ICommentService } from "./comments";
+import { ICommonService } from "./common";
+import { IImageGalleryService } from "./imageGallery";
+import { INotificationService } from "./notifications";
+import { IPostService } from "./posts";
+import { IUserService } from "./users";
+import { IVoteService } from "./votes";
+import { IStorageService } from "./files";
 
 export {
     IAuthorizeService,
@@ -20,4 +20,4 @@ export {
     IUserService,
     IVoteService,
     IStorageService
-}
+};

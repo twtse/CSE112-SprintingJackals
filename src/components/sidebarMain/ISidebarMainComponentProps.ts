@@ -6,5 +6,5 @@ export interface ISidebarMainComponentProps {
    * @type {{}}
    * @memberof ISidebarMainComponentProps
    */
-  cstyle?: {}
+  cstyle?: {};
 }

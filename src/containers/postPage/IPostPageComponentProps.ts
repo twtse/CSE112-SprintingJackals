@@ -1,4 +1,4 @@
-import { Post } from 'src/core/domain/posts'
+import { Post } from "src/core/domain/posts";
 
 export interface IPostPageComponentProps {
 
@@ -7,14 +7,14 @@ export interface IPostPageComponentProps {
    *
    * @memberof IPostPageComponentProps
    */
-  loadPost?: () => any
+  loadPost?: () => any;
 
   /**
    * Load user profile
    *
    * @memberof IPostPageComponentProps
    */
-  loadUserInfo?: () => any
+  loadUserInfo?: () => any;
 
   /**
    * Route match
@@ -22,7 +22,7 @@ export interface IPostPageComponentProps {
    * @type {*}
    * @memberof IPostPageComponentProps
    */
-  match?: any
+  match?: any;
 
-  posts: {[postId: string]: Post}
+  posts: {[postId: string]: Post};
 }

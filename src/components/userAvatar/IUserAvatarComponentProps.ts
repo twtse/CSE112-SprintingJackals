@@ -3,21 +3,21 @@ export interface IUserAvatarComponentProps {
     /**
      * Use for getting url address from server
      */
-  fileName: string
+  fileName: string;
     /**
      * User full name
      */
-  fullName: string
+  fullName: string;
     /**
      * Avatar style
      */
-  style?: {}
+  style?: {};
     /**
      * Avatar size
      */
-  size?: number
+  size?: number;
     /**
      * Trigger on touch tap
      */
-  onClick?: (event: any) => any
+  onClick?: (event: any) => any;
 }

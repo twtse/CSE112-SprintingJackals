@@ -1,5 +1,5 @@
-import { Image } from 'core/domain/imageGallery'
-import {Map, Collection, List} from 'immutable'
+import { Image } from "core/domain/imageGallery";
+import {Map, Collection, List} from "immutable";
 
 export interface IImageGalleryComponentProps {
 
@@ -9,41 +9,41 @@ export interface IImageGalleryComponentProps {
    * @type {(URL: string,fullPath: string)}
    * @memberof IImageGalleryComponentProps
    */
-  set: (URL: string,fullPath: string) => void
+  set: (URL: string,fullPath: string) => void;
 
   /**
    * Delete an image
    *
    * @memberof IImageGalleryComponentProps
    */
-  deleteImage?: (imageId: string) => void
+  deleteImage?: (imageId: string) => void;
 
   /**
    * Upload image to the server
    *
    * @memberof IImageGalleryComponentProps
    */
-  uploadImage?: (image: any, imageName: string) => any
+  uploadImage?: (image: any, imageName: string) => any;
 
   /**
    * Close image gallery
    *
    * @memberof IImageGalleryComponentProps
    */
-  close: () => void
+  close: () => void;
 
   /**
    * List of image in image gallery
    */
-  images?: List<Image>
+  images?: List<Image>;
 
   /**
    * Styles
    */
-  classes?: any
+  classes?: any;
 
   /**
    * Translate to locale string
    */
-  translate?: (state: any) => any
+  translate?: (state: any) => any;
 }

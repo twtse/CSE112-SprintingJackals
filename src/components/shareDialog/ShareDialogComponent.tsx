@@ -1,11 +1,11 @@
 // - Import react components
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import SvgImage from 'material-ui-icons/Image'
-import { withStyles } from 'material-ui/styles'
-import { getTranslate, getActiveLanguage } from 'react-localize-redux'
-import classNames from 'classnames'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import SvgImage from "material-ui-icons/Image";
+import { withStyles } from "material-ui/styles";
+import { getTranslate, getActiveLanguage } from "react-localize-redux";
+import classNames from "classnames";
 
 import {
   FacebookShareButton,
@@ -19,42 +19,42 @@ import {
 
   LinkedinShareButton,
   LinkedinIcon
-} from 'react-share'
+} from "react-share";
 
 // - Import app components
 
 // - Import API
 
 // - Import actions
-import { IShareDialogComponentProps } from './IShareDialogComponentProps'
-import { IShareDialogComponentState } from './IShareDialogComponentState'
-import { Dialog, Paper, MenuList, MenuItem, ListItemIcon, ListItemText, TextField, Typography } from 'material-ui'
-import SvgLink from 'material-ui-icons/Link'
+import { IShareDialogComponentProps } from "./IShareDialogComponentProps";
+import { IShareDialogComponentState } from "./IShareDialogComponentState";
+import { Dialog, Paper, MenuList, MenuItem, ListItemIcon, ListItemText, TextField, Typography } from "material-ui";
+import SvgLink from "material-ui-icons/Link";
 
 const styles = (theme: any) => ({
   image: {
-    verticalAlign: 'top',
-    maxWidth: '100%',
-    minWidth: '100%',
-    width: '100%'
+    verticalAlign: "top",
+    maxWidth: "100%",
+    minWidth: "100%",
+    width: "100%"
   },
   clipboard: {
-    fontSize: '18px',
-    textAlign: 'center',
-    marginTop: '10px',
-    color: '#1e882d',
+    fontSize: "18px",
+    textAlign: "center",
+    marginTop: "10px",
+    color: "#1e882d",
     fontWeight: 400
   },
   networkShare: {
-    width: '100%',
-    height: '100%'
+    width: "100%",
+    height: "100%"
   },
   fullPageXs: {
-    [theme.breakpoints.down('xs')]: {
-      width: '100%',
-      height: '100%',
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+      height: "100%",
       margin: 0,
-      overflowY: 'auto'
+      overflowY: "auto"
     }
   },
   shareLinkPaper: {
@@ -62,7 +62,7 @@ const styles = (theme: any) => ({
     padding: 10,
     minWidth: 460
   }
-})
+});
 
 /**
  * Create component class
@@ -74,12 +74,12 @@ export class ShareDialogComponent extends Component<IShareDialogComponentProps, 
    * @param  {object} props is an object properties of component
    */
   constructor(props: IShareDialogComponentProps) {
-    super(props)
+    super(props);
 
     // Defaul state
     this.state = {
 
-    }
+    };
 
     // Binding functions to `this`
 
@@ -91,11 +91,11 @@ export class ShareDialogComponent extends Component<IShareDialogComponentProps, 
    */
   render() {
 
-    let { classes, translate, shareOpen, onClose, openCopyLink, post, onCopyLink } = this.props
+    let { classes, translate, shareOpen, onClose, openCopyLink, post, onCopyLink } = this.props;
     return (
       <Dialog
         className={classes.fullPageXs}
-        title='Share On'
+        title="Share On"
         open={shareOpen}
         onClose={onClose}
       >
@@ -105,64 +105,64 @@ export class ShareDialogComponent extends Component<IShareDialogComponentProps, 
               <div>
                 <FacebookShareButton
                   onShareWindowClose={onClose}
-                  url={`${location.origin}/${post.get('ownerUserId')}/posts/${post.get('id')}`}
-                  quote={post.get('body')}
-                  hashtag={`#${post.getIn(['tags', 0], '')}`}>
+                  url={`${location.origin}/${post.get("ownerUserId")}/posts/${post.get("id")}`}
+                  quote={post.get("body")}
+                  hashtag={`#${post.getIn(["tags", 0], "")}`}>
                   <MenuItem >
                     <ListItemIcon classes={{ root: classes.networkShare }}>
                       <FacebookIcon
                         size={32}
                         round />
                     </ListItemIcon>
-                    <ListItemText inset primary={translate!('post.facebookButton')} />
+                    <ListItemText inset primary={translate!("post.facebookButton")} />
                   </MenuItem>
                 </FacebookShareButton>
               </div>
               <div>
                 <TwitterShareButton
                   onShareWindowClose={onClose}
-                  url={`${location.origin}/${post.get('ownerUserId')}/posts/${post.get('id')}`}
-                  quote={post.get('body')}
-                  hashtag={`#${post.getIn(['tags', 0], '')}`}>
+                  url={`${location.origin}/${post.get("ownerUserId")}/posts/${post.get("id")}`}
+                  quote={post.get("body")}
+                  hashtag={`#${post.getIn(["tags", 0], "")}`}>
                   <MenuItem >
                     <ListItemIcon classes={{ root: classes.networkShare }}>
                       <TwitterIcon
                         size={32}
                         round />
                     </ListItemIcon>
-                    <ListItemText inset primary={translate!('post.twitterButton')} />
+                    <ListItemText inset primary={translate!("post.twitterButton")} />
                   </MenuItem>
               </TwitterShareButton>
               </div>
               <div>
                 <LinkedinShareButton
                   onShareWindowClose={onClose}
-                  url={`${location.origin}/${post.get('ownerUserId')}/posts/${post.get('id')}`}
-                  quote={post.get('body')}
-                  hashtag={`#${post.getIn(['tags', 0], '')}`}>
+                  url={`${location.origin}/${post.get("ownerUserId")}/posts/${post.get("id")}`}
+                  quote={post.get("body")}
+                  hashtag={`#${post.getIn(["tags", 0], "")}`}>
                   <MenuItem >
                     <ListItemIcon classes={{ root: classes.networkShare }}>
                       <LinkedinIcon
                         size={32}
                         round />
                     </ListItemIcon>
-                    <ListItemText inset primary={translate!('post.linkedinButton')} />
+                    <ListItemText inset primary={translate!("post.linkedinButton")} />
                   </MenuItem>
               </LinkedinShareButton>
               </div>
               <div>
                 <GooglePlusShareButton
                   onShareWindowClose={onClose}
-                  url={`${location.origin}/${post.get('ownerUserId')}/posts/${post.get('id')}`}
-                  quote={post.get('body')}
-                  hashtag={`#${post.getIn(['tags', 0], '')}`}>
+                  url={`${location.origin}/${post.get("ownerUserId")}/posts/${post.get("id")}`}
+                  quote={post.get("body")}
+                  hashtag={`#${post.getIn(["tags", 0], "")}`}>
                   <MenuItem >
                     <ListItemIcon classes={{ root: classes.networkShare }}>
                       <GooglePlusIcon
                         size={32}
                         round />
                     </ListItemIcon>
-                    <ListItemText inset primary={translate!('post.googlePlusButton')} />
+                    <ListItemText inset primary={translate!("post.googlePlusButton")} />
                   </MenuItem>
               </GooglePlusShareButton>
               </div>
@@ -170,18 +170,18 @@ export class ShareDialogComponent extends Component<IShareDialogComponentProps, 
                 <ListItemIcon>
                   <SvgLink />
                 </ListItemIcon>
-                <ListItemText inset primary={translate!('post.copyLinkButton')} />
+                <ListItemText inset primary={translate!("post.copyLinkButton")} />
               </MenuItem>
             </MenuList>)
             : <div>
-              <TextField autoFocus fullWidth={true} id='text-field-default' defaultValue={`${location.origin}/${post.get('ownerUserId')}/posts/${post.get('id')}`} />
-              <Typography className={classNames('animate-top', classes.clipboard)} variant='headline' component='h2'>
+              <TextField autoFocus fullWidth={true} id="text-field-default" defaultValue={`${location.origin}/${post.get("ownerUserId")}/posts/${post.get("id")}`} />
+              <Typography className={classNames("animate-top", classes.clipboard)} variant="headline" component="h2">
                 Link has been copied to clipboard ...
         </Typography>
             </div>}
         </Paper>
       </Dialog>
-    )
+    );
   }
 }
 
@@ -194,8 +194,8 @@ export class ShareDialogComponent extends Component<IShareDialogComponentProps, 
 const mapDispatchToProps = (dispatch: any, ownProps: IShareDialogComponentProps) => {
   return {
 
-  }
-}
+  };
+};
 
 /**
  * Map state to props
@@ -205,9 +205,9 @@ const mapDispatchToProps = (dispatch: any, ownProps: IShareDialogComponentProps)
  */
 const mapStateToProps = (state: any, ownProps: IShareDialogComponentProps) => {
   return {
-    translate: getTranslate(state.get('locale'))
-  }
-}
+    translate: getTranslate(state.get("locale"))
+  };
+};
 
 // - Connect component to redux store
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles as any)(ShareDialogComponent as any) as any)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles as any)(ShareDialogComponent as any) as any);

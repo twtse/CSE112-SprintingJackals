@@ -1,5 +1,5 @@
-import { StorageService } from './StorageService'
+import { StorageService } from "./StorageService";
 
 export {
     StorageService
-}
+};

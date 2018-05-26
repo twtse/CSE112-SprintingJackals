@@ -1,5 +1,5 @@
-import { IPostService } from './IPostService'
+import { IPostService } from "./IPostService";
 
 export {
     IPostService
-}
+};

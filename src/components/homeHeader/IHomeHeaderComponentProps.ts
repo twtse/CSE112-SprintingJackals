@@ -1,4 +1,4 @@
-import StringAPI from 'api/StringAPI'
+import StringAPI from "api/StringAPI";
 export interface IHomeHeaderComponentProps {
 
   /**
@@ -7,28 +7,28 @@ export interface IHomeHeaderComponentProps {
    * @type {boolean}
    * @memberof IHomeHeaderComponentProps
    */
-  drawerStatus: boolean
+  drawerStatus: boolean;
 
   /**
    * Logout user
    *
    * @memberof IHomeHeaderComponentProps
    */
-  logout?: () => void
+  logout?: () => void;
 
   /**
    * Handle on resize window event
    *
    * @memberof IHomeHeaderComponentProps
    */
-  handleResize?: (event: any) => void
+  handleResize?: (event: any) => void;
 
   /**
    * Number of notifications
    *
    * @memberof IHomeHeaderComponentProps
    */
-  notifyCount?: number
+  notifyCount?: number;
 
   /**
    * User full name
@@ -36,7 +36,7 @@ export interface IHomeHeaderComponentProps {
    * @type {string}
    * @memberof IHomeHeaderComponentProps
    */
-  fullName?: string
+  fullName?: string;
 
   /**
    * User's avatar URL address
@@ -44,7 +44,7 @@ export interface IHomeHeaderComponentProps {
    * @type {string}
    * @memberof IHomeHeaderComponentProps
    */
-  avatar?: string
+  avatar?: string;
 
   /**
    * Top bar title
@@ -52,27 +52,27 @@ export interface IHomeHeaderComponentProps {
    * @type {string}
    * @memberof IHomeHeaderComponentProps
    */
-  title?: string
+  title?: string;
 
   /**
    * Toggle sidebar
    *
    * @memberof IHomeHeaderComponentProps
    */
-  onToggleDrawer: () => void
+  onToggleDrawer: () => void;
 
   /**
    * Material ui theme style
    */
-  classes?: any
+  classes?: any;
     
   /**
    * Theme
    */
-  theme?: any
+  theme?: any;
 
   /**
    * Translate to locale string
    */
-  translate?: (state: any) => any
+  translate?: (state: any) => any;
 }

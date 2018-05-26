@@ -1,4 +1,4 @@
-import {NotificationActionType} from 'constants/notificationActionType'
+import {NotificationActionType} from "constants/notificationActionType";
 
 /**
  *  Notification action interface
@@ -7,8 +7,8 @@ import {NotificationActionType} from 'constants/notificationActionType'
  * @interface INotificationAction
  */
 export interface INotificationAction  {
-    payload: any,
-    type: NotificationActionType
+    payload: any;
+    type: NotificationActionType;
   
   }
   

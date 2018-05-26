@@ -1,4 +1,4 @@
-import { BaseDomain } from 'core/domain/common'
+import { BaseDomain } from "core/domain/common";
 
 export class Graph extends BaseDomain {
 
@@ -57,6 +57,6 @@ export class Graph extends BaseDomain {
    */
   public nodeId?: string
 
-  ) { super() }
+  ) { super(); }
 
 }

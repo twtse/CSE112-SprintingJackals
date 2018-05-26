@@ -1,4 +1,4 @@
-import { OAuthType } from 'src/core/domain/authorize'
+import { OAuthType } from "src/core/domain/authorize";
 export interface ILoginComponentProps {
 
   /**
@@ -6,29 +6,29 @@ export interface ILoginComponentProps {
    *
    * @memberof ILoginComponentProps
    */
-  login?: (email: string , password: string) => any
+  login?: (email: string , password: string) => any;
 
   /**
    * Login user with OAuth
    *
    * @memberof ILoginComponentProps
    */
-  loginWithOAuth?: (type: OAuthType) => any
+  loginWithOAuth?: (type: OAuthType) => any;
 
   /**
    * Redirect to signup page
    *
    * @memberof ILoginComponentProps
    */
-  signupPage?: () => any
+  signupPage?: () => any;
 
   /**
    * Styles
    */
-  classes?: any
+  classes?: any;
 
   /**
    * Translate to locale string
    */
-  translate?: (state: any, param?: {}) => any
+  translate?: (state: any, param?: {}) => any;
 }

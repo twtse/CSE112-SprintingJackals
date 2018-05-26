@@ -1,17 +1,17 @@
-import { BaseDomain } from 'core/domain/common'
+import { BaseDomain } from "core/domain/common";
 
 export class LoginUser extends BaseDomain {
 
   constructor (
-     private _uid: string,
-     private _emailVerified: boolean,
-     private _providerId: string = '',
-     private _displayName: string = '',
-     private _email: string = '',
-     private _avatarURL: string = ''
+     private userId: string,
+     private userEmailVerified: boolean,
+     private userProviderId: string = "",
+     private userDisplayName: string = "",
+     private userEmail: string = "",
+     private userAvatarURL: string = ""
 
     ) {
-    super()
+    super();
   }
 
     /**
@@ -21,7 +21,7 @@ export class LoginUser extends BaseDomain {
      * @memberof LoginUser
      */
   public get uid (): string {
-    return this._uid
+    return this.userId;
   }
 
   /**
@@ -32,23 +32,23 @@ export class LoginUser extends BaseDomain {
    * @memberof LoginUser
    */
   public get emailVerified (): boolean {
-    return this._emailVerified
+    return this.userEmailVerified;
   }
 
   public get providerId (): string {
-    return this._providerId
+    return this.userProviderId;
   }
 
   public get displayName (): string {
-    return this._displayName
+    return this.userDisplayName;
   }
 
   public get email (): string {
-    return this.email
+    return this.userEmail;
   }
 
   public get avatarURL (): string {
-    return this._avatarURL
+    return this.userAvatarURL;
   }
 
 }

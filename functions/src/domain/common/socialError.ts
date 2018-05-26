@@ -1,9 +1,9 @@
 export class SocialError extends Error {
-  private _isError: Boolean
+  private _isError: Boolean;
 
   constructor (private _code: string, private _message: string) {
-    super(_message)
-    this._isError = true
+    super(_message);
+    this._isError = true;
   }
     /**
      * Error code
@@ -12,7 +12,7 @@ export class SocialError extends Error {
      * @memberof SocialError
      */
   public get code (): string {
-    return this._code
+    return this._code;
   }
 
     /**
@@ -22,7 +22,7 @@ export class SocialError extends Error {
      * @memberof SocialError
      */
   public get message (): string {
-    return this._message
+    return this._message;
   }
 
     /**
@@ -33,7 +33,7 @@ export class SocialError extends Error {
      */
 
   public get isError (): Boolean {
-    return this._isError
+    return this._isError;
   }
 
 }

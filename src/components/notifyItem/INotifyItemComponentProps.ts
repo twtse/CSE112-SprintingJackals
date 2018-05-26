@@ -6,7 +6,7 @@ export interface INotifyItemComponentProps {
    * @type {string}
    * @memberof INotifyItemComponentProps
    */
-  description: string
+  description: string;
 
   /**
    * User full name
@@ -14,7 +14,7 @@ export interface INotifyItemComponentProps {
    * @type {string}
    * @memberof INotifyItemComponentProps
    */
-  fullName: string
+  fullName: string;
 
   /**
    * User avatar
@@ -22,7 +22,7 @@ export interface INotifyItemComponentProps {
    * @type {string}
    * @memberof INotifyItemComponentProps
    */
-  avatar: string
+  avatar: string;
 
   /**
    * Notification has seen {true} or not {false}
@@ -30,7 +30,7 @@ export interface INotifyItemComponentProps {
    * @type {boolean}
    * @memberof INotifyItemComponentProps
    */
-  isSeen: boolean
+  isSeen: boolean;
 
   /**
    * Notification identifier
@@ -38,21 +38,21 @@ export interface INotifyItemComponentProps {
    * @type {string}
    * @memberof INotifyItemComponentProps
    */
-  id: string
+  id: string;
 
   /**
    * Rediret to {url} route
    *
    * @memberof INotifyItemComponentProps
    */
-  goTo?: (url: string) => any
+  goTo?: (url: string) => any;
 
   /**
    * Close a notification
    *
    * @memberof INotifyItemComponentProps
    */
-  closeNotify?: () => void
+  closeNotify?: () => void;
 
   /**
    * Notifier identifier
@@ -60,7 +60,7 @@ export interface INotifyItemComponentProps {
    * @type {string}
    * @memberof INotifyItemComponentProps
    */
-  notifierUserId: string
+  notifierUserId: string;
 
   /**
    * The URL which notification mention
@@ -68,24 +68,24 @@ export interface INotifyItemComponentProps {
    * @type {string}
    * @memberof INotifyItemComponentProps
    */
-  url: string
+  url: string;
 
   /**
    * Delete a notification
    *
    * @memberof INotifyItemComponentProps
    */
-  deleteNotiy?: (notificationId: string) => any
+  deleteNotiy?: (notificationId: string) => any;
 
   /**
    * Change notification status to has seen
    *
    * @memberof INotifyItemComponentProps
    */
-  seenNotify?: (notificationId: string) => any
+  seenNotify?: (notificationId: string) => any;
 
   /**
    * Material ui styles
    */
-  classes?: any
+  classes?: any;
 }

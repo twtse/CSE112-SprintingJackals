@@ -6,7 +6,7 @@ export interface IImgCoverComponentProps {
    * @type {string}
    * @memberof IImgCoverComponentProps
    */
-  fileName: string
+  fileName: string;
 
     /**
      * Image style sheet
@@ -14,7 +14,7 @@ export interface IImgCoverComponentProps {
      * @type {{}}
      * @memberof IImgCoverComponentProps
      */
-  style?: {}
+  style?: {};
 
   /**
    * Image with
@@ -22,7 +22,7 @@ export interface IImgCoverComponentProps {
    * @type {string}
    * @memberof IImgCoverComponentProps
    */
-  width?: string
+  width?: string;
 
   /**
    * Image height
@@ -30,7 +30,7 @@ export interface IImgCoverComponentProps {
    * @type {string}
    * @memberof IImgCoverComponentProps
    */
-  height?: string
+  height?: string;
 
   /**
    * Image border radius
@@ -38,10 +38,10 @@ export interface IImgCoverComponentProps {
    * @type {string}
    * @memberof IImgCoverComponentProps
    */
-  borderRadius?: string
+  borderRadius?: string;
 
   /**
    * Translate to locale string
    */
-  translate?: (state: any) => any
+  translate?: (state: any) => any;
 }

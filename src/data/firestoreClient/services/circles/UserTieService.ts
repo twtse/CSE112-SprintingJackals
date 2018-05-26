@@ -1,16 +1,16 @@
 // - Import react components
-import { datumString } from 'aws-sdk/clients/athena'
-import firebase, { firebaseRef, firebaseAuth, db } from 'data/firestoreClient'
-import moment from 'moment/moment'
+import { datumString } from "aws-sdk/clients/athena";
+import firebase, { firebaseRef, firebaseAuth, db } from "data/firestoreClient";
+import moment from "moment/moment";
 
-import { SocialError } from 'core/domain/common'
-import { Profile, UserProvider, User } from 'core/domain/users'
-import { IUserTieService } from 'core/services/circles'
-import { inject, injectable } from 'inversify'
-import { FirestoreClientTypes } from '../../firestoreClientTypes'
-import { IGraphService } from '../graphs/IGraphService'
-import { Graph } from 'core/domain/graphs'
-import { UserTie } from 'core/domain/circles'
+import { SocialError } from "core/domain/common";
+import { Profile, UserProvider, User } from "core/domain/users";
+import { IUserTieService } from "core/services/circles";
+import { inject, injectable } from "inversify";
+import { FirestoreClientTypes } from "../../firestoreClientTypes";
+import { IGraphService } from "../graphs/IGraphService";
+import { Graph } from "core/domain/graphs";
+import { UserTie } from "core/domain/circles";
 
 /**
  * Firbase user service
@@ -23,7 +23,7 @@ import { UserTie } from 'core/domain/circles'
 export class UserTieService implements IUserTieService {
 
   constructor (
-    @inject(FirestoreClientTypes.GraphService) private _graphService: IGraphService
+    @inject(FirestoreClientTypes.GraphService) private graphService: IGraphService
   ) {
   }
 
@@ -34,23 +34,23 @@ export class UserTieService implements IUserTieService {
     => Promise<void> = (userTieSenderInfo, userTieReceiveInfo, circleIds) => {
       return new Promise<void>((resolve, reject) => {
 
-        this._graphService
+        this.graphService
         .addGraph(
           new Graph(
             userTieSenderInfo.userId!,
-            'TIE',
+            "TIE",
             userTieReceiveInfo.userId!,
             {...userTieSenderInfo},
             {...userTieReceiveInfo},
             {creationDate: Date.now(), circleIds}
           )
-        ,'users'
+        ,"users"
       ).then((result) => {
-        resolve()
+        resolve();
 
       })
-      .catch((error: any) => reject(new SocialError(error.code, 'firestore/tieUseres :' + error.message)))
-      })
+      .catch((error: any) => reject(new SocialError(error.code, "firestore/tieUseres :" + error.message)));
+      });
     }
 
   /**
@@ -60,23 +60,23 @@ export class UserTieService implements IUserTieService {
   => Promise<void> = (userTieSenderInfo, userTieReceiveInfo, circleIds) => {
     return new Promise<void>((resolve, reject) => {
 
-      this._graphService
+      this.graphService
       .updateGraph(
         new Graph(
           userTieSenderInfo.userId!,
-          'TIE',
+          "TIE",
           userTieReceiveInfo.userId!,
           {...userTieSenderInfo},
           {...userTieReceiveInfo},
           {creationDate: Date.now(), circleIds}
         )
-      ,'users'
+      ,"users"
     ).then(() => {
-      resolve()
+      resolve();
 
     })
-    .catch((error: any) => reject(new SocialError(error.code, 'firestore/updateUsersTie :' + error.message)))
-    })
+    .catch((error: any) => reject(new SocialError(error.code, "firestore/updateUsersTie :" + error.message)));
+    });
   }
 
   /**
@@ -87,11 +87,11 @@ export class UserTieService implements IUserTieService {
     return new Promise<void>((resolve, reject) => {
       this.getUserTiesWithSeconUser(firstUserId,secondUserId).then((userTies) => {
         if (userTies.length > 0) {
-          this._graphService.deleteGraphByNodeId(userTies[0].nodeId!).then(resolve)
+          this.graphService.deleteGraphByNodeId(userTies[0].nodeId!).then(resolve);
         }
       })
-      .catch((error: any) => reject(new SocialError(error.code, 'firestore/removeUsersTie :' + error.message)))
-    })
+      .catch((error: any) => reject(new SocialError(error.code, "firestore/removeUsersTie :" + error.message)));
+    });
   }
 
   /**
@@ -100,30 +100,30 @@ export class UserTieService implements IUserTieService {
   public getUserTies: (userId: string)
   => Promise<{[userId: string]: UserTie}> = (userId) => {
     return new Promise<{[userId: string]: UserTie}>((resolve, reject) => {
-      this._graphService
+      this.graphService
       .getGraphs(
-        'users',
+        "users",
         userId,
-        'TIE')
+        "TIE")
       .then((result) => {
 
-        let parsedData: {[userId: string]: UserTie} = {}
+        let parsedData: {[userId: string]: UserTie} = {};
         result.forEach((node) => {
-          const leftUserInfo: UserTie = node.LeftMetadata
-          const rightUserInfo: UserTie = node.rightMetadata
-          const metadata: {creationDate: number, circleIds: string[]} = node.graphMetadata
+          const leftUserInfo: UserTie = node.LeftMetadata;
+          const rightUserInfo: UserTie = node.rightMetadata;
+          const metadata: {creationDate: number, circleIds: string[]} = node.graphMetadata;
           parsedData = {
             ...parsedData,
             [rightUserInfo.userId!] : {
               ...rightUserInfo,
               circleIdList: metadata ? metadata.circleIds : []
             }
-          }
-        })
-        resolve(parsedData)
+          };
+        });
+        resolve(parsedData);
       })
-        .catch((error: any) => reject(new SocialError(error.code, 'firestore/getUserTies :' + error.message)))
-    })
+        .catch((error: any) => reject(new SocialError(error.code, "firestore/getUserTies :" + error.message)));
+    });
   }
 
   /**
@@ -132,32 +132,32 @@ export class UserTieService implements IUserTieService {
   public getUserTieSender: (userId: string)
   => Promise<{[userId: string]: UserTie}> = (userId) => {
     return new Promise<{[userId: string]: UserTie}>((resolve, reject) => {
-      this._graphService
+      this.graphService
       .getGraphs(
-        'users',
+        "users",
         null,
-        'TIE',
+        "TIE",
         userId
       )
       .then((result) => {
-        let parsedData: {[userId: string]: UserTie} = {}
+        let parsedData: {[userId: string]: UserTie} = {};
 
         result.forEach((node) => {
-          const leftUserInfo: UserTie = node.LeftMetadata
-          const rightUserInfo: UserTie = node.rightMetadata
-          const metada: {creationDate: number, circleIds: string[]} = node.graphMetadata
+          const leftUserInfo: UserTie = node.LeftMetadata;
+          const rightUserInfo: UserTie = node.rightMetadata;
+          const metada: {creationDate: number, circleIds: string[]} = node.graphMetadata;
           parsedData = {
             ...parsedData,
             [leftUserInfo.userId!] : {
               ...leftUserInfo,
               circleIdList: []
             }
-          }
-        })
-        resolve(parsedData)
+          };
+        });
+        resolve(parsedData);
       })
-        .catch((error: any) => reject(new SocialError(error.code, 'firestore/getUserTieSender :' + error.message)))
-    })
+        .catch((error: any) => reject(new SocialError(error.code, "firestore/getUserTieSender :" + error.message)));
+    });
   }
 
   /**
@@ -166,14 +166,14 @@ export class UserTieService implements IUserTieService {
   private getUserTiesWithSeconUser: (userId: string, secondUserId: string)
   => Promise<Graph[]> = (userId, secondUserId) => {
     return new Promise<Graph[]>((resolve, reject) => {
-      this._graphService
+      this.graphService
       .getGraphs(
-        'users',
+        "users",
         userId,
-        'TIE',
+        "TIE",
         secondUserId
       ).then(resolve)
-      .catch(reject)
-    })
+      .catch(reject);
+    });
   }
 }

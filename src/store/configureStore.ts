@@ -1,8 +1,8 @@
-import configureStoreDev from './configureStore.dev'
-import configureStoreProd from './configureStore.prod'
+import configureStoreDev from "./configureStore.dev";
+import configureStoreProd from "./configureStore.prod";
 
-const store = process.env.NODE_ENV === 'production'
+const store = process.env.NODE_ENV === "production"
 ? configureStoreProd
-: configureStoreDev
+: configureStoreDev;
 
-export default store
+export default store;

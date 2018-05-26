@@ -1,5 +1,5 @@
-import { User } from 'core/domain/users'
-import { Post } from 'core/domain/posts'
+import { User } from "core/domain/users";
+import { Post } from "core/domain/posts";
 
 /**
  * Post service interface
@@ -8,20 +8,20 @@ import { Post } from 'core/domain/posts'
  * @interface IPostService
  */
 export interface IPostService {
-  addPost: (post: Post) => Promise<string>
-  updatePost: (post: Post) => Promise<void>
-  deletePost: (postId: string) => Promise<void>
+  addPost: (post: Post) => Promise<string>;
+  updatePost: (post: Post) => Promise<void>;
+  deletePost: (postId: string) => Promise<void>;
   getPosts: (currentUserId: string,lastPostId: string, page: number, limit: number)
-  => Promise<{posts: {[postId: string]: Post }[], newLastPostId: string}>
+  => Promise<{posts: {[postId: string]: Post }[], newLastPostId: string}>;
 
   /**
    * Get list of post by user identifier
    */
   getPostsByUserId: (userId: string, lastPostId?: string, page?: number, limit?: number)
-    => Promise<{ posts: { [postId: string]: Post }[], newLastPostId: string }>
+    => Promise<{ posts: { [postId: string]: Post }[], newLastPostId: string }>;
 
     /**
      * Get post by the post identifier
      */
-  getPostById: (postId: string) => Promise<Post>
+  getPostById: (postId: string) => Promise<Post>;
 }

@@ -1,5 +1,5 @@
-import { BaseDomain } from 'core/domain/common'
-import { Comment } from 'core/domain/comments'
+import { BaseDomain } from "core/domain/common";
+import { Comment } from "core/domain/comments";
 export class Post extends BaseDomain {
 
     /**
@@ -8,7 +8,7 @@ export class Post extends BaseDomain {
      * @type {string}
      * @memberof Post
      */
-  public id?: string | null
+  public id?: string | null;
 
     /**
      * The identifier of post type
@@ -16,7 +16,7 @@ export class Post extends BaseDomain {
      * @type {number}
      * @memberof Post
      */
-  public postTypeId?: number
+  public postTypeId?: number;
 
     /**
      * The post creation date
@@ -24,7 +24,7 @@ export class Post extends BaseDomain {
      * @type {number}
      * @memberof Post
      */
-  public creationDate?: number
+  public creationDate?: number;
 
     /**
      * The post delete date
@@ -32,7 +32,7 @@ export class Post extends BaseDomain {
      * @type {number}
      * @memberof Post
      */
-  public deleteDate?: number
+  public deleteDate?: number;
 
     /**
      * The score of post
@@ -40,7 +40,7 @@ export class Post extends BaseDomain {
      * @type {number}
      * @memberof Post
      */
-  public score?: number
+  public score?: number;
 
   /**
    * List of voter identifier
@@ -48,7 +48,7 @@ export class Post extends BaseDomain {
    * @type {{[voterId: string]: boolean}}
    * @memberof Post
    */
-  votes?: {[voterId: string]: boolean}
+  votes?: {[voterId: string]: boolean};
 
     /**
      * Post view count
@@ -56,7 +56,7 @@ export class Post extends BaseDomain {
      * @type {number}
      * @memberof Post
      */
-  public viewCount?: number
+  public viewCount?: number;
 
   /**
    * Store three last comments to show in slide preview comment
@@ -64,7 +64,7 @@ export class Post extends BaseDomain {
    * @type {{[commentId: string]: Comment}}
    * @memberof Post
    */
-  comments?: {[commentId: string]: Comment}
+  comments?: {[commentId: string]: Comment};
 
     /**
      * The text of post
@@ -72,7 +72,7 @@ export class Post extends BaseDomain {
      * @type {string}
      * @memberof Post
      */
-  public body?: string
+  public body?: string;
 
     /**
      * The identifier of post owner
@@ -80,7 +80,7 @@ export class Post extends BaseDomain {
      * @type {string}
      * @memberof Post
      */
-  public ownerUserId?: string
+  public ownerUserId?: string;
 
     /**
      * Full name of post owner
@@ -88,7 +88,7 @@ export class Post extends BaseDomain {
      * @type {string}
      * @memberof Post
      */
-  public ownerDisplayName?: string
+  public ownerDisplayName?: string;
 
     /**
      * Avatar address of post owner
@@ -96,7 +96,7 @@ export class Post extends BaseDomain {
      * @type {string}
      * @memberof Post
      */
-  public ownerAvatar?: string
+  public ownerAvatar?: string;
 
     /**
      * Last post edit date
@@ -104,7 +104,7 @@ export class Post extends BaseDomain {
      * @type {number}
      * @memberof Post
      */
-  public lastEditDate?: number
+  public lastEditDate?: number;
 
     /**
      * Post tags
@@ -112,7 +112,7 @@ export class Post extends BaseDomain {
      * @type {string[]}
      * @memberof Post
      */
-  public tags?: string[]
+  public tags?: string[];
 
     /**
      * Numeber of comment on the post
@@ -120,7 +120,7 @@ export class Post extends BaseDomain {
      * @type {number}
      * @memberof Post
      */
-  public commentCounter?: number
+  public commentCounter?: number;
 
     /**
      * The address of image on the post
@@ -128,7 +128,7 @@ export class Post extends BaseDomain {
      * @type {string}
      * @memberof Post
      */
-  public image?: string
+  public image?: string;
 
     /**
      * Post image full path
@@ -136,7 +136,7 @@ export class Post extends BaseDomain {
      * @type {string}
      * @memberof Post
      */
-  public imageFullPath?: string
+  public imageFullPath?: string;
 
     /**
      * The adress of video on the post
@@ -144,7 +144,7 @@ export class Post extends BaseDomain {
      * @type {string}
      * @memberof Post
      */
-  public video?: string
+  public video?: string;
 
     /**
      * If writing comment is disabled {true} or not {false}
@@ -152,7 +152,7 @@ export class Post extends BaseDomain {
      * @type {Boolean}
      * @memberof Post
      */
-  public disableComments?: boolean
+  public disableComments?: boolean;
 
     /**
      * If sharing post is disabled {true} or not {false}
@@ -160,7 +160,7 @@ export class Post extends BaseDomain {
      * @type {Boolean}
      * @memberof Post
      */
-  public disableSharing?: boolean
+  public disableSharing?: boolean;
 
     /**
      * If the post is deleted {true} or not false
@@ -168,6 +168,6 @@ export class Post extends BaseDomain {
      * @type {Boolean}
      * @memberof Post
      */
-  public deleted?: boolean
+  public deleted?: boolean;
 
 }

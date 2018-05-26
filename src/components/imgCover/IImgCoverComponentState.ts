@@ -7,6 +7,6 @@ export interface IImgCoverComponentState {
    * @type {boolean}
    * @memberof IImgCoverComponentProps
    */
-  isImageLoaded: boolean
+  isImageLoaded: boolean;
 
 }
