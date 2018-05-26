@@ -65,5 +65,6 @@ public/*
 !public/index.html
 !public/favicon.ico
 !public/manifest.json
+!public/icons
 
 .idea/
