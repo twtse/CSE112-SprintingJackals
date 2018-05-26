@@ -6,19 +6,19 @@ export interface ISidebarComponentProps {
    * @type {boolean}
    * @memberof ISidebarComponentProps
    */
-  status: (status: boolean) => void
+  status: (status: boolean) => void;
 
   /**
    * Change sidebar overlay status
    *
    * @memberof ISidebarComponentProps
    */
-  overlay: (status: boolean) => void
+  overlay: (status: boolean) => void;
 
   /**
    * Open sidebar callback function
    *
    * @memberof ISidebarComponentProps
    */
-  open: (openCallback: (status: boolean, source: string) => void ) => void
+  open: (openCallback: (status: boolean, source: string) => void ) => void;
 }

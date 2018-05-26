@@ -1,32 +1,32 @@
 // - Import react components
-import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import Button from 'material-ui/Button'
-import { grey, teal } from 'material-ui/colors'
-import SvgCamera from 'material-ui-icons/PhotoCamera'
-import Paper from 'material-ui/Paper'
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
-import InfiniteScroll from 'react-infinite-scroller'
-import { getTranslate, getActiveLanguage } from 'react-localize-redux'
-import { Map, List as ImuList } from 'immutable'
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import Button from "material-ui/Button";
+import { grey, teal } from "material-ui/colors";
+import SvgCamera from "material-ui-icons/PhotoCamera";
+import Paper from "material-ui/Paper";
+import List, { ListItem, ListItemIcon, ListItemText } from "material-ui/List";
+import InfiniteScroll from "react-infinite-scroller";
+import { getTranslate, getActiveLanguage } from "react-localize-redux";
+import { Map, List as ImuList } from "immutable";
 
 // - Import app components
-import PostComponent from 'src/components/post'
-import PostWriteComponent from 'src/components/postWrite'
-import UserAvatarComponent from 'src/components/userAvatar'
-import LoadMoreProgressComponent from 'src/layouts/loadMoreProgress'
+import PostComponent from "src/components/post";
+import PostWriteComponent from "src/components/postWrite";
+import UserAvatarComponent from "src/components/userAvatar";
+import LoadMoreProgressComponent from "src/layouts/loadMoreProgress";
 
 // - Import API
-import * as PostAPI from 'src/api/PostAPI'
+import * as PostAPI from "src/api/PostAPI";
 
 // - Import actions
-import * as globalActions from 'src/store/actions/globalActions'
+import * as globalActions from "src/store/actions/globalActions";
 
-import { IStreamComponentProps } from './IStreamComponentProps'
-import { IStreamComponentState } from './IStreamComponentState'
-import { Post } from 'src/core/domain/posts'
+import { IStreamComponentProps } from "./IStreamComponentProps";
+import { IStreamComponentState } from "./IStreamComponentState";
+import { Post } from "src/core/domain/posts";
 
 // - Create StreamComponent component class
 export class StreamComponent extends Component<IStreamComponentProps, IStreamComponentState> {
@@ -46,24 +46,24 @@ export class StreamComponent extends Component<IStreamComponentProps, IStreamCom
      */
     homeTitle: PropTypes.string
 
-  }
+  };
 
   styles = {
     postWritePrimaryText: {
       color: grey[400],
-      cursor: 'text'
+      cursor: "text"
     },
     postWtireItem: {
-      fontWeight: '200'
+      fontWeight: "200"
     }
-  }
+  };
 
   /**
    * Component constructor
    * @param  {object} props is an object properties of component
    */
   constructor(props: IStreamComponentProps) {
-    super(props)
+    super(props);
 
     this.state = {
       /**
@@ -91,12 +91,12 @@ export class StreamComponent extends Component<IStreamComponentProps, IStreamCom
        * If there is more post to show {true} or not {false}
        */
       hasMorePosts: true
-    }
+    };
 
     // Binding functions to `this`
-    this.postLoad = this.postLoad.bind(this)
-    this.handleOpenPostWrite = this.handleOpenPostWrite.bind(this)
-    this.handleClosePostWrite = this.handleClosePostWrite.bind(this)
+    this.postLoad = this.postLoad.bind(this);
+    this.handleOpenPostWrite = this.handleOpenPostWrite.bind(this);
+    this.handleClosePostWrite = this.handleClosePostWrite.bind(this);
 
   }
 
@@ -109,7 +109,7 @@ export class StreamComponent extends Component<IStreamComponentProps, IStreamCom
   handleOpenPostWrite = () => {
     this.setState({
       openPostWrite: true
-    })
+    });
   }
   /**
    * Close post write
@@ -120,7 +120,7 @@ export class StreamComponent extends Component<IStreamComponentProps, IStreamCom
   handleClosePostWrite = () => {
     this.setState({
       openPostWrite: false
-    })
+    });
   }
 
   /**
@@ -129,9 +129,9 @@ export class StreamComponent extends Component<IStreamComponentProps, IStreamCom
    */
   postLoad = () => {
 
-    let { match } = this.props
-    let posts: Map<string, Map<string, any>> = this.props.posts
-    let { tag } = match.params
+    let { match } = this.props;
+    let posts: Map<string, Map<string, any>> = this.props.posts;
+    let { tag } = match.params;
     if (posts === undefined || !(posts.keySeq().count() > 0)) {
       
       return (
@@ -140,49 +140,49 @@ export class StreamComponent extends Component<IStreamComponentProps, IStreamCom
           'Nothing has shared.'
                 </h1>
 
-)
+);
 } else {
   
-  let postBack = { divided: false, oddPostList: [], evenPostList: [] }
-  let parsedPosts: ImuList<any> = ImuList()
+  let postBack = { divided: false, oddPostList: [], evenPostList: [] };
+  let parsedPosts: ImuList<any> = ImuList();
   posts.forEach((post: Map<string, any>) => {
         if (tag) {
-          let regex = new RegExp('#' + tag, 'g')
-          let postMatch = String(post.get('body', '')).match(regex)
+          let regex = new RegExp("#" + tag, "g");
+          let postMatch = String(post.get("body", "")).match(regex);
           if (postMatch !== null) {
-            parsedPosts =  parsedPosts.push(post)
+            parsedPosts =  parsedPosts.push(post);
           }
         } else {
-          parsedPosts = parsedPosts.push(post)
+          parsedPosts = parsedPosts.push(post);
         }
-      })
-      const sortedPosts = PostAPI.sortImuObjectsDate(parsedPosts)
+      });
+      const sortedPosts = PostAPI.sortImuObjectsDate(parsedPosts);
       if (sortedPosts.count() > 6) {
-        postBack.divided = true
+        postBack.divided = true;
         
       } else {
-        postBack.divided = false
+        postBack.divided = false;
       }
-      let index = 0
+      let index = 0;
       sortedPosts.forEach((post) => {
         
         let newPost: any = (
-          <div key={`${post!.get('id')!}-stream-div`}>
+          <div key={`${post!.get("id")!}-stream-div`}>
           
-            {index > 1 || (!postBack.divided && index > 0) ? <div style={{ height: '16px' }}></div> : ''}
-            <PostComponent key={`${post!.get('id')}-stream-div-post`} post={post! as any} />
+            {index > 1 || (!postBack.divided && index > 0) ? <div style={{ height: "16px" }}></div> : ""}
+            <PostComponent key={`${post!.get("id")}-stream-div-post`} post={post! as any} />
 
           </div>
-        )
+        );
         
         if ((index % 2) === 1 && postBack.divided) {
-          postBack.oddPostList.push(newPost as never)
+          postBack.oddPostList.push(newPost as never);
         } else {
-          postBack.evenPostList.push(newPost as never)
+          postBack.evenPostList.push(newPost as never);
         }
-        ++index
-      })
-      return postBack
+        ++index;
+      });
+      return postBack;
     }
 
   }
@@ -191,13 +191,13 @@ export class StreamComponent extends Component<IStreamComponentProps, IStreamCom
    * Scroll loader
    */
   scrollLoad = (page: number) => {
-    const { loadStream } = this.props
-    loadStream!(page, 10)
+    const { loadStream } = this.props;
+    loadStream!(page, 10);
   }
 
   componentWillMount() {
-    const { setHomeTitle } = this.props
-    setHomeTitle!()
+    const { setHomeTitle } = this.props;
+    setHomeTitle!();
   }
 
   /**
@@ -206,8 +206,8 @@ export class StreamComponent extends Component<IStreamComponentProps, IStreamCom
    */
   render() {
 
-    const { tag, displayWriting, hasMorePosts, translate } = this.props
-    const postList = this.postLoad() as { evenPostList: Post[], oddPostList: Post[], divided: boolean } | any
+    const { tag, displayWriting, hasMorePosts, translate } = this.props;
+    const postList = this.postLoad() as { evenPostList: Post[], oddPostList: Post[], divided: boolean } | any;
 
     return (
       <InfiniteScroll
@@ -215,10 +215,10 @@ export class StreamComponent extends Component<IStreamComponentProps, IStreamCom
         loadMore={this.scrollLoad}
         hasMore={hasMorePosts}
         useWindow={true}
-        loader={<LoadMoreProgressComponent key='stream-load-more-progress' />}
+        loader={<LoadMoreProgressComponent key="stream-load-more-progress" />}
       >
-        <div className='grid grid__gutters grid__1of2 grid__space-around animate-top'>
-          <div className='grid-cell animate-top' style={{ maxWidth: '530px', minWidth: '280px' }}>
+        <div className="grid grid__gutters grid__1of2 grid__space-around animate-top">
+          <div className="grid-cell animate-top" style={{ maxWidth: "530px", minWidth: "280px" }}>
             {displayWriting && !tag
               ? (<PostWriteComponent open={this.state.openPostWrite} onRequestClose={this.handleClosePostWrite} edit={false} >
                 <Paper elevation={2}>
@@ -228,33 +228,33 @@ export class StreamComponent extends Component<IStreamComponentProps, IStreamCom
                     onClick={this.handleOpenPostWrite}
                   >
                     <UserAvatarComponent fullName={this.props.fullName!} fileName={this.props.avatar!} size={36} />
-                    <ListItemText inset primary={<span style={this.styles.postWritePrimaryText as any}> {translate!('home.postWriteButtonText')}</span>} />
+                    <ListItemText inset primary={<span style={this.styles.postWritePrimaryText as any}> {translate!("home.postWriteButtonText")}</span>} />
                     <ListItemIcon>
                       <SvgCamera />
                     </ListItemIcon>
                   </ListItem>
 
                 </Paper>
-                <div style={{ height: '16px' }}></div>
+                <div style={{ height: "16px" }}></div>
               </PostWriteComponent>)
-              : ''}
+              : ""}
 
             {postList.evenPostList}
-            <div style={{ height: '16px' }}></div>
+            <div style={{ height: "16px" }}></div>
           </div>
           {postList.divided
-            ? (<div className='grid-cell animate-top' style={{ maxWidth: '530px', minWidth: '280px' }}>
-              <div className='blog__right-list'>
+            ? (<div className="grid-cell animate-top" style={{ maxWidth: "530px", minWidth: "280px" }}>
+              <div className="blog__right-list">
                 {postList.oddPostList}
-                <div style={{ height: '16px' }}></div>
+                <div style={{ height: "16px" }}></div>
               </div>
             </div>)
-            : ''}
+            : ""}
 
         </div>
 
       </InfiniteScroll>
-    )
+    );
   }
 }
 
@@ -266,12 +266,12 @@ export class StreamComponent extends Component<IStreamComponentProps, IStreamCom
  */
 const mapDispatchToProps = (dispatch: any, ownProps: IStreamComponentProps) => {
   return {
-    setHomeTitle: () => dispatch(globalActions.setHeaderTitle(ownProps.homeTitle || '')),
+    setHomeTitle: () => dispatch(globalActions.setHeaderTitle(ownProps.homeTitle || "")),
     showTopLoading: () => dispatch(globalActions.showTopLoading()),
     hideTopLoading: () => dispatch(globalActions.hideTopLoading())
 
-  }
-}
+  };
+};
 
 /**
  * Map state to props
@@ -280,14 +280,14 @@ const mapDispatchToProps = (dispatch: any, ownProps: IStreamComponentProps) => {
  * @return {object}          props of component
  */
 const mapStateToProps = (state: Map<string, any>, ownProps: IStreamComponentProps) => {
-const uid = state.getIn(['authorize', 'uid'])
-const user = state.getIn(['user', 'info', uid])
+const uid = state.getIn(["authorize", "uid"]);
+const user = state.getIn(["user", "info", uid]);
   return {
-    translate: getTranslate(state.get('locale')),
-    avatar: user.avatar || '',
-    fullName: user.fullName || ''
-  }
-}
+    translate: getTranslate(state.get("locale")),
+    avatar: user.avatar || "",
+    fullName: user.fullName || ""
+  };
+};
 
 // - Connect component to redux store
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StreamComponent as any) as any) as typeof StreamComponent
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StreamComponent as any) as any) as typeof StreamComponent;

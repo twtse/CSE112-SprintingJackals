@@ -1,5 +1,5 @@
-import { UserTie } from './userTie'
-import { BaseDomain } from '../common'
+import { UserTie } from "./userTie";
+import { BaseDomain } from "../common";
 
 export class Circle extends BaseDomain {
 
@@ -8,7 +8,7 @@ export class Circle extends BaseDomain {
    *
    * @memberof User
    */
-  public id?: string | null
+  public id?: string | null;
 
   /**
    * Circle creation date time
@@ -16,7 +16,7 @@ export class Circle extends BaseDomain {
    * @type {Date}
    * @memberof Circle
    */
-  public creationDate?: number
+  public creationDate?: number;
 
   /**
    * Circle owner identifier
@@ -24,7 +24,7 @@ export class Circle extends BaseDomain {
    * @type {string}
    * @memberof Circle
    */
-  public ownerId?: string | null
+  public ownerId?: string | null;
 
   /**
    * Circle name
@@ -32,11 +32,11 @@ export class Circle extends BaseDomain {
    * @type {string}
    * @memberof User
    */
-  public name: string
+  public name: string;
 
   /**
    * Whether it's configured by system
    */
-  public isSystem: boolean
+  public isSystem: boolean;
 
 }

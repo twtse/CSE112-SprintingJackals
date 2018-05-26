@@ -7,5 +7,5 @@ export interface IImgComponentState {
    * @type {boolean}
    * @memberof IImgComponentProps
    */
-  isImageLoaded?: boolean
+  isImageLoaded?: boolean;
 }

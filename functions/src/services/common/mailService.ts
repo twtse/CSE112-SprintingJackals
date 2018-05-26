@@ -1,21 +1,21 @@
 
-import * as functions from 'firebase-functions'
-import { adminDB, firestoreDB } from '../../data/index'
-import { Feed } from '../../domain/common/feed'
-import { emailAPI } from '../../api/emailAPI'
-import { Email } from '../../domain/common/email'
+import * as functions from "firebase-functions";
+import { adminDB, firestoreDB } from "../../data/index";
+import { Feed } from "../../domain/common/feed";
+import { emailAPI } from "../../api/emailAPI";
+import { Email } from "../../domain/common/email";
 
-const gmailEmail = functions.config().gmail.email
-const appName = functions.config().setting.appname
+const gmailEmail = functions.config().gmail.email;
+const appName = functions.config().setting.appname;
 
 export const onCreateFeedback = functions.firestore
 .document(`feeds/{feedId}`)
 .onCreate((event) => {
   return new Promise<void>((resolve, reject) => {
-    const feed: Feed =  event.data.data()
-    const from = `${appName} Feedback <${gmailEmail}>`
-    const to = "amir.gholzam@gmail.com"
-    const subject = `${feed.feedType} -${feed.user!.email} - ${event.data.createTime}`
+    const feed: Feed =  event.data.data();
+    const from = `${appName} Feedback <${gmailEmail}>`;
+    const to = "amir.gholzam@gmail.com";
+    const subject = `${feed.feedType} -${feed.user!.email} - ${event.data.createTime}`;
     const text = `
     Feedback type: ${feed.feedType}
     Feedback ID: ${feed.id}
@@ -25,7 +25,7 @@ export const onCreateFeedback = functions.firestore
     User ID: ${feed.user!.userId}
   
     Feedback: ${feed.text}
-    `
+    `;
     /**
      * Send email
      */
@@ -35,11 +35,11 @@ export const onCreateFeedback = functions.firestore
       subject,
       text
     )).then(() => {
-      resolve()
+      resolve();
     }).catch((error) => {
-      reject()
-    })
+      reject();
+    });
 
-  })
+  });
   
-   })
+   });

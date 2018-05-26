@@ -1,5 +1,5 @@
-import { Comment } from 'core/domain/comments'
-import { Profile } from 'core/domain/users'
+import { Comment } from "core/domain/comments";
+import { Profile } from "core/domain/users";
 export interface ICommentComponentProps {
 
   /**
@@ -8,12 +8,12 @@ export interface ICommentComponentProps {
    * @type {Comment}
    * @memberof ICommentComponentProps
    */
-  comment: Comment
+  comment: Comment;
 
   /**
    * Comment owner
    */
-  commentOwner?: Profile
+  commentOwner?: Profile;
 
   /**
    * Open profile editor
@@ -21,7 +21,7 @@ export interface ICommentComponentProps {
    * @type {Function}
    * @memberof ICommentComponentProps
    */
-  openEditor?: Function
+  openEditor?: Function;
 
   /**
    * Close comment editor
@@ -29,7 +29,7 @@ export interface ICommentComponentProps {
    * @type {Function}
    * @memberof ICommentComponentProps
    */
-  closeEditor?: () => any
+  closeEditor?: () => any;
 
   /**
    * Current user is comment owner {true} or not {false}
@@ -37,7 +37,7 @@ export interface ICommentComponentProps {
    * @type {boolean}
    * @memberof ICommentComponentProps
    */
-  isCommentOwner?: boolean
+  isCommentOwner?: boolean;
 
   /**
    * Current user is post owner {true} or not {false}
@@ -45,28 +45,28 @@ export interface ICommentComponentProps {
    * @type {boolean}
    * @memberof ICommentComponentProps
    */
-  isPostOwner: boolean
+  isPostOwner: boolean;
 
   /**
    * Update comment
    *
    * @memberof ICommentComponentProps
    */
-  update?: (comment: Comment) => any
+  update?: (comment: Comment) => any;
 
   /**
    * Delete comment
    *
    * @memberof ICommentComponentProps
    */
-  delete?: (id?: string | null, postId?: string) => any
+  delete?: (id?: string | null, postId?: string) => any;
 
   /**
    * Get user profile
    *
    * @memberof ICommentComponentProps
    */
-  getUserInfo?: () => void
+  getUserInfo?: () => void;
 
   /**
    * User full name
@@ -74,7 +74,7 @@ export interface ICommentComponentProps {
    * @type {string}
    * @memberof ICommentComponentProps
    */
-  fullName?: string
+  fullName?: string;
 
   /**
    * User avatar address
@@ -82,7 +82,7 @@ export interface ICommentComponentProps {
    * @type {string}
    * @memberof Comment
    */
-  avatar?: string
+  avatar?: string;
 
   /**
    * Writing comment on the post is disabled {true} or not false
@@ -90,21 +90,21 @@ export interface ICommentComponentProps {
    * @type {boolean}
    * @memberof ICommentComponentProps
    */
-  disableComments?: boolean
+  disableComments?: boolean;
 
   /**
    * Whether comment edit is open
    */
-  editorStatus: boolean
+  editorStatus: boolean;
 
   /**
    * Styles
    */
-  classes?: any
+  classes?: any;
 
   /**
    * Translate to locale string
    */
-  translate?: (state: any) => any
+  translate?: (state: any) => any;
 
 }

@@ -1,4 +1,4 @@
-import { FileResult } from 'models/files/fileResult'
+import { FileResult } from "models/files/fileResult";
 
 export interface IStorageService {
 
@@ -7,5 +7,5 @@ export interface IStorageService {
    *
    * @memberof IStorageService
    */
-  uploadFile: (file: any, fileName: string, progress: (percentage: number, status: boolean) => void) => Promise<FileResult>
+  uploadFile: (file: any, fileName: string, progress: (percentage: number, status: boolean) => void) => Promise<FileResult>;
 }

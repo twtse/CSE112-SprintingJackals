@@ -1,4 +1,4 @@
-import { Map, fromJS, List } from 'immutable'
+import { Map, fromJS, List } from "immutable";
 /**
  * Global state
  *
@@ -19,7 +19,7 @@ export class GlobalState {
   progress = Map({
     percent: 0,
     visible: false
-  })
+  });
 
  /**
   * If loading is enabled {true} or not false
@@ -27,12 +27,12 @@ export class GlobalState {
   * @type {boolean}
   * @memberof IGlobalState
   */
-  loadingStatus: boolean = true
+  loadingStatus: boolean = true;
 
  /**
   * Whether send feedback is diplayed
   */
-  sendFeedbackStatus: boolean = false
+  sendFeedbackStatus: boolean = false;
 
  /**
   * If user date is loaded {true} or not {false}
@@ -40,7 +40,7 @@ export class GlobalState {
   * @type {boolean}
   * @memberof IGlobalState
   */
-  defaultLoadDataStatus: boolean = false
+  defaultLoadDataStatus: boolean = false;
 
  /**
   * If message popup is open {true} or not {false}
@@ -48,7 +48,7 @@ export class GlobalState {
   * @type {boolean}
   * @memberof IGlobalState
   */
-  messageOpen: boolean = false
+  messageOpen: boolean = false;
 
  /**
   * The text of popup global message
@@ -56,7 +56,7 @@ export class GlobalState {
   * @type {string}
   * @memberof IGlobalState
   */
-  message: string = ''
+  message: string = "";
 
  /**
   * Window size
@@ -64,7 +64,7 @@ export class GlobalState {
   * @type {number}
   * @memberof IGlobalState
   */
-  windowWidth: number = 0
+  windowWidth: number = 0;
 
  /**
   * Window height
@@ -72,7 +72,7 @@ export class GlobalState {
   * @type {number}
   * @memberof IGlobalState
   */
-  windowHeight: number = 0
+  windowHeight: number = 0;
 
  /**
   * The text of website header
@@ -80,7 +80,7 @@ export class GlobalState {
   * @type {string}
   * @memberof IGlobalState
   */
-  headerTitle: string = ''
+  headerTitle: string = "";
 
  /**
   * Top loading is visible {true} or not {false}
@@ -88,7 +88,7 @@ export class GlobalState {
   * @type {boolean}
   * @memberof IGlobalState
   */
-  showTopLoading: boolean = false
+  showTopLoading: boolean = false;
 
  /**
   * Top loading message queue
@@ -96,7 +96,7 @@ export class GlobalState {
   * @type {number}
   * @memberof IGlobalState
   */
-  topLoadingQueue: number = 0
+  topLoadingQueue: number = 0;
 
  /**
   * Master loading is visible {true} or not {false}
@@ -104,7 +104,7 @@ export class GlobalState {
   * @type {boolean}
   * @memberof IGlobalState
   */
-  showMasterLoading: boolean = true
+  showMasterLoading: boolean = true;
 
  /**
   * Master loading message queue
@@ -112,7 +112,7 @@ export class GlobalState {
   * @type {number}
   * @memberof IGlobalState
   */
-  masterLoadingQueue: number = 0
+  masterLoadingQueue: number = 0;
 
  /**
   * Temp date storage
@@ -122,5 +122,5 @@ export class GlobalState {
   */
   temp: any = Map({
     caller: List()
-  })
+  });
 }

@@ -3,20 +3,20 @@ export interface IEmailVerificationComponentProps {
   /**
    * Send email for verification
    */
-  sendEmailVerification: () => any
+  sendEmailVerification: () => any;
 
   /**
    * Redirect to home page
    */
-  homePage: () => any
+  homePage: () => any;
 
   /**
    * Styles
    */
-  classes?: any
+  classes?: any;
 
   /**
    * Translate to locale string
    */
-  translate?: (state: any, param?: {}) => any
+  translate?: (state: any, param?: {}) => any;
 }

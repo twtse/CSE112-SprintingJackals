@@ -1,18 +1,18 @@
 // - Import react components
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import { getTranslate, getActiveLanguage } from 'react-localize-redux'
-import {Map} from 'immutable'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { getTranslate, getActiveLanguage } from "react-localize-redux";
+import {Map} from "immutable";
 
 // - Import app components
-import UserBoxList from 'components/userBoxList'
+import UserBoxList from "components/userBoxList";
 
-import { Circle } from 'core/domain/circles'
+import { Circle } from "core/domain/circles";
 
 // - Import API
-import { IFollowingComponentProps } from './IFollowingComponentProps'
-import { IFollowingComponentState } from './IFollowingComponentState'
+import { IFollowingComponentProps } from "./IFollowingComponentProps";
+import { IFollowingComponentState } from "./IFollowingComponentState";
 
 // - Import actions
 
@@ -23,19 +23,19 @@ export class FollowingComponent extends Component<IFollowingComponentProps,IFoll
 
   static propTypes = {
 
-  }
+  };
 
   /**
    * Component constructor
    * @param  {object} props is an object properties of component
    */
   constructor (props: IFollowingComponentProps) {
-    super(props)
+    super(props);
 
     // Defaul state
     this.state = {
 
-    }
+    };
 
     // Binding functions to `this`
 
@@ -46,22 +46,22 @@ export class FollowingComponent extends Component<IFollowingComponentProps,IFoll
    * @return {react element} return the DOM which rendered by component
    */
   render () {
-    const {translate} = this.props
-    const followingUsers = Map(this.props.followingUsers!)
+    const {translate} = this.props;
+    const followingUsers = Map(this.props.followingUsers!);
     return (
           <div>
             {(followingUsers && followingUsers.keySeq().count() !== 0 ) ? (<div>
-              <div className='profile__title'>
-                {translate!('people.followingLabel')}
+              <div className="profile__title">
+                {translate!("people.followingLabel")}
                         </div>
                         <UserBoxList users={followingUsers} />
-              <div style={{ height: '24px' }}></div>
+              <div style={{ height: "24px" }}></div>
 
-              </div>) : (<div className='g__title-center'>
-                 {translate!('people.noFollowingLabel')}
+              </div>) : (<div className="g__title-center">
+                 {translate!("people.noFollowingLabel")}
                </div>)}
           </div>
-    )
+    );
   }
 }
 
@@ -74,8 +74,8 @@ export class FollowingComponent extends Component<IFollowingComponentProps,IFoll
 const mapDispatchToProps = (dispatch: any,ownProp: IFollowingComponentProps) => {
   return{
 
-  }
-}
+  };
+};
 
   /**
    * Map state to props
@@ -85,17 +85,17 @@ const mapDispatchToProps = (dispatch: any,ownProp: IFollowingComponentProps) => 
    */
 const mapStateToProps = (state: Map<string, any>,ownProps: IFollowingComponentProps) => {
 
-  const uid = state.getIn(['authorize', 'uid'], 0)
-  const circles: { [circleId: string]: Circle } = state.getIn(['circle', 'circleList'], {})
-  const followingUsers = state.getIn(['circle', 'userTies'], {})
+  const uid = state.getIn(["authorize", "uid"], 0);
+  const circles: { [circleId: string]: Circle } = state.getIn(["circle", "circleList"], {});
+  const followingUsers = state.getIn(["circle", "userTies"], {});
   return {
-    translate: getTranslate(state.get('locale')),
+    translate: getTranslate(state.get("locale")),
     uid,
     circles,
     followingUsers
 
-  }
-}
+  };
+};
 
   // - Connect component to redux store
-export default connect(mapStateToProps,mapDispatchToProps)(FollowingComponent as any)
+export default connect(mapStateToProps,mapDispatchToProps)(FollowingComponent as any);

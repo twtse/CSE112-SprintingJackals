@@ -7,7 +7,7 @@ export interface IResetPasswordComponentState {
    * @type {string}
    * @memberof IResetPasswordComponentState
    */
-  emailInput: string
+  emailInput: string;
 
   /**
    * Email input error text
@@ -15,6 +15,6 @@ export interface IResetPasswordComponentState {
    * @type {string}
    * @memberof IResetPasswordComponentState
    */
-  emailInputError: string
+  emailInputError: string;
 
 }

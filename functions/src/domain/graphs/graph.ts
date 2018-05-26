@@ -1,7 +1,6 @@
-import { BaseDomain } from '../common'
+import { BaseDomain } from "../common";
 
 export class Graph extends BaseDomain {
-
 
   constructor (
     /**
@@ -58,6 +57,6 @@ export class Graph extends BaseDomain {
    */
   public nodeId?: string
 
-  ) { super() }
+  ) { super(); }
 
 }

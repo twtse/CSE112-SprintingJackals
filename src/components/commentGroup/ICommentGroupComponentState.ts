@@ -7,7 +7,7 @@ export interface ICommentGroupComponentState {
    * @type {string}
    * @memberof ICommentGroupComponentState
    */
-  commentText: string
+  commentText: string;
 
   /**
    * Disable post comment
@@ -15,5 +15,5 @@ export interface ICommentGroupComponentState {
    * @type {boolean}
    * @memberof ICommentGroupComponentState
    */
-  postDisable: boolean
+  postDisable: boolean;
 }

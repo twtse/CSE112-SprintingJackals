@@ -1,6 +1,6 @@
-import { ServerRequestType } from 'constants/serverRequestType'
-import StringAPI from 'api/StringAPI'
-import { ServerRequestStatusType } from 'store/actions/serverRequestStatusType'
+import { ServerRequestType } from "constants/serverRequestType";
+import StringAPI from "api/StringAPI";
+import { ServerRequestStatusType } from "store/actions/serverRequestStatusType";
 
 export class ServerRequestModel {
   constructor (
@@ -15,7 +15,7 @@ export class ServerRequestModel {
    * Get unique key for request
    */
   getKey (): string {
-    return StringAPI.createServerRequestId(this.type, this.id)
+    return StringAPI.createServerRequestId(this.type, this.id);
   }
 
 }

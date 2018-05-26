@@ -1,7 +1,7 @@
 //#region Interfaces
 
-import { IServiceProvider } from 'core/factories'
-import { injectable } from 'inversify'
+import { IServiceProvider } from "core/factories";
+import { injectable } from "inversify";
 import {
   IAuthorizeService,
   ICircleService,
@@ -13,7 +13,7 @@ import {
   IUserService,
   IVoteService,
   IStorageService
-} from 'core/services'
+} from "core/services";
 
 //#endregion
 
@@ -31,7 +31,7 @@ import {
   UserService,
   VoteService,
   StorageService
-} from 'data/firestoreClient/services'
+} from "data/firestoreClient/services";
 
 //#endregion
 @injectable()
@@ -43,7 +43,7 @@ export class ServiceProvide implements IServiceProvider {
    * @memberof ServiceProvide
    */
   createAuthorizeService: () => IAuthorizeService = () => {
-    return new AuthorizeService()
+    return new AuthorizeService();
   }
 
   /**
@@ -52,7 +52,7 @@ export class ServiceProvide implements IServiceProvider {
    * @memberof ServiceProvide
    */
   createCircleService: () => ICircleService = () => {
-    return new CircleService()
+    return new CircleService();
   }
 
   /**
@@ -61,7 +61,7 @@ export class ServiceProvide implements IServiceProvider {
    * @memberof ServiceProvide
    */
   createCommentService: () => ICommentService = () => {
-    return new CommentService()
+    return new CommentService();
   }
 
   /**
@@ -70,7 +70,7 @@ export class ServiceProvide implements IServiceProvider {
    * @memberof ServiceProvide
    */
   createCommonService: () => ICommonService = () => {
-    return new CommonService()
+    return new CommonService();
   }
 
   /**
@@ -79,7 +79,7 @@ export class ServiceProvide implements IServiceProvider {
    * @memberof ServiceProvide
    */
   createImageGalleryService: () => IImageGalleryService = () => {
-    return new ImageGalleryService()
+    return new ImageGalleryService();
   }
 
   /**
@@ -88,7 +88,7 @@ export class ServiceProvide implements IServiceProvider {
    * @memberof ServiceProvide
    */
   createNotificationService: () => INotificationService = () => {
-    return new NotificationService()
+    return new NotificationService();
   }
 
   /**
@@ -97,7 +97,7 @@ export class ServiceProvide implements IServiceProvider {
    * @memberof ServiceProvide
    */
   createPostService: () => IPostService = () => {
-    return new PostService()
+    return new PostService();
   }
 
   /**
@@ -106,7 +106,7 @@ export class ServiceProvide implements IServiceProvider {
    * @memberof ServiceProvide
    */
   createUserService: () => IUserService = () => {
-    return new UserService()
+    return new UserService();
   }
 
   /**
@@ -115,7 +115,7 @@ export class ServiceProvide implements IServiceProvider {
    * @memberof ServiceProvide
    */
   createVoteService: () => IVoteService = () => {
-    return new VoteService()
+    return new VoteService();
   }
 
   /**
@@ -124,7 +124,7 @@ export class ServiceProvide implements IServiceProvider {
    * @memberof ServiceProvide
    */
   createStorageService: () => IStorageService = () => {
-    return new StorageService()
+    return new StorageService();
   }
 
 }

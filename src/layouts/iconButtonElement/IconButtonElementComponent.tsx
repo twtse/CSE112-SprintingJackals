@@ -1,8 +1,8 @@
 // - Import react components
-import React, { Component } from 'react'
-import IconButton from 'material-ui/IconButton'
-import MoreVertIcon from 'material-ui-icons/MoreVert'
-import { grey } from 'material-ui/colors'
+import React, { Component } from "react";
+import IconButton from "material-ui/IconButton";
+import MoreVertIcon from "material-ui-icons/MoreVert";
+import { grey } from "material-ui/colors";
 
 /**
  * DOM styles
@@ -12,8 +12,8 @@ import { grey } from 'material-ui/colors'
  */
 const styles = {
   
-}
+};
 // TODO: Delete the component
-const IconButtonElementComponent = (<div> </div>)
+const IconButtonElementComponent = (<div> </div>);
 
-export default IconButtonElementComponent
+export default IconButtonElementComponent;

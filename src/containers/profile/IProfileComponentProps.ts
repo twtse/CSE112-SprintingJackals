@@ -1,4 +1,4 @@
-import { Post } from 'src/core/domain/posts'
+import { Post } from "src/core/domain/posts";
 
 export interface IProfileComponentProps {
 
@@ -8,7 +8,7 @@ export interface IProfileComponentProps {
    * @type {*}
    * @memberof IProfileComponentProps
    */
-  match: any
+  match: any;
 
   /**
    * User's post
@@ -16,7 +16,7 @@ export interface IProfileComponentProps {
    * @type {{[postId: string]: Post}}
    * @memberof IProfileComponentProps
    */
-  posts: {[postId: string]: Post}
+  posts: {[postId: string]: Post};
 
   /**
    * String user full name
@@ -24,7 +24,7 @@ export interface IProfileComponentProps {
    * @type {string}
    * @memberof IProfileComponentProps
    */
-  name: string
+  name: string;
 
   /**
    * User tag line
@@ -32,7 +32,7 @@ export interface IProfileComponentProps {
    * @type {string}
    * @memberof IProfileComponentProps
    */
-  tagLine: string
+  tagLine: string;
 
   /**
    * User's avatar address
@@ -40,7 +40,7 @@ export interface IProfileComponentProps {
    * @type {string}
    * @memberof IProfileComponentProps
    */
-  avatar: string
+  avatar: string;
 
   /**
    * It's current user profile {true} or not {false}
@@ -48,7 +48,7 @@ export interface IProfileComponentProps {
    * @type {boolean}
    * @memberof IProfileComponentProps
    */
-  isAuthedUser: boolean
+  isAuthedUser: boolean;
 
   /**
    * User's banner
@@ -56,7 +56,7 @@ export interface IProfileComponentProps {
    * @type {string}
    * @memberof IProfileComponentProps
    */
-  banner: string
+  banner: string;
 
   /**
    * User identifier
@@ -64,29 +64,29 @@ export interface IProfileComponentProps {
    * @type {string}
    * @memberof IProfileComponentProps
    */
-  userId: string
+  userId: string;
 
   /**
    * Load user's post
    *
    * @memberof IProfileComponentProps
    */
-  loadPosts: () => any
+  loadPosts: () => any;
 
   /**
    * Load user's profile
    *
    * @memberof IProfileComponentProps
    */
-  loadUserInfo: () => any
+  loadUserInfo: () => any;
 
   /**
    * If there is more posts to show in profile
    */
-  hasMorePosts: boolean
+  hasMorePosts: boolean;
 
   /**
    * Translate to locale string
    */
-  translate?: (state: any, params?: {}) => any
+  translate?: (state: any, params?: {}) => any;
 }

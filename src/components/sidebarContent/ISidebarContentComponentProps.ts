@@ -5,7 +5,7 @@ export interface ISidebarContentComponentProps {
    *
    * @memberof ISidebarContentComponentProps
    */
-  sidebar?: (status: boolean, source: string) => void
+  sidebar?: (status: boolean, source: string) => void;
 
   /**
    * Show sidebar is in overlay status {true} or not {false}
@@ -13,7 +13,7 @@ export interface ISidebarContentComponentProps {
    * @type {boolean}
    * @memberof ISidebarContentComponentProps
    */
-  overlay?: boolean
+  overlay?: boolean;
 
   /**
    * Sidebar content class name
@@ -21,7 +21,7 @@ export interface ISidebarContentComponentProps {
    * @type {string}
    * @memberof ISidebarContentComponentProps
    */
-  className?: string
+  className?: string;
 
   /**
    * Sidebar content style
@@ -29,5 +29,5 @@ export interface ISidebarContentComponentProps {
    * @type {{}}
    * @memberof ISidebarContentComponentProps
    */
-  cstyle?: {}
+  cstyle?: {};
 }

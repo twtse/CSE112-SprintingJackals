@@ -6,7 +6,7 @@ export interface IImgComponentProps {
    * @type {string}
    * @memberof IImgComponentProps
    */
-  fileName: string
+  fileName: string;
 
   /**
    * Image style sheet
@@ -14,16 +14,16 @@ export interface IImgComponentProps {
    * @type {{}}
    * @memberof IImgComponentProps
    */
-  style?: {}
+  style?: {};
 
   /**
    * Styles
    */
-  classes?: any
+  classes?: any;
 
   /**
    * Translate to locale string
    */
-  translate?: (state: any) => any
+  translate?: (state: any) => any;
 
 }

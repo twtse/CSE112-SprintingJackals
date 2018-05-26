@@ -7,5 +7,5 @@ export interface IProfileHeaderComponentState {
    * @type {boolean}
    * @memberof IProfileHeaderComponentState
    */
-  isSmall: boolean
+  isSmall: boolean;
 }
