@@ -1,5 +1,9 @@
 # CSE112 - Sprinting Jackals
 
+**Master**: [![Build Status](https://travis-ci.com/twtse/CSE112-SprintingJackals.svg?token=4UFuzvBxPsdyRSwXf4no&branch=master)](https://travis-ci.com/twtse/CSE112-SprintingJackals)
+
+**Staging**: [![Build Status](https://travis-ci.com/twtse/CSE112-SprintingJackals.svg?token=4UFuzvBxPsdyRSwXf4no&branch=staging)](https://travis-ci.com/twtse/CSE112-SprintingJackals)
+
 Please check out the [wiki](https://github.com/twtse/CSE112-SprintingJackals/wiki)!
 
 ### Team Members
