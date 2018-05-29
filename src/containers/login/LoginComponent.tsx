@@ -177,9 +177,10 @@ export class LoginComponent extends Component<ILoginComponentProps, ILoginCompon
            <h1 className="g__app-name">{config.settings.appName}</h1>
          </AppBar>
       
-          <div className="animate-bottom" style={{float: "left"}}>
-            <h2 className="g__blurb-name">Peterbook is super secret. Security snake keeps your data private, unlike other lizard people.</h2>
-            <img src="https://i.imgur.com/N8xn0Sr.jpg" width="50%"/>
+          <div className="animate-bottom" style={{float: "none"}}>
+          
+            <h1 className="g__blurb-name1">Welcome to Peterbook</h1>
+            <p className="g__blurb-name2">
          
           <div  style={{float: "right"}}>
             <Paper className={classes.paper} elevation={20} >
@@ -231,6 +232,21 @@ export class LoginComponent extends Component<ILoginComponentProps, ILoginCompon
                 </div>
               </form>
             </Paper>
+            </div>
+            <div className="g__blurb-name0">
+              <p> <b>Your data belongs to you. </b> We store only your login credentials - your posts live on you and your friends' devices.</p>
+              <p> <b>Privacy made simple. </b> We handle encryption and anonymity without any action on your part. </p>
+              <p> <b> Transparent by design. </b> We are happy to provide all of the data we store on you, at any time, instantly. </p>
+            </div>
+            <hr style={{width: "50%"}}/>
+            Peterbook is a decentralized social media platform with an emphasis on privacy.
+             Your user data belongs to you, not to us. 
+            By offering subscriptions to Peterbook, we avoid the predatory practice of selling our users' data to advertisers.
+            With Peterbook, you have control over who sees your posts, and for how long. Your data is completely encrypted,
+            so it won't fall into the wrong hands. Join us today for a safer, 
+            more private social media experience.</p>
+            <div>
+            <img className="img2" src="https://i.imgur.com/yT6Y8Ub.png"/>
             </div>
           </div>
        </div>
