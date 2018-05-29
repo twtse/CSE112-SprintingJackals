@@ -207,10 +207,19 @@ g__input-underline {
     color: #00A9A5
 }
 
-.g__blurb-name {
-    text-align: left;
+.g__blurb-name1 {
+    text-align: center;
     padding: 20px;
-    font-size: 20px;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 32px;
+    margin: auto;
+    color: white
+}
+.g__blurb-name2 {
+    text-align: center;
+    padding: 20px;
+    font-size: 15px;
     font-weight: 500;
     line-height: 32px;
     margin: auto;
@@ -224,4 +233,10 @@ g__input-underline {
     font-weight: 400;
     line-height: 32px;
     margin: 0
+}
+.img2 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
