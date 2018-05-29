@@ -233,6 +233,12 @@ export class LoginComponent extends Component<ILoginComponentProps, ILoginCompon
               </form>
             </Paper>
             </div>
+            <div className="g__blurb-name0">
+              <h4> Your data belongs to you. We store only your login credentials - your posts live on you and your friends' devices.</h4>
+              <h4> Privacy made simple. We handle encryption and anonymity without any action on your part. </h4>
+              <h4> Transparent by design. We are happy to provide all of the data we store on you, at any time, instantly. </h4>
+            </div>
+            <hr style={{width: "50%"}}/>
             Peterbook is a decentralized social media platform with an emphasis on privacy.
              Your user data belongs to you, not to us. 
             By offering subscriptions to Peterbook, we avoid the predatory practice of selling our users' data to advertisers.
@@ -240,7 +246,6 @@ export class LoginComponent extends Component<ILoginComponentProps, ILoginCompon
             so it won't fall into the wrong hands. Join us today for a safer, 
             more private social media experience.</p>
             <div>
-            <br/>
             <img className="img2" src="https://i.imgur.com/yT6Y8Ub.png"/>
             </div>
           </div>
