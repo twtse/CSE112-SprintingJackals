@@ -524,6 +524,9 @@ const mapStateToProps = (state: Map<string, any>, ownProps: IPostComponentProps)
 	const commentList: { [commentId: string]: Comment } = state.getIn(["comment", "postComments", ownProps.post.get("id")]);
 	const user = state.getIn(["user", "info", ownProps.post.get("ownerUserId")]);
 
+	// Sometimes, the user object will NOT be a Javascript object
+	// In this case, if it has the toJS method (it's still a Rexux state object), call toJS to make it a JS object
+	// Otherwise, just retrieve the property from the object
 	if (user.toJS) {
 		const userJs = user.toJS();
 		return {
