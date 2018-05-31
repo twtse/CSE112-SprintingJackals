@@ -3,8 +3,8 @@
   "short_name": "Peterbook",
   "theme_color": "#161890",
   "background_color": "#161890",
-  "display": "browser",
-  "orientation": "standalone",
+  "display": "standalone",
+  "orientation": "portrait",
   "scope": "/.",
   "start_url": "/",
   "icons": [{
