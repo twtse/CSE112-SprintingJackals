@@ -4,6 +4,7 @@ import { SocialError } from "core/domain/common";
 import { Graph } from "core/domain/graphs";
 import { IGraphService } from "./IGraphService";
 import { injectable } from "inversify";
+import "reflect-metadata";
 
 /**
  * Firbase graph service
