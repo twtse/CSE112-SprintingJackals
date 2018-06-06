@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "sprintingjackals"
+    "default": "sprintingjackals",
+    "staging": "sprintingjackalsstaging"
   }
 }
