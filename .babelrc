@@ -9,7 +9,6 @@
         "@babel/preset-typescript"
     ],
     "plugins": [
-        "transform-class-properties",
         ["module-resolver", {
             "cwd": "packagejson",
             "alias": {
@@ -25,6 +24,7 @@
                 "^store/(.+)": "./src/store/\\1"
             }
         }],
-        ["@babel/plugin-proposal-decorators", { "legacy": true }]
+        ["@babel/plugin-proposal-decorators", { "legacy": true }],
+        "transform-class-properties"
     ],
 }

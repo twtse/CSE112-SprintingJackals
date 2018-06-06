@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Paper from "material-ui/Paper";
+import Button from "material-ui/Button";
+import TextField, { TextFieldProps } from "material-ui/TextField";
 import InfiniteScroll from "react-infinite-scroller";
 import { getTranslate, getActiveLanguage } from "react-localize-redux";
 import {Map} from "immutable";
@@ -53,29 +55,30 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
   render () {
     const {hasMorePeople, translate} = this.props;
     const peopleInfo = Map<string, UserTie>(this.props.peopleInfo!);
+
+    const textFieldStyle = {
+        width: "100%",
+        backgroundColor: "white",
+        color: "black",
+        paddingLeft: "5px"
+    };
+
+    const buttonStyle = {
+        display: "block",
+        marginLeft: "auto",
+        marginRight: "auto"
+    };
+
     return (
             <div>
-                <InfiniteScroll
-                pageStart={0}
-                loadMore={this.scrollLoad}
-                hasMore={hasMorePeople}
-                useWindow={true}
-                loader={<LoadMoreProgressComponent key="find-people-load-more-progress" />}
-                >
-
-                <div className="tracks">
-
-                {peopleInfo && peopleInfo.count() > 0 ? (<div>
-                <div className="profile__title">
-                    {translate!("people.suggestionsForYouLabel")}
+                <TextField style={textFieldStyle} margin="normal" type="string" placeholder="Friend ID">
+                </TextField>
+                <div>
+                    <br></br>
                 </div>
-                <UserBoxList users={peopleInfo}/>
-                <div style={{ height: "24px" }}></div>
-                </div>) : (<div className="g__title-center">
-                {translate!("people.nothingToShowLabel")}
-               </div>)}
-                </div>
-            </InfiniteScroll>
+                <Button style={buttonStyle} variant="raised">
+                    Add as Friend
+                </Button>
             </div>
     );
   }
