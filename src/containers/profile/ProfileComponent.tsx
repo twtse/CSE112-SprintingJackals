@@ -1,11 +1,11 @@
 // - Import react components
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, {Component} from "react";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import Dialog from "material-ui/Dialog";
 import Button from "material-ui/Button";
 import RaisedButton from "material-ui/Button";
-import { getTranslate, getActiveLanguage } from "react-localize-redux";
+import {getTranslate, getActiveLanguage} from "react-localize-redux";
 import {Map} from "immutable";
 
 // - Import app components
@@ -18,95 +18,88 @@ import StreamComponent from "containers/stream";
 import * as postActions from "src/store/actions/postActions";
 import * as userActions from "src/store/actions/userActions";
 import * as globalActions from "src/store/actions/globalActions";
-import { IProfileComponentProps } from "./IProfileComponentProps";
-import { IProfileComponentState } from "./IProfileComponentState";
-import { Profile } from "core/domain/users";
+import {IProfileComponentProps} from "./IProfileComponentProps";
+import {IProfileComponentState} from "./IProfileComponentState";
+import {Profile} from "core/domain/users";
 
 /**
  * Create component class
  */
-export class ProfileComponent extends Component<IProfileComponentProps,IProfileComponentState> {
+export class ProfileComponent extends Component<IProfileComponentProps, IProfileComponentState> {
 
-  static propTypes = {
+	static propTypes = {};
 
-  };
+	/**
+	 * Component constructor
+	 * @param  {object} props is an object properties of component
+	 */
+	constructor(props: IProfileComponentProps) {
+		super(props);
 
-  /**
-   * Component constructor
-   * @param  {object} props is an object properties of component
-   */
-  constructor (props: IProfileComponentProps) {
-    super(props);
+		// Defaul state
+		this.state = {};
 
-    // Defaul state
-    this.state = {
+		// Binding functions to `this`
 
-    };
+	}
 
-    // Binding functions to `this`
+	componentWillMount() {
+		this.props.loadPosts();
+		this.props.loadUserInfo();
 
-  }
+	}
 
-  componentWillMount () {
-    this.props.loadPosts();
-    this.props.loadUserInfo();
+	/**
+	 * Reneder component DOM
+	 * @return {react element} return the DOM which rendered by component
+	 */
+	render() {
 
-  }
+		/**
+		 * Component styles
+		 */
+		const styles = {
+			profile: {},
+			header: {},
+			content: {},
+			showcover: {
+				height: "450px"
+			},
+			avatar: {
+				border: "2px solid rgb(255, 255, 255)"
+			}
+		};
+		const {loadPosts, hasMorePosts, translate} = this.props;
+		const St = StreamComponent as any;
+		const posts = Map(this.props.posts);
+		return (
+			<div style={styles.profile}>
+				<div style={styles.header}>
+					<ProfileHeader tagLine={this.props.tagLine} avatar={this.props.avatar}
+								   isAuthedUser={this.props.isAuthedUser} banner={this.props.banner}
+								   fullName={this.props.name} followerCount={0} userId={this.props.userId}/>
+				</div>
+				{posts
+					? (<div style={styles.content}>
+						<div className="profile__title">
+							{translate!("profile.headPostsLabel", {userName: this.props.name})}
+						</div>
+						<div style={{height: "24px"}}></div>
 
-  /**
-   * Reneder component DOM
-   * @return {react element} return the DOM which rendered by component
-   */
-  render () {
+						<St
+							posts={posts}
+							loadStream={loadPosts}
+							hasMorePosts={hasMorePosts}
+							displayWriting={false}/>
+					</div>)
+					: (<div className="profile__title">
+						{translate!("profile.nothingSharedLabel")}
+					</div>)
+				}
 
-    /**
-     * Component styles
-     */
-    const styles = {
-      profile: {
-      },
-      header: {
-
-      },
-      content: {
-
-      },
-      showcover: {
-        height: "450px"
-      },
-      avatar: {
-        border: "2px solid rgb(255, 255, 255)"
-      }
-    };
-    const {loadPosts, hasMorePosts, translate} = this.props;
-    const St = StreamComponent as any;
-    const posts = Map(this.props.posts);
-    return (
-      <div style={styles.profile}>
-        <div style={styles.header}>
-          <ProfileHeader tagLine={this.props.tagLine} avatar={this.props.avatar} isAuthedUser={this.props.isAuthedUser} banner={this.props.banner} fullName={this.props.name} followerCount={0} userId={this.props.userId}/>
-        </div>
-        {posts
-        ? (<div style={styles.content}>
-          <div className="profile__title">
-            {translate!("profile.headPostsLabel", {userName: this.props.name})}
-               </div>
-          <div style={{ height: "24px" }}></div>
-
-          <St
-          posts={posts}
-          loadStream={loadPosts}
-          hasMorePosts={hasMorePosts}
-          displayWriting={false} />
-        </div>)
-        : (<div className="profile__title">
-                {translate!("profile.nothingSharedLabel")}
-               </div>)
-        }
-
-      </div>
-    );
-  }
+			</div>
+		);
+	}
 }
 
 /**
@@ -116,12 +109,12 @@ export class ProfileComponent extends Component<IProfileComponentProps,IProfileC
  * @return {object}          props of component
  */
 const mapDispatchToProps = (dispatch: any, ownProps: IProfileComponentProps) => {
-  const { userId } = ownProps.match.params;
-  return {
-    loadPosts: () => dispatch(postActions.dbGetPostsByUserId(userId)),
-    loadUserInfo: () => dispatch(userActions.dbGetUserInfoByUserId(userId, "header"))
+	const {userId} = ownProps.match.params;
+	return {
+		loadPosts: () => dispatch(postActions.dbGetPostsByUserId(userId)),
+		loadUserInfo: () => dispatch(userActions.dbGetUserInfoByUserId(userId, "header"))
 
-  };
+	};
 };
 
 /**
@@ -131,23 +124,43 @@ const mapDispatchToProps = (dispatch: any, ownProps: IProfileComponentProps) => 
  * @return {object}          props of component
  */
 const mapStateToProps = (state: Map<string, any>, ownProps: IProfileComponentProps) => {
-  const { userId } = ownProps.match.params;
-  const uid = state.getIn(["authorize", "uid"], 0);
-  const hasMorePosts = state.getIn(["post", "profile", "hasMoreData"]);
-  const posts = state.getIn(["post", "userPosts", userId]);
-  const userProfile = state.getIn(["user", "info", userId], {}) as Profile;
-  return {
-    translate: getTranslate(state.get("locale")),
-    avatar: userProfile.avatar,
-    name: userProfile.fullName, 
-    banner: userProfile.banner,
-    tagLine: userProfile.tagLine,
-    isAuthedUser: userId === uid,
-    userId,
-    posts,
-    hasMorePosts
+	const {userId} = ownProps.match.params;
+	const uid = state.getIn(["authorize", "uid"], 0);
+	const hasMorePosts = state.getIn(["post", "profile", "hasMoreData"]);
+	const posts = state.getIn(["post", "userPosts", userId]);
+	const user = state.getIn(["user", "info", userId], {});
+	const userProfile = state.getIn(["user", "info", userId], {}) as Profile;
 
-  };
+	// Sometimes, the user object will NOT be a Javascript object
+	// In this case, if it has the toJS method (it's still a Rexux state object), call toJS to make it a JS object
+	// Otherwise, just retrieve the property from the object
+	if (user.toJS) {
+		const fixedUser = user.toJS();
+
+		return {
+			translate: getTranslate(state.get("locale")),
+			avatar: fixedUser.avatar,
+			name: fixedUser.fullName,
+			banner: fixedUser.banner,
+			tagLine: fixedUser.tagLine,
+			isAuthedUser: userId === uid,
+			userId,
+			posts,
+			hasMorePosts
+		};
+	}
+
+	return {
+		translate: getTranslate(state.get("locale")),
+		avatar: userProfile.avatar,
+		name: userProfile.fullName,
+		banner: userProfile.banner,
+		tagLine: userProfile.tagLine,
+		isAuthedUser: userId === uid,
+		userId,
+		posts,
+		hasMorePosts
+	};
 };
 
 // - Connect component to redux store

@@ -1,3 +1,30 @@
 {
-  "presets": ["env", "react"]
+    "presets": [
+        ["@babel/env", {
+            "targets": {
+                "esmodules": true
+            }
+        }],
+        "@babel/react",
+        "@babel/preset-typescript"
+    ],
+    "plugins": [
+        "transform-class-properties",
+        ["module-resolver", {
+            "cwd": "packagejson",
+            "alias": {
+                "^src/(.+)": "./src/\\1",
+                "^api/(.+)": "./src/api/\\1",
+                "^components/(.+)": "./src/components/\\1",
+                "^constants/(.+)": "./src/constants/\\1",
+                "^core/(.+)": "./src/core/\\1",
+                "^data/(.+)": "./src/data/\\1",
+                "^layouts/(.+)": "./src/layouts/\\1",
+                "^models/(.+)": "./src/models/\\1",
+                "^routes/(.+)": "./src/routes/\\1",
+                "^store/(.+)": "./src/store/\\1"
+            }
+        }],
+        ["@babel/plugin-proposal-decorators", { "legacy": true }]
+    ],
 }
