@@ -13,7 +13,8 @@
     "test": "mocha",
     "eject": "react-scripts-ts eject",
     "style-check": "tslint --fix -c tslint.json 'src/**/*.ts' 'src/**/*.tsx'",
-    "build-docs": "jsdoc src -c .jsdoc.conf.json -r -d docs/"
+    "build-docs": "jsdoc src -c .jsdoc.conf.json -r -d docs/",
+    "staging-deploy": "npm run build && firebase deploy --only hosting --project staging"
   },
   "repository": {
     "type": "git",
