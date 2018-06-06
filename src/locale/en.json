@@ -2,7 +2,7 @@
      "sidebar": {
          "home": "Home",
          "profile": "Profile",
-         "people": "People",
+         "people": "Add Friends",
          "settings": "Settings",
          "sendFeedback": "Send Feedback"
 
@@ -71,8 +71,8 @@
          "chooseBanerDialogTitle": "Choose an baner image"
      },
      "people": {
-         "findPeopleTab": "FIND PEOPLE",
-         "followingTab": "FOLLOWING",
+         "findPeopleTab": "Add New Friends",
+         "followingTab": "Current Friends",
          "followersTab": "FOLLOWERS",
          "suggestionsForYouLabel": "Suggestions for you",
          "nothingToShowLabel": "Nothing to show! :(",
