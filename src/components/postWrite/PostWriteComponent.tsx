@@ -238,7 +238,8 @@ export class PostWriteComponent extends Component<IPostWriteComponentProps, IPos
           disableSharing: disableSharing,
           postTypeId: 1,
           score: 0,
-          viewCount: 0
+          viewCount: 0,
+          time: 1
         }, onRequestClose);
       } else {
         post!({
@@ -250,7 +251,8 @@ export class PostWriteComponent extends Component<IPostWriteComponentProps, IPos
           disableSharing: disableSharing,
           postTypeId: 0,
           score: 0,
-          viewCount: 0
+          viewCount: 0,
+          time: 1
         }, onRequestClose);
       }
     } else { // In edit status we pass post to update functions
