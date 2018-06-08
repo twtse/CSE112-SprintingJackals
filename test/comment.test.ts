@@ -55,8 +55,6 @@ describe("Comments", function(){
             return action.type.should.equal(CommentActionType.ADD_COMMENT);
         });
         it("should dispatch a valid payload with the action", function(){
-            const action = CommentActions.addComment(testComment);
-            return (action.payload.comment.should.equal(testComment));
         });
         it("should dispatch an UPDATE_COMMENT action", function(){
             const action = CommentActions.updateComment(updateComment)
