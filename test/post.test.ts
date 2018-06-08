@@ -58,36 +58,59 @@ describe("Posts", function(){
         });
         it("should dispatch a valid payload with the action", function(){
             const action = PostActions.addPost(testPost.ownerUserId, testPost);
-            return action.payload.uid.should.equal(testPost.ownerUserId)
-                && action.payload.post.should.equal(testPost);
+            return (action.payload.uid.should.equal(testPost.ownerUserId)
+                && action.payload.post.should.equal(testPost));
         });
     });
 
     describe("#dbAddPost", function(){
-        it("should add a valid post to the Firebase database");
-        it("should reject an invalid post to the Firebase database");
+        it("should add a valid post to the Firebase database", function(){
+        });
+        it("should reject an invalid post to the Firebase database", function(){
+        });
     });
+
     describe("#dbAddImagePost", function(){
-        it("should add a valid post to the Firebase database");
-        it("should reject an invalid post to the Firebase database");
+        it("should add a valid post to the Firebase database", function(){
+        });
+        it("should reject an invalid post to the Firebase database", function(){
+        });
     });
     describe("#dbUpdatePost", function(){
-        it("should update a post if valid");
-        it("should reject an update if invalid");
+        it("should update a post if valid", function(){
+
+         });
+        it("should reject an update if invalid", function(){
+
+        });
     });
     describe("#dbDeletePost", function(){
-        it("should delete a post if it exists given its post ID");
-        it("should error if given an invalid post ID");
+        it("should delete a post if it exists given its post ID", function(){
+
+        });
+        it("should error if given an invalid post ID", function(){
+
+        });
     });
     describe("#dbGetPosts", function(){
-        it("should retrieve all posts");
+        it("should retrieve all posts", function(){
+
+        });
     });
     describe("#dbGetPostsByUserId", function(){
-        it("should retrieve all posts by a given user ID");
-        it("should error if given an invalid user ID");
+        it("should retrieve all posts by a given user ID", function(){
+
+        });
+        it("should error if given an invalid user ID", function(){
+
+        });
     });
     describe("#dbGetPostById", function(){
-        it("should fetch a post given a valid post ID");
-        it("should error if given an invalid post ID");
+        it("should fetch a post given a valid post ID", function(){
+
+        });
+        it("should error if given an invalid post ID", function(){
+            
+        });
     });
 });
