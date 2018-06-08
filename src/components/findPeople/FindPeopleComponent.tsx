@@ -7,13 +7,14 @@ import Button from "material-ui/Button";
 import TextField, { TextFieldProps } from "material-ui/TextField";
 import InfiniteScroll from "react-infinite-scroller";
 import { getTranslate, getActiveLanguage } from "react-localize-redux";
-import {Map} from "immutable";
+import { Map } from "immutable";
 
 // - Import app components
 import UserBoxList from "components/userBoxList";
 import LoadMoreProgressComponent from "layouts/loadMoreProgress";
 
 // - Import API
+import { FriendService } from "data/firestoreClient/services/friends";
 
 // - Import actions
 import * as userActions from "store/actions/userActions";
@@ -30,58 +31,78 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
      * Component constructor
      * @param  {object} props is an object properties of component
      */
-  constructor (props: IFindPeopleComponentProps) {
-    super(props);
+	constructor(props: IFindPeopleComponentProps) {
+		super(props);
 
-        // Defaul state
-    this.state = {
+		// Default state
+		this.state = {
+			friendIdString: ""
+		};
 
-    };
+		this.handleFriendIdChange = this.handleFriendIdChange.bind(this);
+		this.handleAddFriend = this.handleAddFriend.bind(this);
+	}
 
-  }
+	handleFriendIdChange = (event: any) => {
+		const friendId = event.target.value;
 
-  /**
-   * Scroll loader
-   */
-  scrollLoad = (page: number) => {
-    const {loadPeople} = this.props;
-    loadPeople!(page, 10);
-  }
+		this.setState({
+			friendIdString: friendId
+		});
+	}
+
+	handleAddFriend = () => {
+		const { friendIdString } = this.state;
+        const fs = new FriendService();
+
+        fs.sendFriendRequest(this.props.userId, friendIdString);
+	}
+
+	/**
+	 * Scroll loader
+	 */
+	scrollLoad = (page: number) => {
+		const { loadPeople } = this.props;
+		loadPeople!(page, 10);
+	}
 
     /**
      * Reneder component DOM
      * @return {react element} return the DOM which rendered by component
      */
-  render () {
-    const {hasMorePeople, translate} = this.props;
-    const peopleInfo = Map<string, UserTie>(this.props.peopleInfo!);
+	render() {
+		const { hasMorePeople, translate } = this.props;
+		const peopleInfo = Map<string, UserTie>(this.props.peopleInfo!);
 
-    const textFieldStyle = {
-        width: "100%",
-        backgroundColor: "white",
-        color: "black",
-        paddingLeft: "5px"
-    };
+		const textFieldStyle = {
+			width: "100%",
+			backgroundColor: "white",
+			color: "black",
+			paddingLeft: "5px"
+		};
 
-    const buttonStyle = {
-        display: "block",
-        marginLeft: "auto",
-        marginRight: "auto"
-    };
+		const buttonStyle = {
+			display: "block",
+			marginLeft: "auto",
+			marginRight: "auto"
+		};
 
-    return (
-            <div>
-                <TextField style={textFieldStyle} margin="normal" type="string" placeholder="Friend ID">
-                </TextField>
-                <div>
-                    <br></br>
-                </div>
-                <Button style={buttonStyle} variant="raised">
-                    Add as Friend
+		return (
+			<div>
+				<TextField
+					id="friend-id-field"
+					style={textFieldStyle}
+					margin="normal"
+					type="string"
+					placeholder="Friend ID"
+					onChange={this.handleFriendIdChange}>
+				</TextField>
+				<Button style={buttonStyle} variant="raised" onClick={this.handleAddFriend}>
+					Add as Friend
                 </Button>
-            </div>
-    );
-  }
+			</div>
+		);
+	}
 }
 
 /**
@@ -91,9 +112,9 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
  * @return {object}          props of component
  */
 const mapDispatchToProps = (dispatch: any, ownProps: IFindPeopleComponentProps) => {
-  return {
-    loadPeople: (page: number, limit: number) => dispatch(userActions.dbGetPeopleInfo(page, limit))
-  };
+	return {
+		loadPeople: (page: number, limit: number) => dispatch(userActions.dbGetPeopleInfo(page, limit))
+	};
 };
 
 /**
@@ -103,14 +124,16 @@ const mapDispatchToProps = (dispatch: any, ownProps: IFindPeopleComponentProps) 
  * @return {object}          props of component
  */
 const mapStateToProps = (state: any, ownProps: IFindPeopleComponentProps) => {
-  const people = state.getIn(["user", "people"]);
-  const hasMorePeople = state.getIn(["user", "people", "hasMoreData" ], true);
-  const info: Map<string, UserTie> = state.getIn(["user", "info"]);
-  return {
-    translate: getTranslate(state.get("locale")),
-    peopleInfo: info,
-    hasMorePeople
-  };
+    const uid = state.getIn(["authorize", "uid"]);
+	const people = state.getIn(["user", "people"]);
+	const hasMorePeople = state.getIn(["user", "people", "hasMoreData"], true);
+	const info: Map<string, UserTie> = state.getIn(["user", "info"]);
+	return {
+        userId: uid,
+		translate: getTranslate(state.get("locale")),
+		peopleInfo: info,
+		hasMorePeople
+	};
 };
 
 // - Connect component to redux store

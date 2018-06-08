@@ -34,4 +34,6 @@ export interface IPeopleComponentProps {
    * Translate to locale string
    */
   translate?: (state: any) => any;
+
+  uid: string;
 }
