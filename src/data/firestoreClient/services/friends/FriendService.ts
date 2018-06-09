@@ -2,9 +2,9 @@ import { db } from "data/firestoreClient";
 import { IFriendService } from "./IFriendService";
 
 import * as moment from "moment";
-import { provider } from "socialEngine";
+import { provider } from "../../../../socialEngine";
 import { IUserTieService } from "core/services/circles";
-import { Notification } from "src/core/domain/notifications";
+import { Notification } from "core/domain/notifications";
 import { INotificationService } from "core/services/notifications";
 import { SocialProviderTypes } from "core/socialProviderTypes";
 
