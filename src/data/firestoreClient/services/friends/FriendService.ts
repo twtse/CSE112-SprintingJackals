@@ -3,6 +3,31 @@ import { IFriendService } from "./IFriendService";
 
 import * as moment from "moment";
 
+const buildBase64Set = () => {
+    let set = [] as string[];
+    // Add numbers 0-9
+    for (let i = 0; i < 10; i++) {
+        set.push(i.toString());
+    }
+    // Add characters A-Z
+    for (let i = 0; i < 26; i++) {
+        // ASCII 65 = A
+        set.push(String.fromCharCode(65 + i));
+    }
+    // Add characters a-z
+    for (let i = 0; i < 26; i++) {
+        // ASCII 97 = a
+        set.push(String.fromCharCode(97 + i));
+    }
+    // Add - and _
+    set.push("-");
+    set.push("_");
+
+    return set;
+};
+
+const BASE_64_SET = buildBase64Set();
+
 export class FriendService implements IFriendService {
     public sendFriendRequest = (userId: string, friendId: string) => {
         return new Promise<string>( async (resolve, reject) => {
@@ -14,14 +39,21 @@ export class FriendService implements IFriendService {
                 reject("User ID " + friendId + " does not exist.");
             }
 
+            // Generate a request ID
             let requestId = "";
             for (let i = 0; i < userId.length; i++) {
-                requestId += String.fromCharCode(userId.charCodeAt(i) ^ friendId.charCodeAt(i));
+                // XOR the strings to get a unique identifier
+                const xorResult = userId.charCodeAt(i) ^ friendId.charCodeAt(i);
+
+                const value = xorResult % 64;
+                const remainder = Math.floor(xorResult / 64);
+
+                requestId += BASE_64_SET[value] + BASE_64_SET[remainder];
             }
 
+            console.log(requestId);
             db.collection("friendRequests").doc(requestId).get()
             .then(request => {
-                console.log(request);
                 if (request.exists) {
                     console.log("Request exists!");
                     // Make them friends
