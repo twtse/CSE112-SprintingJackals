@@ -7,6 +7,9 @@ import { IUserTieService } from "core/services/circles";
 import { Notification } from "core/domain/notifications";
 import { INotificationService } from "core/services/notifications";
 import { SocialProviderTypes } from "core/socialProviderTypes";
+import {inject} from "inversify";
+import {UserTieService} from "data/firestoreClient/services/circles/UserTieService";
+import {NotificationService} from "data/firestoreClient/services";
 
 /**
  * Creates an array of 64 characters: 0-9, A-Z, a-z, '-', and '_'.
@@ -72,10 +75,19 @@ function getFriendName(userId: string): Promise<string> {
     });
 }
 
-const userTieService: IUserTieService = provider.get<IUserTieService>(SocialProviderTypes.UserTieService);
-const notificationService: INotificationService = provider.get<INotificationService>(SocialProviderTypes.NotificationService);
 
 export class FriendService implements IFriendService {
+	userTieService: UserTieService;
+	notificationService: NotificationService;
+
+	constructor(
+		@inject(SocialProviderTypes.UserTieService) private _userTieService: UserTieService,
+		@inject(SocialProviderTypes.NotificationService) private _notificationService: NotificationService
+	){
+		this.userTieService = _userTieService;
+		this.notificationService = _notificationService;
+	}
+
     public sendFriendRequest = (userId: string, friendId: string) => {
         return new Promise<string>( async (resolve, reject) => {
             // Verify that the friend ID belongs to a valid user
@@ -122,8 +134,8 @@ export class FriendService implements IFriendService {
                     const friendDefaultCircle = await getDefaultCircle(friendId);
 
                     // Make them friends
-                    userTieService.tieUseres({userId: userId}, {userId: friendId}, [userDefaultCircle]);
-                    userTieService.tieUseres({userId: friendId}, {userId: userId}, [friendDefaultCircle]);
+                    this.userTieService.tieUseres({userId: userId}, {userId: friendId}, [userDefaultCircle]);
+					this.userTieService.tieUseres({userId: friendId}, {userId: userId}, [friendDefaultCircle]);
 
                     // Create notification objects for each user
                     const userFullName = await getFriendName(userId);
@@ -145,8 +157,8 @@ export class FriendService implements IFriendService {
                     };
 
                     // Notify both users
-                    notificationService.addNotification(userNotification);
-                    notificationService.addNotification(friendNotification);
+                    this.notificationService.addNotification(userNotification);
+                    this.notificationService.addNotification(friendNotification);
 
                     // Delete the friend request
                     request.ref.delete()
