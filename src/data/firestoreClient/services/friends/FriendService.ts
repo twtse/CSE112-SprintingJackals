@@ -88,7 +88,7 @@ export class FriendService implements IFriendService {
 		this.notificationService = _notificationService;
 	}
 
-    public sendFriendRequest = (userId: string, friendId: string) => {
+    sendFriendRequest(userId: string, friendId: string){
         return new Promise<string>( async (resolve, reject) => {
             // Verify that the friend ID belongs to a valid user
             const user = await db.collection("userInfo").doc(friendId).get();

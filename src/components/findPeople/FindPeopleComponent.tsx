@@ -21,6 +21,10 @@ import * as userActions from "store/actions/userActions";
 import { IFindPeopleComponentProps } from "./IFindPeopleComponentProps";
 import { IFindPeopleComponentState } from "./IFindPeopleComponentState";
 import { UserTie } from "core/domain/circles/userTie";
+import {provider} from "src/socialEngine";
+import {SocialProviderTypes} from "core/socialProviderTypes";
+import {ICircleService} from "core/services/circles";
+import {IFriendService} from "data/firestoreClient/services/friends/IFriendService";
 
 /**
  * Create component class
@@ -53,9 +57,9 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
 
 	handleAddFriend = () => {
 		const { friendIdString } = this.state;
-        const fs = new FriendService();
+		const friendService: IFriendService = provider.get<IFriendService>(SocialProviderTypes.FriendService);
 
-        fs.sendFriendRequest(this.props.userId, friendIdString);
+		friendService.sendFriendRequest(this.props.userId, friendIdString);
 	}
 
 	/**
