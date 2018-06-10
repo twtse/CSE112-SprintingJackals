@@ -7,7 +7,7 @@ import { IUserTieService } from "core/services/circles";
 import { Notification } from "core/domain/notifications";
 import { INotificationService } from "core/services/notifications";
 import { SocialProviderTypes } from "core/socialProviderTypes";
-import {inject} from "inversify";
+import {inject, injectable} from "inversify";
 import {UserTieService} from "data/firestoreClient/services/circles/UserTieService";
 import {NotificationService} from "data/firestoreClient/services";
 
@@ -75,6 +75,7 @@ function getFriendName(userId: string): Promise<string> {
     });
 }
 
+@injectable()
 export class FriendService implements IFriendService {
 	userTieService: UserTieService;
 	notificationService: NotificationService;
