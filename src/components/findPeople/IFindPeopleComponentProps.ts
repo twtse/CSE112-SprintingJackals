@@ -25,4 +25,5 @@ export interface IFindPeopleComponentProps {
    */
   translate?: (state: any) => any;
 
+  userId: string;
 }

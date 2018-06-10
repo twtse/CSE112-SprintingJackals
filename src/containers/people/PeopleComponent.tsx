@@ -67,17 +67,12 @@ export class PeopleComponent extends Component<IPeopleComponentProps,IPeopleComp
     switch (value) {
       case 0:
         goTo!("/people");
-        setHeaderTitle!("People");
+        setHeaderTitle!("Add New Friends");
         break;
       case 1:
         goTo!("/people/circles");
-        setHeaderTitle!("Circles");
+        setHeaderTitle!("Current Friends");
         break;
-      case 2:
-        goTo!("/people/followers");
-        setHeaderTitle!("Followers");
-        break;
-
       default:
         break;
     }
@@ -89,13 +84,10 @@ export class PeopleComponent extends Component<IPeopleComponentProps,IPeopleComp
     switch (tab) {
       case undefined:
       case "":
-        setHeaderTitle!("People");
+        setHeaderTitle!("Add New Friends");
         break;
       case "circles":
-        setHeaderTitle!("Circles");
-        break;
-      case "followers":
-        setHeaderTitle!("Followers");
+        setHeaderTitle!("Current Friends");
         break;
       default:
         break;
@@ -138,10 +130,9 @@ export class PeopleComponent extends Component<IPeopleComponentProps,IPeopleComp
        >
         <Tab label={translate!("people.findPeopleTab")} />
         <Tab label={translate!("people.followingTab")} />
-        <Tab label={translate!("people.followersTab")} />
       </Tabs>
       </AppBar>
-      {tabIndex === 0 && <TabContainer>{circlesLoaded ? <FindPeople /> : ""}</TabContainer>}
+      {tabIndex === 0 && <TabContainer>{circlesLoaded ? <FindPeople userId={this.props.uid}/> : ""}</TabContainer>}
       {tabIndex === 1 && <TabContainer>
         {circlesLoaded ? <Following/> : ""}
         {circlesLoaded ? <YourCircles/> : ""}
@@ -189,12 +180,10 @@ const mapDispatchToProps = (dispatch: any, ownProps: IPeopleComponentProps) => {
  * @return {object}          props of component
  */
 const mapStateToProps = (state: Map<string, any>, ownProps: IPeopleComponentProps) => {
-
   return {
     translate: getTranslate(state.get("locale")),
     uid: state.getIn(["authorize", "uid"], 0),
     circlesLoaded: state.getIn(["circle", "loaded"])
-
   };
 };
 
