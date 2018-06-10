@@ -15,5 +15,6 @@ deploy:
     skip_cleanup: true
     provider: firebase
     token: "1/FGdApIEIqn6C3OKGRfv7dGdJf2WqAbV_Dp-KN9GMUWI"
+    project: "default"
     on:
         branch: master
