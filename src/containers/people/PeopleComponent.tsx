@@ -132,7 +132,7 @@ export class PeopleComponent extends Component<IPeopleComponentProps,IPeopleComp
         <Tab label={translate!("people.followingTab")} />
       </Tabs>
       </AppBar>
-      {tabIndex === 0 && <TabContainer>{circlesLoaded ? <FindPeople /> : ""}</TabContainer>}
+      {tabIndex === 0 && <TabContainer>{circlesLoaded ? <FindPeople userId={this.props.uid}/> : ""}</TabContainer>}
       {tabIndex === 1 && <TabContainer>
         {circlesLoaded ? <Following/> : ""}
         {circlesLoaded ? <YourCircles/> : ""}
@@ -180,12 +180,10 @@ const mapDispatchToProps = (dispatch: any, ownProps: IPeopleComponentProps) => {
  * @return {object}          props of component
  */
 const mapStateToProps = (state: Map<string, any>, ownProps: IPeopleComponentProps) => {
-
   return {
     translate: getTranslate(state.get("locale")),
     uid: state.getIn(["authorize", "uid"], 0),
     circlesLoaded: state.getIn(["circle", "loaded"])
-
   };
 };
 

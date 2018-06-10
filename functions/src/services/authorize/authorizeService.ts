@@ -23,13 +23,14 @@ const appName = functions.config().setting.appname;
  * Handle on user create
  */
 export const onUserCreate = functions.auth.user().onCreate((event) => {
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<void>(async (resolve, reject) => {
         const user = event.data;
         const followingCircle = new Circle();
         followingCircle.creationDate = moment().unix();
         followingCircle.name = `Following`;
         followingCircle.ownerId = user.uid;
         followingCircle.isSystem = true;
+        await firestoreDB.collection("users").doc(user.uid); // this might fix user pointers? TODO: verify
         return firestoreDB.collection(`users`).doc(user.uid).collection(`circles`).add({ ...followingCircle })
             .then((result) => {
                 resolve();
