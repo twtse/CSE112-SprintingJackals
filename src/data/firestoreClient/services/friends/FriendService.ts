@@ -75,7 +75,6 @@ function getFriendName(userId: string): Promise<string> {
     });
 }
 
-
 export class FriendService implements IFriendService {
 	userTieService: UserTieService;
 	notificationService: NotificationService;
@@ -83,12 +82,12 @@ export class FriendService implements IFriendService {
 	constructor(
 		@inject(SocialProviderTypes.UserTieService) private _userTieService: UserTieService,
 		@inject(SocialProviderTypes.NotificationService) private _notificationService: NotificationService
-	){
+	) {
 		this.userTieService = _userTieService;
 		this.notificationService = _notificationService;
 	}
 
-    sendFriendRequest(userId: string, friendId: string){
+    sendFriendRequest(userId: string, friendId: string) {
         return new Promise<string>( async (resolve, reject) => {
             // Verify that the friend ID belongs to a valid user
             const user = await db.collection("userInfo").doc(friendId).get();
