@@ -39,6 +39,8 @@ export class ProfileComponent extends Component<IProfileComponentProps, IProfile
 		// Defaul state
 		this.state = {};
 
+		this.props.setHeaderTitle(this.props.name);
+
 		// Binding functions to `this`
 
 	}
@@ -46,7 +48,6 @@ export class ProfileComponent extends Component<IProfileComponentProps, IProfile
 	componentWillMount() {
 		this.props.loadPosts();
 		this.props.loadUserInfo();
-
 	}
 
 	/**
@@ -54,7 +55,6 @@ export class ProfileComponent extends Component<IProfileComponentProps, IProfile
 	 * @return {react element} return the DOM which rendered by component
 	 */
 	render() {
-
 		/**
 		 * Component styles
 		 */
@@ -77,7 +77,7 @@ export class ProfileComponent extends Component<IProfileComponentProps, IProfile
 				<div style={styles.header}>
 					<ProfileHeader tagLine={this.props.tagLine} avatar={this.props.avatar}
 								   isAuthedUser={this.props.isAuthedUser} banner={this.props.banner}
-								   fullName={this.props.name} followerCount={0} userId={this.props.userId}/>
+								   fullName={this.props.name} followerCount={0} userId={this.props.userId} />
 				</div>
 				{posts
 					? (<div style={styles.content}>
@@ -112,8 +112,8 @@ const mapDispatchToProps = (dispatch: any, ownProps: IProfileComponentProps) => 
 	const {userId} = ownProps.match.params;
 	return {
 		loadPosts: () => dispatch(postActions.dbGetPostsByUserId(userId)),
-		loadUserInfo: () => dispatch(userActions.dbGetUserInfoByUserId(userId, "header"))
-
+		loadUserInfo: () => dispatch(userActions.dbGetUserInfoByUserId(userId, "header")),
+		setHeaderTitle : (title: string) => dispatch(globalActions.setHeaderTitle(title))
 	};
 };
 
@@ -132,7 +132,7 @@ const mapStateToProps = (state: Map<string, any>, ownProps: IProfileComponentPro
 	const userProfile = state.getIn(["user", "info", userId], {}) as Profile;
 
 	// Sometimes, the user object will NOT be a Javascript object
-	// In this case, if it has the toJS method (it's still a Rexux state object), call toJS to make it a JS object
+	// In this case, if it has the toJS method (it's still a Redux state object), call toJS to make it a JS object
 	// Otherwise, just retrieve the property from the object
 	if (user.toJS) {
 		const fixedUser = user.toJS();

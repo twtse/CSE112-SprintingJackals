@@ -110,7 +110,7 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
 }
 
 /**
- * Map dispatch to props
+ * Map dispatch to propsl
  * @param  {func} dispatch is the function to dispatch action to reducers
  * @param  {object} ownProps is the props belong to component
  * @return {object}          props of component
