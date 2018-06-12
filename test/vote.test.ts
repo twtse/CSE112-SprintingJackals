@@ -35,24 +35,17 @@ describe("Votes", function(){
     });
 
     describe("#dbAddVote", function(){
-        it("should add a valid vote to the comment or post in the database with valid id", function(){
-
-        });
-        it("should error if comment or post has invalid post/comment id", function(){
-        });
+        it("should add a valid vote to the comment or post in the database with valid id");
+        it("should error if comment or post has invalid post/comment id");
     });
     
     describe("#dbGetVotes", function(){
-        it("should get all votes from the database for the comment or post", function(){
-        });
-        it("should error if comment or post has invalid post/comment id", function(){
-        });
+        it("should get all votes from the database for the comment or post");
+        it("should error if comment or post has invalid post/comment id");
     });
     
     describe("#dbDeleteVote", function(){
-        it("should delete a vote from the database for the comment or post", function(){
-        });
-        it("should error if comment or post has invalid post/comment id", function(){
-        });
+        it("should delete a vote from the database for the comment or post");
+        it("should error if comment or post has invalid post/comment id");
     });
 });

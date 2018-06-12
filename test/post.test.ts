@@ -31,7 +31,6 @@ describe("Posts", function () {
 		deleteDate: currentTime + 100000, // Delete in roughly a day
 		disableComments: false,
 		disableSharing: false,
-		id: "pretend_this_is_random",
 		image: "", // We'll assume its a text post
 		ownerAvatar: "https://lh6.googleusercontent.com/-TOqPuJW4Ym4/AAAAAAAAAAI/AAAAAAAAAbM/NRGWb45ShXk/photo.jpg",
 		ownerDisplayName: "Zachery Johnson",
@@ -53,12 +52,24 @@ describe("Posts", function () {
 
 	let postComponent = new PostComponent(postProps);
 
+	// Track all created posts
+	let testPostIds = [] as string[];
+
+	// Delete all created posts after running tests
+	// Note: this only works if the delete function works, but it's better than nothing
+	afterEach(function(){
+		for (let id of testPostIds) {
+			postService.deletePost(id)
+				.catch(() => console.log("Could not delete post " + id));
+		}
+	});
+
 	describe("Redux Actions", function () {
 		it("should dispatch an ADD_POST action", function () {
 			const action = postActions.addPost(testPost.get("ownerUserId"), testPost);
 			return action.type.should.equal(PostActionType.ADD_POST);
 		});
-		it("should dispatch a valid payload with the action", function () {
+		it("should dispatch a valid payload with the ADD_POST action", function () {
 			const action = postActions.addPost(testPost.get("ownerUserId"), testPost);
 			return (action.payload.uid.should.equal(testPost.get("ownerUserId"))
 				&& action.payload.post.should.equal(testPost));
@@ -66,50 +77,65 @@ describe("Posts", function () {
 	});
 
 	describe("Post Service", function () {
+		this.slow(3000);
 		describe("#addPost", function() {
-			it("should accept a valid post", function() {
-				return postService.addPost(testPostJS).should.be.fulfilled;
+			it("should accept a valid post", async function() {
+				return await postService.addPost(testPostJS)
+					.then(postId => {
+						testPostIds.push(postId);
+						return postId.should.not.be.null;
+					})
+					.catch(err => {
+						return false;
+					});
 			});
-			it("should reject an invalid post", function() {
+			it("should reject an invalid post (empty object)", async function() {
+				return postService.addPost({}).should.be.rejected;
+			});
+			it("should reject an invalid post (undefined)", async function() {
 				return postService.addPost(undefined).should.be.rejected;
 			});
 		});
-
-		it("#updatePost");
-		it("#deletePost");
+		describe("#deletePost", function() {
+			it("should delete an existing post", async function(){
+				const postId = await postService.addPost(testPostJS);
+				return postService.deletePost(postId).should.be.fulfilled;
+			});
+		});
 		it("#getPosts");
 		it("#getPostsByUserId");
 		it("#getPostById");
-	});
 
-	describe("Post Actions", function() {
-		describe("#dbAddPost", function () {
-			it("should add a valid post to the Firebase database");
-			it("should reject an invalid post to the Firebase database");
-		});
+		describe("#updatePost", function(){
+			it("should update an existing post with new text", async function (){
+				const newText = "Updated body text";
 
-		describe("#dbAddImagePost", function () {
-			it("should add a valid post to the Firebase database");
-			it("should reject an invalid post to the Firebase database");
-		});
-		describe("#dbUpdatePost", function () {
-			it("should update a post if valid");
-			it("should reject an update if invalid");
-		});
-		describe("#dbDeletePost", function () {
-			it("should delete a post if it exists given its post ID");
-			it("should error if given an invalid post ID");
-		});
-		describe("#dbGetPosts", function () {
-			it("should retrieve all posts");
-		});
-		describe("#dbGetPostsByUserId", function () {
-			it("should retrieve all posts by a given user ID");
-			it("should error if given an invalid user ID");
-		});
-		describe("#dbGetPostById", function () {
-			it("should fetch a post given a valid post ID");
-			it("should error if given an invalid post ID");
+				// Create and push a test post
+				const postId = await postService.addPost(testPostJS);
+				if(postId == null){
+					console.error("Could not add test post to database; failing test");
+					return false;
+				}
+
+				testPostIds.push(postId);
+
+				// Fetch the test post
+				const post = await postService.getPostById(postId);
+				if(post == null){
+					console.error("Could not retrieve post #" + postId + " from database; failing test");
+					return false;
+				}
+
+				// Update the test post
+				post.body = newText;
+				await postService.updatePost(post);
+
+				// Fetch the updated post
+				const updatedPost = await postService.getPostById(post.id);
+
+				// Verify that the body was changed
+				return updatedPost.body.should.equal(newText);
+			});
 		});
 	});
 });
