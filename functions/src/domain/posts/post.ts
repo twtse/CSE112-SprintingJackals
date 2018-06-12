@@ -169,5 +169,12 @@ export class Post extends BaseDomain {
      * @memberof Post
      */
   public deleted?: boolean;
+    /**
+     * Time til post gone
+     * 
+     * @type {number}
+     * @memberof Post
+     */
+  public time?: number;
 
 }
