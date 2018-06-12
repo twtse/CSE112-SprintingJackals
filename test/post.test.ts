@@ -41,7 +41,6 @@ describe("Posts", function () {
 
 	const postService = new PostService();
 
-
 	// Create an empty object that will populate the post component with info
 	let postProps: IPostComponentProps = {
 		post: testPost,
@@ -96,15 +95,56 @@ describe("Posts", function () {
 				return postService.addPost(undefined).should.be.rejected;
 			});
 		});
+
 		describe("#deletePost", function() {
 			it("should delete an existing post", async function(){
 				const postId = await postService.addPost(testPostJS);
 				return postService.deletePost(postId).should.be.fulfilled;
 			});
 		});
-		it("#getPosts");
-		it("#getPostsByUserId");
-		it("#getPostById");
+
+		describe("#getPosts", function(){
+			it("should fetch all posts made by the user's friends", async function(){
+				const postListObj = await postService.getPosts(testPost.get("ownerUserId"), "", 0, 10);
+				return postListObj.posts.should.have.length.greaterThan(0);
+			});
+		});
+
+		describe("#getPostsByUserId", function() {
+			it("should return all of a user's posts given a valid user ID", async function(){
+				const postListObj = await postService.getPosts(testPost.get("ownerUserId"), "", 0, 10);
+				return postListObj.posts.should.have.length.greaterThan(0);
+			});
+			it("should not return any posts if given an invalid user ID", async function(){
+				const postListObj = await postService.getPosts("bad_user_id", "", 0, 10);
+				return postListObj.posts.should.have.length(0);
+			});
+		});
+
+		describe("#getPostById", function(){
+			it("should return a post given a valid post ID", async function(){
+				const postId = await postService.addPost(testPostJS);
+				if(postId == null){
+					console.error("Could not add test post to database; failing test");
+					return false;
+				}
+
+				testPostIds.push(postId);
+
+				const post = await postService.getPostById(postId);
+
+				// Since the retrieved post object has an ID (and our test post doesn't)
+				// we'll remove the property from the retrieved post object
+				delete post.id;
+
+				return post.should.be.deep.equal(testPostJS);
+			});
+			it("should not return a post if given an invalid post ID", async function(){
+				const post = await postService.getPostById("bad_post_id");
+
+				return post.should.be.deep.equal({});
+			});
+		});
 
 		describe("#updatePost", function(){
 			it("should update an existing post with new text", async function (){
@@ -132,6 +172,9 @@ describe("Posts", function () {
 
 				// Fetch the updated post
 				const updatedPost = await postService.getPostById(post.id);
+
+				// Sometimes updated post doesn't delete? This should catch it
+				testPostIds.push(updatedPost.id);
 
 				// Verify that the body was changed
 				return updatedPost.body.should.equal(newText);

@@ -35,7 +35,7 @@ export class PostService implements IPostService {
 					reject(new SocialError(error.code, error.message));
 				});
 		});
-	};
+	}
 
 	/**
 	 * Updare post
@@ -54,7 +54,7 @@ export class PostService implements IPostService {
 					reject(new SocialError(error.code, error.message));
 				});
 		});
-	};
+	}
 
 	/**
 	 * Delete post
@@ -73,7 +73,7 @@ export class PostService implements IPostService {
 					reject(new SocialError(error.code, error.message));
 				});
 		});
-	};
+	}
 
 	/**
 	 * Get the posts of tie users with the user with {userId} identifier and it's owen posts
@@ -125,7 +125,7 @@ export class PostService implements IPostService {
 					reject(new SocialError(error.code, error.message));
 				});
 		});
-	};
+	}
 
 	/**
 	 * Get list of post by user identifier
@@ -162,7 +162,7 @@ export class PostService implements IPostService {
 			});
 
 		});
-	};
+	}
 
 	/**
 	 * Get post by the post identifier
@@ -173,6 +173,9 @@ export class PostService implements IPostService {
 
 			let postsRef = db.doc(`posts/${postId}`);
 			postsRef.get().then((snapshot) => {
+				if (!snapshot.exists) {
+					return resolve({});
+				}
 				let newPost = snapshot.data() || {};
 				let post: Post = {
 					id: postId,
@@ -185,7 +188,7 @@ export class PostService implements IPostService {
 				});
 
 		});
-	};
+	}
 
 	/**
 	 * Pagination calculation
@@ -212,6 +215,6 @@ export class PostService implements IPostService {
 		const newLastPostId = sortedObjects && sortedObjects.length > 0 ? Object.keys(sortedObjects[sortedObjects.length - 1])[0] : "";
 
 		return {posts: sortedObjects, newLastPostId};
-	};
+	}
 
 }
