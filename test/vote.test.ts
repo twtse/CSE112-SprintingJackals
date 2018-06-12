@@ -36,6 +36,7 @@ describe("Votes", function(){
 
     describe("#dbAddVote", function(){
         it("should add a valid vote to the comment or post in the database with valid id", function(){
+
         });
         it("should error if comment or post has invalid post/comment id", function(){
         });
