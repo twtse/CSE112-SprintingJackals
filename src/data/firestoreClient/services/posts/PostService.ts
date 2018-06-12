@@ -22,7 +22,7 @@ export class PostService implements IPostService {
   public addPost: (post: Post)
     => Promise<string> = (post) => {
       return new Promise<string>((resolve, reject) => {
-        if (post == null){
+        if (post == null) {
         	return reject("Posts cannot be null.");
 		}
         let postRef = db.collection(`posts`).doc();

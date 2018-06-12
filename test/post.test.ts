@@ -8,7 +8,7 @@ chai.use(chaiAsPromised);
 chai.should();
 
 // Here we import whatever is needed for our tests
-import {PostComponent} from "../src/components/post/postComponent";
+import {PostComponent} from "../src/components/post/PostComponent";
 import {PostActionType} from "../src/constants/postActionType";
 import {Map} from "immutable";
 import {IPostComponentProps} from "../src/components/post/IPostComponentProps";
