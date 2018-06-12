@@ -117,6 +117,16 @@ export class LoginComponent extends Component<ILoginComponentProps, ILoginCompon
 
     }
   }
+  /**
+   * Handle key press enter
+   * 
+   */
+  enterPressed = (event: any) => {
+    var code = event.keyCode || event.which;
+    if (code === 13) { //13 is the enter keycode
+        this.handleForm();
+    }
+}
 
   /**
    * Handle register form
@@ -207,6 +217,7 @@ export class LoginComponent extends Component<ILoginComponentProps, ILoginCompon
                     label={translate!("login.emailLabel")}
                     type="email"
                     tabIndex={1}
+                    onKeyPress={this.enterPressed.bind(this)}
                   /><br />
                   <TextField
                     className={classes.textField}
@@ -217,6 +228,7 @@ export class LoginComponent extends Component<ILoginComponentProps, ILoginCompon
                     label={translate!("login.passwordLabel")}
                     type="password"
                     tabIndex={2}
+                    onKeyPress={this.enterPressed.bind(this)}
                   /><br />
                   <br />
                   <br />
