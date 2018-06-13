@@ -28,6 +28,7 @@ const postService: IPostService = provider.get<IPostService>(SocialProviderTypes
  */
 export let dbAddPost = (newPost: Post, callBack: Function) => {
   return (dispatch: any, getState: Function) => {
+    console.log("ahhh" + newPost.time);
     const state: Map<string, any>  = getState();
     let uid: string = state.getIn(["authorize", "uid"]);
     let post: Post = {
@@ -42,6 +43,7 @@ export let dbAddPost = (newPost: Post, callBack: Function) => {
       ownerAvatar: newPost.ownerAvatar,
       lastEditDate: 0,
       tags: newPost.tags || [],
+      time: newPost.time,
       commentCounter: 0,
       comments: {},
       votes: {},
@@ -85,6 +87,7 @@ export const dbAddImagePost = (newPost: Post, callBack: Function) => {
       ownerAvatar: newPost.ownerAvatar,
       lastEditDate: 0,
       tags: newPost.tags || [],
+      time: newPost.time,
       commentCounter: 0,
       image: newPost.image || "",
       imageFullPath: newPost.imageFullPath || "",
