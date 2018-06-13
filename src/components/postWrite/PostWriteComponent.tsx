@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getTranslate, getActiveLanguage } from "react-localize-redux";
 import { Map } from "immutable";
+import moment from "moment/moment";
 
 import { Card, CardActions, CardHeader, CardMedia, CardContent } from "material-ui";
 import List, {
@@ -91,6 +92,14 @@ const styles = (theme: any) => ({
   }
 });
 
+const ONE_DAY = 86400;
+const THREE_DAY = 86400 * 3;
+const TEN_DAY = 86400 * 10;
+const INF_DAY = -1;
+const times = [ONE_DAY, THREE_DAY, TEN_DAY, INF_DAY];
+const timeText = ["1d", "3d", "10d", "Inf"];
+let timeIdx = 0;
+
 // - Create PostWrite component class
 export class PostWriteComponent extends Component<IPostWriteComponentProps, IPostWriteComponentState> {
 
@@ -137,7 +146,11 @@ export class PostWriteComponent extends Component<IPostWriteComponentProps, IPos
       /**
        * If it's true share will be disabled on post
        */
-      disableSharing: this.props.edit && postModel ? postModel.get("disableSharing") : false
+      disableSharing: this.props.edit && postModel ? postModel.get("disableSharing") : false,
+      /**
+       * Default time duration of a post is one day
+       */
+      time: ONE_DAY
 
     };
 
@@ -239,7 +252,7 @@ export class PostWriteComponent extends Component<IPostWriteComponentProps, IPos
           postTypeId: 1,
           score: 0,
           viewCount: 0,
-          // time: 1
+          time: this.state.time
         }, onRequestClose);
       } else {
         post!({
@@ -252,7 +265,7 @@ export class PostWriteComponent extends Component<IPostWriteComponentProps, IPos
           postTypeId: 0,
           score: 0,
           viewCount: 0,
-          // time: 1
+          time: this.state.time          
         }, onRequestClose);
       }
     } else { // In edit status we pass post to update functions
@@ -328,7 +341,19 @@ export class PostWriteComponent extends Component<IPostWriteComponentProps, IPos
   }
 
   handleTime = () => {
-    prompt("How many hours should post live?");
+    timeIdx = (timeIdx + 1) % 4;
+    console.log(times[timeIdx]);
+    if (times[timeIdx] === -1) {
+      this.setState({
+        time: times[timeIdx]
+      });
+    } else {
+      this.setState({
+        time: moment().unix() + times[timeIdx]
+      });
+    }
+    // prompt("How many hours should post live?");
+
   }
 
   /**
@@ -529,7 +554,9 @@ export class PostWriteComponent extends Component<IPostWriteComponentProps, IPos
                         <i className="material-icons" style={{ color: "gray" }}>
                           alarm
                         </i>
-                        </IconButton>
+                      </IconButton>
+
+                      {timeText[timeIdx]}
                        
                     </div>
                   </div>
