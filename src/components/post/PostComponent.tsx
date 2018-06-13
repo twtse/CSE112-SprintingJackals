@@ -105,6 +105,34 @@ const styles = (theme: any) => ({
 	}
 });
 
+function getTimeRemaining(time: number): string {
+	const ONE_DAY = 86400;
+	const ONE_HOUR = ONE_DAY / 24;
+	const ONE_MIN = ONE_HOUR / 60;
+
+	if (time < 0) {
+		return "";
+	}
+
+	const daysLeft = Math.floor((time - moment().unix()) / ONE_DAY);
+	const hoursLeft = Math.floor((time - moment().unix()) / ONE_HOUR) - (daysLeft * 24);
+	const minsLeft = Math.floor((time - moment().unix()) / ONE_MIN) - (daysLeft * 24) - (hoursLeft * 60);
+
+	if (daysLeft < 0 || hoursLeft < 0 || minsLeft < 0) {
+		return "";
+	}
+
+	if (daysLeft > 0) {
+		return daysLeft + "d " + hoursLeft + "h remaining";
+	}
+
+	if (hoursLeft > 0) {
+		return hoursLeft + "h " + minsLeft + "m remaining";
+	}
+
+	return minsLeft + "m remaining";
+}
+
 // - Create component class
 export class PostComponent extends Component<IPostComponentProps, IPostComponentState> {
 
@@ -388,13 +416,16 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
 			disableComments,
 			commentCounter,
 			disableSharing,
+			time
 		} = post.toJS();
 		// Define variables
 		return (
 			<Card key={`post-component-${id}`}>
 				<CardHeader
 					title={<NavLink to={`/${ownerUserId}`}>{ownerDisplayName}</NavLink>}
-					subheader={creationDate ? moment.unix(creationDate!).fromNow() + " | " + translate!("post.public") :
+					subheader={creationDate ? moment.unix(creationDate!).fromNow() + " | " + translate!("post.public")
+						+ (time > 0 ? " | " + getTimeRemaining(time) : "")
+						:
 						<LinearProgress color="primary"/>}
 					avatar={<NavLink to={`/${ownerUserId}`}><UserAvatar fullName={fullName!} fileName={avatar!}
 																		size={36}/></NavLink>}
