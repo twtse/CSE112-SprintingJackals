@@ -7,8 +7,10 @@ import { User, Profile } from "core/domain/users";
  * @interface IUserService
  */
 export interface IUserService {
-  getUserProfile: (userId: string) => Promise<Profile>;
-  updateUserProfile: (userId: string, profile: Profile) => Promise<void>;
-  getUsersProfile: (userId: string, lastUserId?: string, page?: number, limit?: number)
-  => Promise<{ users: { [userId: string]: Profile }[], newLastUserId: string }>;
+    getUsername: (userId: string) => Promise<string>;
+	changeUsername: (userId: string, newUsername: string) => Promise<string>;
+	getUserProfile: (userId: string) => Promise<Profile>;
+	updateUserProfile: (userId: string, profile: Profile) => Promise<void>;
+	getUsersProfile: (userId: string, lastUserId?: string, page?: number, limit?: number)
+		=> Promise<{ users: { [userId: string]: Profile }[], newLastUserId: string }>;
 }
