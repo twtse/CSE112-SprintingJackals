@@ -11,6 +11,7 @@ import { SocialError } from "core/domain/common";
 import { OAuthType } from "core/domain/authorize/oauthType";
 import moment from "moment/moment";
 import { injectable } from "inversify";
+import { UserTieService } from "data/firestoreClient/services/circles/UserTieService";
 /**
  * Firbase authorize service
  *
@@ -20,7 +21,6 @@ import { injectable } from "inversify";
  */
 @injectable()
 export class AuthorizeService implements IAuthorizeService {
-
     /**
      * Login the user
      *
