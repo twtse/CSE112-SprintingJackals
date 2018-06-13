@@ -50,7 +50,7 @@ describe("Votes", function () {
 			});
 		});
 		describe("#getVotes", function () {
-			it("should retrieve votes from a valid post", function(){
+			it.skip("should retrieve votes from a valid post", function(){
 				return voteService.getVotes(testVote.postId).should.eventually.be.fulfilled;
 			});
 			it("should not retrieve any votes from an invalid post", function(){
@@ -58,7 +58,7 @@ describe("Votes", function () {
 			});
 		});
 		describe("#deleteVote", function () {
-			it("should remove a vote from a valid post", async function(){
+			it.skip("should remove a vote from a valid post", async function(){
 				// Add a vote to a post
 				await voteService.addVote(testVote);
 
