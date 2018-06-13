@@ -1,5 +1,8 @@
 import "mocha";
 import * as chai from "chai";
+import chaiAsPromised from "chai-as-promised";
+
+chai.use(chaiAsPromised);
 chai.should();
 
 // Here we import whatever is needed for our tests
@@ -51,51 +54,47 @@ describe("Comments", function(){
 
     describe("Redux Actions", function(){
         it("should dispatch an ADD_COMMENT action", function(){
-            const action = CommentActions.addComment(testComment)
+            const action = CommentActions.addComment(testComment);
             return action.type.should.equal(CommentActionType.ADD_COMMENT);
         });
-        it("should dispatch a valid payload with the action", function(){
+        it("should dispatch a valid payload with the ADD_COMMENT action", function(){
+			const action = CommentActions.addComment(testComment);
+			return action.type.should.equal(CommentActionType.ADD_COMMENT);
         });
         it("should dispatch an UPDATE_COMMENT action", function(){
-            const action = CommentActions.updateComment(updateComment)
+            const action = CommentActions.updateComment(updateComment);
             return action.type.should.equal(CommentActionType.UPDATE_COMMENT);
         });
-        it("should dispatch a valid payload with the action", function(){
+        it("should dispatch a valid payload with the UPDATE_COMMENT action", function(){
             const action = CommentActions.updateComment(updateComment);
             return (action.payload.comment.should.equal(updateComment));
         });
         it("should dispatch a DELETE_COMMENT action", function(){
-            const action = CommentActions.deleteComment(testComment.userId, testComment.postId)
+            const action = CommentActions.deleteComment(testComment.userId!, testComment.postId);
             return action.type.should.equal(CommentActionType.DELETE_COMMENT);
         });
-        it("should dispatch a valid payload with the action", function(){
-            const action = CommentActions.deleteComment(testComment.userId, testComment.postId);
+        it("should dispatch a valid payload with the DELETE_COMMENT action", function() {
+            const action = CommentActions.deleteComment(testComment.userId!, testComment.postId);
             return (action.payload.postId.should.equal(testComment.postId)
                 && action.payload.id.should.equal(testComment.userId));
         });
     });
 
     describe("#dbAddComment", function(){
-        it("should add a valid comment to the database", function(){
-        });
-        it("should reject an invalid comment to the database", function(){ 
-        });
+        it("should add a valid comment to the database");
+        it("should reject an invalid comment to the database");
     });
 
     describe("#dbFetchComments", function(){
-        it("should fetch all comments from the database", function(){
-        });
+        it("should fetch all comments from the database");
     });
     
     describe("#dbUpdateComment", function(){
-        it("should update a comment from the database", function(){
-        });
+        it("should update a comment from the database");
     });
 
     describe("#dbDeleteComment", function(){
-        it("should delete a comment with a valid post ID from the database", function(){
-        });
-        it("should error if given an invalid post ID", function(){
-        });
+        it("should delete a comment with a valid post ID from the database");
+        it("should error if given an invalid post ID");
     });
 });

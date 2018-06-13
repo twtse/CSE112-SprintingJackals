@@ -53,7 +53,13 @@ export class VoteService implements IVoteService {
     }
   public getVotes: (postId: string)
     => Promise<{ [postId: string]: { [voteId: string]: Vote } }> = (postId) => {
-      return new Promise<{ [postId: string]: { [voteId: string]: Vote } }>((resolve,reject) => {
+      return new Promise<{ [postId: string]: { [voteId: string]: Vote } }>(async (resolve, reject) => {
+      	const post = await db.doc(`posts/${postId}`).get();
+
+      	if (!post.exists) {
+      		return reject("Cannot find post with ID " + postId);
+		}
+
         let votesRef = db.doc(`posts/${postId}`).collection(`votes`);
 
         votesRef.onSnapshot((snapshot) => {
@@ -63,6 +69,7 @@ export class VoteService implements IVoteService {
               ...result.data() as Vote
             };
           });
+
           resolve(parsedData);
         });
 
