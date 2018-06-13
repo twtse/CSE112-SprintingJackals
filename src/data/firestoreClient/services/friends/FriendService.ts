@@ -90,11 +90,19 @@ export class FriendService implements IFriendService {
 
     sendFriendRequest(userId: string, friendId: string) {
         return new Promise<string>( async (resolve, reject) => {
-            // Verify that the friend ID belongs to a valid user
-            const user = await db.collection("userInfo").doc(friendId).get();
+            // See if the userId is a username#discriminator combo
+            const usernameCombo = await
+                db.doc(`usernames/allUsers/userToId/${friendId}`).get();
+            // If the BattleTag exists, dereference their user ID
+            if (usernameCombo.exists) {
+                friendId = usernameCombo.get("id");
+            }
 
-            // If user does not exist, error
-            if (!user.exists) {
+            // Verify that the friend ID belongs to a valid user
+            const friend = await db.collection("userInfo").doc(friendId).get();
+
+            // If the friend does not exist, error
+            if (!friend.exists) {
                 reject("User ID " + friendId + " does not exist.");
             }
 

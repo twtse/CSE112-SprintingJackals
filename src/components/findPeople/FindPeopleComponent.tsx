@@ -25,6 +25,7 @@ import {provider} from "src/socialEngine";
 import {SocialProviderTypes} from "core/socialProviderTypes";
 import {ICircleService} from "core/services/circles";
 import {IFriendService} from "data/firestoreClient/services/friends/IFriendService";
+import {IUserService} from "core/services/users";
 
 /**
  * Create component class
@@ -38,22 +39,51 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
 	constructor(props: IFindPeopleComponentProps) {
 		super(props);
 
+        const userService: IUserService = provider.get<IUserService>(SocialProviderTypes.UserService);
+
 		// Default state
 		this.state = {
-			friendIdString: ""
+			friendIdString: "",
+            newUsernameString: "",
+            username: ""
 		};
+
+        userService.getUsername(this.props.userId)
+            .then(_username => {
+                this.setState({
+                    username: _username
+                });
+            });
 
 		this.handleFriendIdChange = this.handleFriendIdChange.bind(this);
 		this.handleAddFriend = this.handleAddFriend.bind(this);
+        this.handleUsernameFieldChange = this.handleUsernameFieldChange.bind(this);
+        this.handleChangeUsername = this.handleChangeUsername.bind(this);
 	}
 
 	handleFriendIdChange = (event: any) => {
 		const friendId = event.target.value;
 
+        if (friendId == null || friendId === "") {
+            return;
+        }
+
 		this.setState({
 			friendIdString: friendId
 		});
 	}
+
+    handleUsernameFieldChange = (event: any) => {
+        const username = event.target.value;
+
+        if (username == null || username === "") {
+            return;
+        }
+
+        this.setState({
+            newUsernameString: username
+        });
+    }
 
 	handleAddFriend = () => {
 		const { friendIdString } = this.state;
@@ -61,6 +91,22 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
 
 		friendService.sendFriendRequest(this.props.userId, friendIdString);
 	}
+
+    handleChangeUsername = () => {
+        const { newUsernameString } = this.state;
+        const userService: IUserService = provider.get<IUserService>(SocialProviderTypes.UserService);
+
+        userService.changeUsername(this.props.userId, newUsernameString)
+            .then(newUsername => {
+                this.setState({
+                    username: newUsername
+                });
+            })
+            .catch(err => {
+                // Throw an error?
+                console.error(err);
+            });
+    }
 
 	/**
 	 * Scroll loader
@@ -92,6 +138,7 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
 		};
 
 		return (
+            //
 			<div>
 				<TextField
 					id="friend-id-field"
@@ -103,6 +150,23 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
 				</TextField>
 				<Button style={buttonStyle} variant="raised" onClick={this.handleAddFriend}>
 					Add as Friend
+                </Button>
+
+                {this.state.username === "" ?
+                "Set your username below to give to your friends!" :
+                "Your username is " + this.state.username + ". Share this with your friends!"
+                }
+
+				<TextField
+					id="username-field"
+					style={textFieldStyle}
+					margin="normal"
+					type="string"
+					placeholder="Change Username"
+					onChange={this.handleUsernameFieldChange}>
+				</TextField>
+				<Button style={buttonStyle} variant="raised" onClick={this.handleChangeUsername}>
+					Change Username
                 </Button>
 			</div>
 		);
