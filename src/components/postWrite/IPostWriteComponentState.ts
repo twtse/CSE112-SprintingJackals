@@ -34,5 +34,9 @@ export interface IPostWriteComponentState {
    * Whether menu is open
    */
   menuOpen: boolean;
+  /**
+   * time property of a post
+   */
+  time: number;
 
 }
