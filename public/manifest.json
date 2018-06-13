@@ -1,8 +1,8 @@
 {
   "name": "Peterbook",
   "short_name": "Peterbook",
-  "theme_color": "#161890",
-  "background_color": "#161890",
+  "theme_color": "#586F7C",
+  "background_color": "#586F7C",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "/.",
