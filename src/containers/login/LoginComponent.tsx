@@ -202,7 +202,7 @@ export class LoginComponent extends Component<ILoginComponentProps, ILoginCompon
                     
                   }}>
 
-                    <h2 className="zoomOutLCorner animated g__paper-title">{translate!("login.title")}</h2>
+                    <h2 className="zoomOutLCorner animated g__paper-title" style={{color: "black"}}>{translate!("login.title")}</h2>
                   </div>
                   {config.settings.enabledOAuthLogin ? OAuthLogin : ""}
                 
@@ -240,7 +240,7 @@ export class LoginComponent extends Component<ILoginComponentProps, ILoginCompon
                       <Button variant="raised" color="secondary" onClick={this.handleForm} tabIndex={3} >{translate!("login.loginButton")}</Button>
                     </div>
                   </div>
-                  <span className={classes.bottomPaper}>{translate!("login.forgetPasswordMessage")} <NavLink to="/resetPassword" className={classes.link}>{translate!("login.resetPasswordLabel")}</NavLink></span>
+                  <span className={classes.bottomPaper}><NavLink to="/resetPassword" className={classes.link}>{translate!("login.resetPasswordLabel")}</NavLink></span>
                 </div>
               </form>
             </Paper>
