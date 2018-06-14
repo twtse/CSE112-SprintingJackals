@@ -1,14 +1,12 @@
 // - Import react components
-import {firebaseRef, firebaseAuth, db} from "data/firestoreClient";
+import {db} from "data/firestoreClient";
 
 import {SocialError} from "core/domain/common";
 import {Post} from "core/domain/posts";
 import {IPostService} from "core/services/posts";
-import {IServiceProvider} from "core/factories";
-import {ICommentService} from "core/services/comments";
-import {ServiceProvide} from "core/factories/serviceProvide";
 import {injectable} from "inversify";
 import * as lodash from "lodash";
+import moment from "moment/moment";
 
 /**
  * Firbase post service
@@ -144,19 +142,29 @@ export class PostService implements IPostService {
 				query = query.limit(limit);
 			}
 			query.get().then((posts) => {
-				let newLastPostId = posts.size > 0 ? posts.docs[posts.docs.length - 1].id : "";
+				let newLastPostId = "";
 				posts.forEach((postResult) => {
 					const post = postResult.data() as Post;
-					parsedData = [
-						...parsedData,
-						{
-							[postResult.id]: {
-								id: postResult.id,
-								...post
-							}
-						}
 
-					];
+					// If a post is not infinite and ready for deletion, delete it
+					if (post.time && post.time > 0 && post.time < moment().unix()) {
+						this.deletePost(post.id!);
+					} else {
+						// Update the last post we've seen
+						newLastPostId = post.id!;
+
+						// Add the post to the list of data
+						parsedData = [
+							...parsedData,
+							{
+								[postResult.id]: {
+									id: postResult.id,
+									...post
+								}
+							}
+
+						];
+					}
 				});
 				resolve({posts: parsedData, newLastPostId});
 			});

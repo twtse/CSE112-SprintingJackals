@@ -98,7 +98,7 @@
          "changePasswordButton": "CHANGE PASSWORD",
          "newPasswordRequiredError": "This field is required",
          "confirmPasswordRequiredError": "This field is required",
-         "confirmPasswordEqualNewPasswordError": "Password and confirm password should be equal!"
+         "confirmPasswordEqualNewPasswordError": "Passwords do not match."
 
      },
      "feedback": {
@@ -120,7 +120,7 @@
          "createAccountButton": "CREATE AN ACCOUNT",
          "loginButton": "LOGIN",
          "forgetPasswordMessage": "Have you forgot your password?",
-         "resetPasswordLabel": "reset your password."
+         "resetPasswordLabel": "Forgot Your Password?"
      },
      "signup": {
          "title": "Sign up",
@@ -133,8 +133,8 @@
          "emailRequiredError": "This field is required.",
          "passwordRequiredError": "This field is required.",
          "confirmRequiredError": "This field is required.",
-         "passwordEqualConfirmError": "This field sould be equal to confirm password.",
-         "confirmEqualPasswordError": "This field sould be equal to password.",
+         "passwordEqualConfirmError": "Passwords do not match.",
+         "confirmEqualPasswordError": "Passwords do not match.",
          "loginButton": "LOGIN",
          "createButton": "CREATE"
 
@@ -145,14 +145,14 @@
          "backButton": "BACK",
          "resetPasswordButton": "RESET PASSWORD",
          "emailRequiredError": "This field is required.",
-         "description": "Please put your email and click on `RESET PASSWORD`. If not click on `BACK`. We will send you an email contains the link of the reset password."
+         "description": "We will send a link to your email with instructions on setting a new password."
 
      },
      "emailVerification": {
          "title": "Email Verification",
          "homeButton": "HOME",
          "sendButton": "Send Email Verification",
-         "description": "An verificiation email has been already sent to you. Please check your inbox. If you couldn't see the emai, please resend email verification."
+         "description": "A verificiation email has been sent to your inbox. If you don't see the email after a few minutes, click 'Send Verification Email' below."
      },
      "common": {
          "sentRequestMessage": "Request has been sent.",
