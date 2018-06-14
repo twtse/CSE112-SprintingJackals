@@ -130,7 +130,7 @@ export class EmailVerificationComponent extends Component<IEmailVerificationComp
 const mapDispatchToProps = (dispatch: Function, ownProps: IEmailVerificationComponentProps) => {
   return {
     homePage: () => {
-      dispatch(push("/"));
+      dispatch(push("/login"));
     },
     sendEmailVerification: () => dispatch(authorizeActions.dbSendEmailVerfication())
   };
