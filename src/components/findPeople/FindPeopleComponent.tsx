@@ -138,20 +138,22 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
 		};
 
 		return (
-            //
-			<div>
+            
+			<div className="friend_bars">
+				{"To add a friend, you must both enter each other's secret username below."}
 				<TextField
 					id="friend-id-field"
 					style={textFieldStyle}
 					margin="normal"
 					type="string"
-					placeholder="Friend ID"
+					placeholder="Friend Username"
 					onChange={this.handleFriendIdChange}>
 				</TextField>
+				
 				<Button style={buttonStyle} variant="raised" onClick={this.handleAddFriend}>
 					Add as Friend
                 </Button>
-
+				<br/>
                 {this.state.username === "" ?
                 "Set your username below to give to your friends!" :
                 "Your username is " + this.state.username + ". Share this with your friends!"
