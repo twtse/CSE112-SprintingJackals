@@ -56,6 +56,8 @@ export class UserService implements IUserService {
                     return reject("Usernames contain only alphanumeric characters or _ or -");
                 }
 
+                newUsername = newUsername.toLowerCase();
+
                 // Get user's old username
                 const oldIdRef = await db.doc(`usernames/allUsers/idToUser/${userId}`).get();
 

@@ -43,7 +43,7 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
 
 		// Default state
 		this.state = {
-			friendIdString: "",
+			      friendIdString: "",
             newUsernameString: "",
             username: ""
 		};
@@ -138,7 +138,7 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
 		};
 
 		return (
-            
+
 			<div className="friend_bars">
 				{"To add a friend, you must both enter each other's secret username below."}
 				<TextField
@@ -149,7 +149,7 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
 					placeholder="Friend Username"
 					onChange={this.handleFriendIdChange}>
 				</TextField>
-				
+
 				<Button style={buttonStyle} variant="raised" onClick={this.handleAddFriend}>
 					Add as Friend
                 </Button>
@@ -200,9 +200,9 @@ const mapStateToProps = (state: any, ownProps: IFindPeopleComponentProps) => {
 	const info: Map<string, UserTie> = state.getIn(["user", "info"]);
 	return {
         userId: uid,
-		translate: getTranslate(state.get("locale")),
-		peopleInfo: info,
-		hasMorePeople
+		    translate: getTranslate(state.get("locale")),
+		    peopleInfo: info,
+		    hasMorePeople
 	};
 };
 
