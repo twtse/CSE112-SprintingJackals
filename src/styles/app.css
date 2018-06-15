@@ -529,6 +529,11 @@ g__input-underline::after {
   margin-right: auto;
   width: 40%; }
 
+.friend_bars {
+  padding: 24px;
+  margin-left: 20%;
+  margin-right: 20%; }
+
 .master__progress {
   position: fixed;
   top: 0;
