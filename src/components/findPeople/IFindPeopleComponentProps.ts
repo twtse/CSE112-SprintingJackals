@@ -10,6 +10,8 @@ export interface IFindPeopleComponentProps {
    */
   loadPeople?: (page: number, limit: number) => any;
 
+  sendMessage?: (message: string) => any;
+
   /**
    * Users' profile
    */
