@@ -220,20 +220,6 @@ export class HomeComponent extends Component<IHomeComponentProps, IHomeComponent
         </MenuItem>
       </NavLink>
       <Divider />
-      <NavLink to="/settings">
-        <MenuItem style={{ color: "rgb(117, 117, 117)" }}>
-          <ListItemIcon>
-            <SvgSettings />
-          </ListItemIcon>
-          <ListItemText inset primary={translate!("sidebar.settings")} />
-        </MenuItem>
-      </NavLink>
-      <MenuItem onClick={() => showSendFeedback!()} style={{ color: "rgb(117, 117, 117)" }}>
-        <ListItemIcon>
-          <SvgFeedback />
-        </ListItemIcon>
-        <ListItemText inset primary={translate!("sidebar.sendFeedback")} />
-      </MenuItem>
       </>
     );
 
