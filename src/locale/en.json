@@ -155,8 +155,8 @@
          "description": "A verificiation email has been sent to your inbox. If you don't see the email after a few minutes, click 'Send Verification Email' below."
      },
      "common": {
-         "sentRequestMessage": "Request has been sent.",
-         "successfulRequestMessage": "Request has been successful."
+         "sentRequestMessage": "",
+         "successfulRequestMessage": ""
      }
 
  }
