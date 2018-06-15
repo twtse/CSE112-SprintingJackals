@@ -25,7 +25,7 @@ describe("User Authorization", function () {
     });
     describe("Reset password", function() {
         it("should reset password", function() {
-            return authorizeService.resetPassword("clsun@ucsd.edu").should.be.eventually.fulfilled;
+            return authorizeService.resetPassword("catherinesun31@gmail.com").should.be.eventually.fulfilled;
         });
     });
 });
