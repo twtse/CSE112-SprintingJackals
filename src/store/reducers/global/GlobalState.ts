@@ -35,6 +35,11 @@ export class GlobalState {
   sendFeedbackStatus: boolean = false;
 
  /**
+  * Whether post ad is diplayed
+  */
+  postAdStatus: boolean = false;
+
+ /**
   * If user date is loaded {true} or not {false}
   *
   * @type {boolean}

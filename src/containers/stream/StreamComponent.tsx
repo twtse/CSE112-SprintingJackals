@@ -14,6 +14,7 @@ import { Map, List as ImuList } from "immutable";
 
 // - Import app components
 import PostComponent from "src/components/post";
+import AdComponent from "src/components/ad";
 import PostWriteComponent from "src/components/postWrite";
 import UserAvatarComponent from "src/components/userAvatar";
 import LoadMoreProgressComponent from "src/layouts/loadMoreProgress";
@@ -27,235 +28,275 @@ import * as globalActions from "src/store/actions/globalActions";
 import { IStreamComponentProps } from "./IStreamComponentProps";
 import { IStreamComponentState } from "./IStreamComponentState";
 import { Post } from "src/core/domain/posts";
+import { AdService } from "data/firestoreClient/services/ad";
+import { Ad } from "core/domain/ad";
+
+let postCounter = 3;
+const POSTS_PER_AD = 8;
+
+const adService = new AdService();
+
+let ads = [] as Ad[];
+
+function shouldDisplayAd() {
+    postCounter += 1;
+    return (postCounter % POSTS_PER_AD) === 0;
+}
+
+async function loadAds() {
+    ads = await adService.loadAds();
+}
+
+function getAd() {
+    const randIdx = Math.floor(Math.random() * ads.length);
+    return ads[randIdx];
+}
+
+let ad: Ad | null;
 
 // - Create StreamComponent component class
 export class StreamComponent extends Component<IStreamComponentProps, IStreamComponentState> {
 
-  static propTypes = {
-    /**
-     * If it's true , writing post block will be visible
-     */
-    displayWriting: PropTypes.bool.isRequired,
-    /**
-     * A list of post
-     */
-    posts: PropTypes.object,
+	static propTypes = {
+		/**
+		 * If it's true , writing post block will be visible
+		 */
+		displayWriting: PropTypes.bool.isRequired,
+		/**
+		 * A list of post
+		 */
+		posts: PropTypes.object,
 
-    /**
-     * The title of home header
-     */
-    homeTitle: PropTypes.string
+		/**
+		 * The title of home header
+		 */
+		homeTitle: PropTypes.string
 
-  };
+	};
 
-  styles = {
-    postWritePrimaryText: {
-      color: grey[400],
-      cursor: "text"
-    },
-    postWtireItem: {
-      fontWeight: "200"
-    }
-  };
+	styles = {
+		postWritePrimaryText: {
+			color: grey[400],
+			cursor: "text"
+		},
+		postWtireItem: {
+			fontWeight: "200"
+		}
+	};
 
-  /**
-   * Component constructor
-   * @param  {object} props is an object properties of component
-   */
-  constructor(props: IStreamComponentProps) {
-    super(props);
+	/**
+	 * Component constructor
+	 * @param  {object} props is an object properties of component
+	 */
+	constructor(props: IStreamComponentProps) {
+		super(props);
 
-    this.state = {
-      /**
-       * It's true if we want to have two column of posts
-       */
-      divided: false,
-      /**
-       * If it's true comment will be disabled on post
-       */
-      disableComments: this.props.disableComments!,
-      /**
-       * If it's true share will be disabled on post
-       */
-      disableSharing: this.props.disableSharing!,
-      /**
-       * If it's true, post write will be open
-       */
-      openPostWrite: false,
-      /**
-       * The title of home header
-       */
-      homeTitle: props.homeTitle!,
+        loadAds();
 
-      /**
-       * If there is more post to show {true} or not {false}
-       */
-      hasMorePosts: true
-    };
+		this.state = {
+			/**
+			 * It's true if we want to have two column of posts
+			 */
+			divided: false,
+			/**
+			 * If it's true comment will be disabled on post
+			 */
+			disableComments: this.props.disableComments!,
+			/**
+			 * If it's true share will be disabled on post
+			 */
+			disableSharing: this.props.disableSharing!,
+			/**
+			 * If it's true, post write will be open
+			 */
+			openPostWrite: false,
+			/**
+			 * The title of home header
+			 */
+			homeTitle: props.homeTitle!,
 
-    // Binding functions to `this`
-    this.postLoad = this.postLoad.bind(this);
-    this.handleOpenPostWrite = this.handleOpenPostWrite.bind(this);
-    this.handleClosePostWrite = this.handleClosePostWrite.bind(this);
+			/**
+			 * If there is more post to show {true} or not {false}
+			 */
+			hasMorePosts: true
+		};
 
-  }
+		// Binding functions to `this`
+		this.postLoad = this.postLoad.bind(this);
+		this.handleOpenPostWrite = this.handleOpenPostWrite.bind(this);
+		this.handleClosePostWrite = this.handleClosePostWrite.bind(this);
+	}
 
-  /**
-   * Open post write
-   *
-   *
-   * @memberof StreamComponent
-   */
-  handleOpenPostWrite = () => {
-    this.setState({
-      openPostWrite: true
-    });
-  }
-  /**
-   * Close post write
-   *
-   *
-   * @memberof StreamComponent
-   */
-  handleClosePostWrite = () => {
-    this.setState({
-      openPostWrite: false
-    });
-  }
+	/**
+	 * Open post write
+	 *
+	 *
+	 * @memberof StreamComponent
+	 */
+	handleOpenPostWrite = () => {
+		this.setState({
+			openPostWrite: true
+		});
+	}
+	/**
+	 * Close post write
+	 *
+	 *
+	 * @memberof StreamComponent
+	 */
+	handleClosePostWrite = () => {
+		this.setState({
+			openPostWrite: false
+		});
+	}
 
-  /**
-   * Create a list of posts
-   * @return {DOM} posts
-   */
-  postLoad = () => {
+	/**
+	 * Create a list of posts
+	 * @return {DOM} posts
+	 */
+	postLoad = () => {
+		let { match } = this.props;
+		let posts: Map<string, Map<string, any>> = this.props.posts;
+		let { tag } = match.params;
+		if (posts === undefined || !(posts.keySeq().count() > 0)) {
+			return (
+				<h1>Nothing has shared.</h1>
+			);
+		} else {
+			let postBack = { divided: false, oddPostList: [], evenPostList: [] };
+			let parsedPosts: ImuList<any> = ImuList();
+			posts.forEach((post: Map<string, any>) => {
+				if (tag) {
+					let regex = new RegExp("#" + tag, "g");
+					let postMatch = String(post.get("body", "")).match(regex);
+					if (postMatch !== null) {
+						parsedPosts = parsedPosts.push(post);
+					}
+				} else {
+					parsedPosts = parsedPosts.push(post);
+				}
+			});
+			const sortedPosts = PostAPI.sortImuObjectsDate(parsedPosts);
+			if (sortedPosts.count() > 6) {
+				postBack.divided = true;
 
-    let { match } = this.props;
-    let posts: Map<string, Map<string, any>> = this.props.posts;
-    let { tag } = match.params;
-    if (posts === undefined || !(posts.keySeq().count() > 0)) {
-      
-      return (
-        
-        <h1>
-          'Nothing has shared.'
-                </h1>
+			} else {
+				postBack.divided = false;
+			}
+			let index = 0;
+			sortedPosts.forEach(async (post) => {
+                // Every x posts, show an advertisement
+                if (ad == null) {
+                    ad = getAd();
+                }
 
-);
-} else {
-  
-  let postBack = { divided: false, oddPostList: [], evenPostList: [] };
-  let parsedPosts: ImuList<any> = ImuList();
-  posts.forEach((post: Map<string, any>) => {
-        if (tag) {
-          let regex = new RegExp("#" + tag, "g");
-          let postMatch = String(post.get("body", "")).match(regex);
-          if (postMatch !== null) {
-            parsedPosts =  parsedPosts.push(post);
-          }
-        } else {
-          parsedPosts = parsedPosts.push(post);
-        }
-      });
-      const sortedPosts = PostAPI.sortImuObjectsDate(parsedPosts);
-      if (sortedPosts.count() > 6) {
-        postBack.divided = true;
-        
-      } else {
-        postBack.divided = false;
-      }
-      let index = 0;
-      sortedPosts.forEach((post) => {
-        
-        let newPost: any = (
-          <div key={`${post!.get("id")!}-stream-div`}>
-          
-            {index > 1 || (!postBack.divided && index > 0) ? <div style={{ height: "16px" }}></div> : ""}
-            <PostComponent key={`${post!.get("id")}-stream-div-post`} post={post! as any} />
+                let adComp = (
+                    <div key={`${ad.id}-stream-div`}>
+                        {index > 1 || (!postBack.divided && index > 0) ? <div style={{ height: "16px" }}></div> : ""}
+            			<AdComponent key={`${ad.id}-stream-div-ad`} ad={ad! as any} />
+                    </div>
+                );
 
-          </div>
-        );
-        
-        if ((index % 2) === 1 && postBack.divided) {
-          postBack.oddPostList.push(newPost as never);
-        } else {
-          postBack.evenPostList.push(newPost as never);
-        }
-        ++index;
-      });
-      return postBack;
-    }
+				let newPost: any = (
+					<div key={`${post!.get("id")!}-stream-div`}>
+						{index > 1 || (!postBack.divided && index > 0) ? <div style={{ height: "16px" }}></div> : ""}
+						<PostComponent key={`${post!.get("id")}-stream-div-post`} post={post! as any} />
+					</div>
+				);
 
-  }
+				if ((index % 2) === 1 && postBack.divided) {
+					postBack.oddPostList.push(newPost as never);
+				} else {
+					postBack.evenPostList.push(newPost as never);
+				}
+				++index;
 
-  /**
-   * Scroll loader
-   */
-  scrollLoad = (page: number) => {
-    const { loadStream } = this.props;
-    loadStream!(page, 10);
-  }
+                // If we should render an ad
+                if (shouldDisplayAd()) {
+                    if ((index % 2) === 1 && postBack.divided) {
+    					postBack.oddPostList.push(adComp as never);
+    				} else {
+    					postBack.evenPostList.push(adComp as never);
+    				}
+    				++index;
 
-  componentWillMount() {
-    const { setHomeTitle } = this.props;
-    setHomeTitle!();
-  }
+                    // Allow the service to pull a new ad
+                    ad = null;
+                }
+			});
 
-  /**
-   * Reneder component DOM
-   * @return {react element} return the DOM which rendered by component
-   */
-  render() {
+			return postBack;
+		}
 
-    const { tag, displayWriting, hasMorePosts, translate } = this.props;
-    const postList = this.postLoad() as { evenPostList: Post[], oddPostList: Post[], divided: boolean } | any;
+	}
 
-    return (
-      <InfiniteScroll
-        pageStart={0}
-        loadMore={this.scrollLoad}
-        hasMore={hasMorePosts}
-        useWindow={true}
-        loader={<LoadMoreProgressComponent key="stream-load-more-progress" />}
-      >
-        <div className="grid grid__gutters grid__1of2 grid__space-around animate-top">
-          <div className="grid-cell animate-top" style={{ maxWidth: "530px", minWidth: "280px" }}>
-            {displayWriting && !tag
-              ? (<PostWriteComponent open={this.state.openPostWrite} onRequestClose={this.handleClosePostWrite} edit={false} >
-                <Paper elevation={2}>
+	/**
+	 * Scroll loader
+	 */
+	scrollLoad = (page: number) => {
+		const { loadStream } = this.props;
+		loadStream!(page, 10);
+	}
 
-                  <ListItem button
-                    style={this.styles.postWtireItem as any}
-                    onClick={this.handleOpenPostWrite}
-                  >
-                    <UserAvatarComponent fullName={this.props.fullName!} fileName={this.props.avatar!} size={36} />
-                    <ListItemText inset primary={<span style={this.styles.postWritePrimaryText as any}> {translate!("home.postWriteButtonText")}</span>} />
-                    <ListItemIcon>
-                      <SvgCamera />
-                    </ListItemIcon>
-                  </ListItem>
+	componentWillMount() {
+		const { setHomeTitle } = this.props;
+		setHomeTitle!();
+	}
 
-                </Paper>
-                <div style={{ height: "16px" }}></div>
-              </PostWriteComponent>)
-              : ""}
+	/**
+	 * Reneder component DOM
+	 * @return {react element} return the DOM which rendered by component
+	 */
+	render() {
 
-            {postList.evenPostList}
-            <div style={{ height: "16px" }}></div>
-          </div>
-          {postList.divided
-            ? (<div className="grid-cell animate-top" style={{ maxWidth: "530px", minWidth: "280px" }}>
-              <div className="blog__right-list">
-                {postList.oddPostList}
-                <div style={{ height: "16px" }}></div>
-              </div>
-            </div>)
-            : ""}
+		const { tag, displayWriting, hasMorePosts, translate } = this.props;
+		const postList = this.postLoad() as { evenPostList: any[], oddPostList: any[], divided: boolean } | any;
 
-        </div>
+		return (
+			<InfiniteScroll
+				pageStart={0}
+				loadMore={this.scrollLoad}
+				hasMore={hasMorePosts}
+				useWindow={true}
+				loader={<LoadMoreProgressComponent key="stream-load-more-progress" />}
+			>
+				<div className="grid grid__gutters grid__1of2 grid__space-around animate-top">
+					<div className="grid-cell animate-top" style={{ maxWidth: "530px", minWidth: "280px" }}>
+						{displayWriting && !tag
+							? (<PostWriteComponent open={this.state.openPostWrite} onRequestClose={this.handleClosePostWrite} edit={false} >
+								<Paper elevation={2}>
 
-      </InfiniteScroll>
-    );
-  }
+									<ListItem button
+										style={this.styles.postWtireItem as any}
+										onClick={this.handleOpenPostWrite}
+									>
+										<UserAvatarComponent fullName={this.props.fullName!} fileName={this.props.avatar!} size={36} />
+										<ListItemText inset primary={<span style={this.styles.postWritePrimaryText as any}> {translate!("home.postWriteButtonText")}</span>} />
+										<ListItemIcon>
+											<SvgCamera />
+										</ListItemIcon>
+									</ListItem>
+
+								</Paper>
+								<div style={{ height: "16px" }}></div>
+							</PostWriteComponent>)
+							: ""}
+						{postList.evenPostList}
+						<div style={{ height: "16px" }}></div>
+					</div>
+					{postList.divided
+						? (<div className="grid-cell animate-top" style={{ maxWidth: "530px", minWidth: "280px" }}>
+							<div className="blog__right-list">
+								{postList.oddPostList}
+								<div style={{ height: "16px" }}></div>
+							</div>
+						</div>)
+						: ""}
+				</div>
+
+			</InfiniteScroll>
+		);
+	}
 }
 
 /**
@@ -265,12 +306,12 @@ export class StreamComponent extends Component<IStreamComponentProps, IStreamCom
  * @return {object}          props of component
  */
 const mapDispatchToProps = (dispatch: any, ownProps: IStreamComponentProps) => {
-  return {
-    setHomeTitle: () => dispatch(globalActions.setHeaderTitle(ownProps.homeTitle || "")),
-    showTopLoading: () => dispatch(globalActions.showTopLoading()),
-    hideTopLoading: () => dispatch(globalActions.hideTopLoading())
+	return {
+		setHomeTitle: () => dispatch(globalActions.setHeaderTitle(ownProps.homeTitle || "")),
+		showTopLoading: () => dispatch(globalActions.showTopLoading()),
+		hideTopLoading: () => dispatch(globalActions.hideTopLoading())
 
-  };
+	};
 };
 
 /**
@@ -280,13 +321,13 @@ const mapDispatchToProps = (dispatch: any, ownProps: IStreamComponentProps) => {
  * @return {object}          props of component
  */
 const mapStateToProps = (state: Map<string, any>, ownProps: IStreamComponentProps) => {
-const uid = state.getIn(["authorize", "uid"]);
-const user = state.getIn(["user", "info", uid]);
-  return {
-    translate: getTranslate(state.get("locale")),
-    avatar: user.avatar || "",
-    fullName: user.fullName || ""
-  };
+	const uid = state.getIn(["authorize", "uid"]);
+	const user = state.getIn(["user", "info", uid]);
+	return {
+		translate: getTranslate(state.get("locale")),
+		avatar: user.avatar || "",
+		fullName: user.fullName || ""
+	};
 };
 
 // - Connect component to redux store

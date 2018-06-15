@@ -4,7 +4,8 @@
          "profile": "Profile",
          "people": "Friends",
          "settings": "Settings",
-         "sendFeedback": "Send Feedback"
+         "sendFeedback": "Send Feedback",
+         "postAd": "Post an Ad"
 
      },
      "header": {
@@ -12,7 +13,6 @@
          "notificationTooltip": "Notifications",
          "myAccount": "My Account",
          "logout": "Logout"
-
      },
      "home": {
          "postWriteButtonText": "What's new with you?"
@@ -99,7 +99,6 @@
          "newPasswordRequiredError": "This field is required",
          "confirmPasswordRequiredError": "This field is required",
          "confirmPasswordEqualNewPasswordError": "Passwords do not match."
-
      },
      "feedback": {
          "textareaPlaceholder": "What do you feel :) ?",
@@ -137,7 +136,6 @@
          "confirmEqualPasswordError": "Passwords do not match.",
          "loginButton": "LOGIN",
          "createButton": "CREATE"
-
      },
      "resetPassword": {
          "title": "Reset Password",
@@ -146,7 +144,6 @@
          "resetPasswordButton": "RESET PASSWORD",
          "emailRequiredError": "This field is required.",
          "description": "We will send a link to your email with instructions on setting a new password."
-
      },
      "emailVerification": {
          "title": "Email Verification",
@@ -158,5 +155,4 @@
          "sentRequestMessage": "Request has been sent.",
          "successfulRequestMessage": "Request has been successful."
      }
-
  }

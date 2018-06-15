@@ -232,6 +232,25 @@ export const hideSendFeedback = () => {
   };
 
 };
+/**
+ * Show send feedback
+ */
+export const showPostAd = () => {
+  return {
+    type: GlobalActionType.SHOW_POST_AD
+  };
+
+};
+
+/**
+ * Hide send feedback
+ */
+export const hidePostAd = () => {
+  return {
+    type: GlobalActionType.HIDE_POST_AD
+  };
+
+};
 
 /**
  * Hide master loading

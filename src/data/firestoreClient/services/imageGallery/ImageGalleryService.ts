@@ -64,6 +64,21 @@ export class ImageGalleryService implements IImageGalleryService {
       });
     }
 
+  public saveAdImage: (userId: string, image: Image)
+    => Promise<string> = (userId, image) => {
+      return new Promise<string>((resolve,reject) => {
+
+        let imageRef = db.doc(`/`).collection(`advertisement`).add(image);
+        imageRef.then((result) => {
+          resolve(result.id!);
+        })
+        .catch((error: any) => {
+          reject(new SocialError(error.code, error.message));
+        });
+
+      });
+    }
+
   public deleteImage: (userId: string, imageId: string)
     => Promise<void> = (userId, imageId) => {
       return new Promise<void>((resolve,reject) => {
