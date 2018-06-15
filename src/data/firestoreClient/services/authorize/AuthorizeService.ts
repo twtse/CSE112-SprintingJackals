@@ -36,7 +36,7 @@ export class AuthorizeService implements IAuthorizeService {
                   resolve(new LoginUser(result.uid, result.emailVerified));
                 })
                 .catch((error: any) => {
-                  reject(new SocialError(error.code, error.message));
+                  reject("Your credentials are incorrect.");
                 });
     });
   }
@@ -55,8 +55,7 @@ export class AuthorizeService implements IAuthorizeService {
                   resolve();
                 })
                 .catch((error: any) => {
-
-                  reject(new SocialError(error.code, error.message));
+                  reject("We encountered a problem while logging you out. Please try again.");
                 });
     });
   }
@@ -75,7 +74,8 @@ export class AuthorizeService implements IAuthorizeService {
                   const {uid, email} = signupResult;
                   this.storeUserInformation(uid,email,user.fullName,"").then(resolve);
                 })
-                .catch((error: any) => reject(new SocialError(error.code, error.message)));
+                .catch(() => reject("We could not create a new account with those credentials. Have you " +
+                    "previously registered with that email?"));
     });
   }
 
@@ -94,8 +94,7 @@ export class AuthorizeService implements IAuthorizeService {
                     // Update successful.
           resolve();
         }).catch((error: any) => {
-                    // An error happened.
-          reject(new SocialError(error.code, error.message));
+          reject(reject("We encountered an error while updating your password. Please try again."));
         });
       }
 
@@ -134,7 +133,7 @@ export class AuthorizeService implements IAuthorizeService {
         resolve();
       }).catch((error: any) => {
         // An error happened.
-        reject(new SocialError(error.code, error.message));
+        reject("We encountered a problem while resetting your password. Please try again.");
       });
     });
   }
@@ -153,11 +152,10 @@ export class AuthorizeService implements IAuthorizeService {
         user.sendEmailVerification().then(() => {
           resolve();
         }).catch((error: any) => {
-          // An error happened.
-          reject(new SocialError(error.code, error.message));
+          reject("We encountered an error while sending email verification. Please try again.");
         });
       } else {
-        reject(new SocialError("authorizeService/nullException", "User was null!"));
+        reject("We could not find a user with that email. Please verify that your email is correct.");
       }
 
     });

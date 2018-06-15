@@ -127,7 +127,7 @@
          "emailLabel": "Email",
          "passwordLabel": "Password",
          "confirmPasswordLabel": "Confirm Password",
-         "validNameError": "Please enter a valid name.",
+         "validNameError": "Names must be at least four characters.",
          "validEmailError": "Please enter a valid email.",
          "emailRequiredError": "This field is required.",
          "passwordRequiredError": "This field is required.",
@@ -152,7 +152,7 @@
          "description": "A verificiation email has been sent to your inbox. If you don't see the email after a few minutes, click 'Send Verification Email' below."
      },
      "common": {
-         "sentRequestMessage": "Request has been sent.",
-         "successfulRequestMessage": "Request has been successful."
+         "sentRequestMessage": "",
+         "successfulRequestMessage": ""
      }
  }
