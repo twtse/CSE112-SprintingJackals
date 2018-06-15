@@ -353,7 +353,7 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
 	 * Handle read more event
 	 * @param  {event} evt  is the event passed by click on read more
 	 */
-	handleReadMore(event: any) {
+	handleReadMore = (event: any) => {
 		this.setState({
 			readMoreState: !this.state.readMoreState
 
@@ -406,7 +406,7 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
 			</Manager>
 		);
 
-		const {
+		let {
 			ownerUserId,
 			ownerDisplayName,
 			creationDate,
@@ -416,18 +416,20 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
 			disableComments,
 			commentCounter,
 			disableSharing,
-			time
+			time,
+            ownerAvatar
 		} = post.toJS();
+
 		// Define variables
 		return (
 			<Card key={`post-component-${id}`}>
 				<CardHeader
 					title={<NavLink to={`/${ownerUserId}`}>{ownerDisplayName}</NavLink>}
-					subheader={creationDate ? moment.unix(creationDate!).fromNow() 
+					subheader={creationDate ? moment.unix(creationDate!).fromNow()
 						+ (time > 0 ? " | " + getTimeRemaining(time) : "")
 						:
 						<LinearProgress color="primary"/>}
-					avatar={<NavLink to={`/${ownerUserId}`}><UserAvatar fullName={fullName!} fileName={avatar!}
+					avatar={<NavLink to={`/${ownerUserId}`}><UserAvatar fullName={ownerDisplayName!} fileName={ownerAvatar!}
 																		size={36}/></NavLink>}
 					action={isPostOwner ? rightIconMenu : ""}
 				>

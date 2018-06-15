@@ -125,7 +125,7 @@ export const hideMessage = () => {
  */
 export const showMessage = (message: string) => {
   if (!message || message === "" || (message && message.trim() === "")) {
-    message = "Bad request";
+    message = "Oops! Our servers encountered an issue. Please try again.";
   }
   return {
     type: GlobalActionType.SHOW_MESSAGE_GLOBAL,
@@ -229,6 +229,25 @@ export const showSendFeedback = () => {
 export const hideSendFeedback = () => {
   return {
     type: GlobalActionType.HIDE_SEND_FEEDBACK
+  };
+
+};
+/**
+ * Show send feedback
+ */
+export const showPostAd = () => {
+  return {
+    type: GlobalActionType.SHOW_POST_AD
+  };
+
+};
+
+/**
+ * Hide send feedback
+ */
+export const hidePostAd = () => {
+  return {
+    type: GlobalActionType.HIDE_POST_AD
   };
 
 };

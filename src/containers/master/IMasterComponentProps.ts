@@ -115,6 +115,11 @@ export interface IMasterComponentProps {
   sendFeedbackStatus?: boolean;
 
   /**
+   * Whether post ad box is visible
+   */
+  postAdStatus?: boolean;
+
+  /**
    * Hide global message
    */
   hideMessage?: () => any;

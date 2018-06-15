@@ -4,8 +4,8 @@
          "profile": "Profile",
          "people": "People",
          "settings": "Settings",
-         "sendFeedback": "Send Feedback"
-
+         "sendFeedback": "Send Feedback",
+         "postAd": "Post an Ad"
      },
      "header": {
          "home": "Home",
