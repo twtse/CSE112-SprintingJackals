@@ -607,8 +607,7 @@ export class PostWriteComponent extends Component<IPostWriteComponentProps, IPos
 													</i>
 												</IconButton>
 
-												{timeText[timeIdx]}
-
+												<span style={{paddingTop: "12px", paddingLeft: "8px"}}>{timeText[timeIdx]}</span>
 											</div>
 										</div>
 									</div>

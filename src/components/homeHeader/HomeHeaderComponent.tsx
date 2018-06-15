@@ -191,7 +191,7 @@ export class HomeHeaderComponent extends Component<IHomeHeaderComponentProps, IH
           </Typography>
           <div className="homeHeader__title-root">
           <Hidden smDown>
-           <div className={classNames({"homeHeader__title-left": anchor === "left", "homeHeader__title-right": anchor === "right" })}>{this.props.title}</div> 
+           <div className={classNames({"homeHeader__title-left": anchor === "left", "homeHeader__title-right": anchor === "right" })}>{this.props.title}</div>
            </Hidden>
           </div>
 
