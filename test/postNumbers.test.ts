@@ -78,6 +78,16 @@ describe("Posts", function () {
 	describe("Post Service", function () {
 		this.slow(3000);
 		describe("#addPost", function() {
+			it("should accept a post with only numbers", async function() {
+				return await postService.addPost(testPostJS)
+					.then(postId => {
+						testPostIds.push(postId);
+						return postId.should.not.be.null;
+					})
+					.catch(err => {
+						return false;
+					});
+			});
 			it("should reject an invalid post (empty object)", async function() {
 				return postService.addPost({}).should.be.rejected;
 			});
@@ -90,6 +100,41 @@ describe("Posts", function () {
 			it("should delete an existing post", async function(){
 				const postId = await postService.addPost(testPostJS);
 				return postService.deletePost(postId).should.be.fulfilled;
+			});
+		});
+
+		describe("#updatePost", function(){
+			it("should update an existing post with new text", async function (){
+				const newText = "Updated body text";
+
+				// Create and push a test post
+				const postId = await postService.addPost(testPostJS);
+				if(postId == null){
+					console.error("Could not add test post to database; failing test");
+					return false;
+				}
+
+				testPostIds.push(postId);
+
+				// Fetch the test post
+				const post = await postService.getPostById(postId);
+				if(post == null){
+					console.error("Could not retrieve post #" + postId + " from database; failing test");
+					return false;
+				}
+
+				// Update the test post
+				post.body = newText;
+				await postService.updatePost(post);
+
+				// Fetch the updated post
+				const updatedPost = await postService.getPostById(post.id);
+
+				// Sometimes updated post doesn't delete? This should catch it
+				testPostIds.push(updatedPost.id);
+
+				// Verify that the body was changed
+				return updatedPost.body.should.equal(newText);
 			});
 		});
 	});
