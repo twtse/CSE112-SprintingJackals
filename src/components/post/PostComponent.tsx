@@ -420,8 +420,6 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
             ownerAvatar
 		} = post.toJS();
 
-        console.log(post.toJS());
-
 		// Define variables
 		return (
 			<Card key={`post-component-${id}`}>
