@@ -458,7 +458,7 @@ export class PostWriteComponent extends Component<IPostWriteComponentProps, IPos
 		}}>{this.props.ownerDisplayName}</span><span style={{
 				fontWeight: 400,
 				fontSize: "10px"
-			}}> | {translate!("post.public")}</span>
+			}}></span>
 			</div>
 		);
 
