@@ -236,8 +236,7 @@ export class AuthorizeService implements IAuthorizeService {
             resolve(new RegisterUserResult(userId));
           })
           .catch((error: any) => reject(new SocialError(error.name, "firestore/storeUserInformation : " + error.message)));
-
-      })
+      });
       });
   }
 
@@ -278,7 +277,7 @@ export class AuthorizeService implements IAuthorizeService {
             resolve(new RegisterUserResult(userId));
           })
           .catch((error: any) => reject(new SocialError(error.name, error.message)));
-      })
+      });
     });
   }
 }

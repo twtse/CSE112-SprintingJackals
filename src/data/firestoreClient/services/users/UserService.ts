@@ -21,7 +21,8 @@ function generateDiscriminator(): string {
     // By appending 0000 to the front, we guarantee that the discriminator
     // will always be 4 characters (otherwise, asdf#0021 would just be asdf#21)
     // Then, return the discriminator with a #
-    return "#" + (("0000" + num).slice(4));
+    const paddedNum = ("0000" + num);
+    return "#" + (paddedNum.substring(paddedNum.length - 4));
 }
 
 /**

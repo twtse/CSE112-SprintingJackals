@@ -89,12 +89,12 @@ export class UserTieService implements IUserTieService {
 					if (userTies.length > 0) {
 						this.graphService.deleteGraphByNodeId(userTies[0].nodeId!);
 					}
-				}).then(() =>{
+				}).then(() => {
                     this.getUserTiesWithSeconUser(secondUserId, firstUserId).then((userTies) => {
     					if (userTies.length > 0) {
     						this.graphService.deleteGraphByNodeId(userTies[0].nodeId!).then(resolve);
     					}
-    				})
+    				});
                 })
 				.catch((error: any) => reject(new SocialError(error.code, "firestore/removeUsersTie :" + error.message)));
 			});
