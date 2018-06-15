@@ -39,6 +39,10 @@ export let imageGalleryReducer = (state = Map(new ImageGalleryState()), action: 
       return state
         .setIn(["imageURLList", payload.name], payload.url);
 
+    case ImageGalleryActionType.SET_AD_IMAGE_URL:
+      return state
+        .setIn(["adImageURLList", payload.name], payload.url);
+
     case ImageGalleryActionType.SEND_IMAGE_REQUEST:
       return state
         .mergeIn(["imageRequests"], payload);

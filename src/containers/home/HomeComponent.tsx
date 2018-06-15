@@ -22,6 +22,7 @@ import SvgFeedback from "material-ui-icons/Feedback";
 import SvgSettings from "material-ui-icons/Settings";
 import SvgAccountCircle from "material-ui-icons/AccountCircle";
 import SvgPeople from "material-ui-icons/People";
+import SvgAspectRatio from "material-ui-icons/AspectRatio";
 import List from "material-ui/List";
 import Typography from "material-ui/Typography";
 import IconButton from "material-ui/IconButton";
@@ -190,7 +191,7 @@ export class HomeComponent extends Component<IHomeComponentProps, IHomeComponent
    */
   render() {
     const HR = HomeRouter;
-    const { loaded, authed, loadDataStream, mergedPosts, hasMorePosts, showSendFeedback, translate, classes, theme } = this.props;
+    const { loaded, authed, loadDataStream, mergedPosts, hasMorePosts, showSendFeedback, showPostAd, translate, classes, theme } = this.props;
     const { drawerOpen } = this.state;
     const drawer = (
       <>
@@ -228,6 +229,12 @@ export class HomeComponent extends Component<IHomeComponentProps, IHomeComponent
           <ListItemText inset primary={translate!("sidebar.settings")} />
         </MenuItem>
       </NavLink>
+      <MenuItem onClick={() => showPostAd!()} style={{ color: "rgb(117, 117, 117)" }}>
+        <ListItemIcon>
+          <SvgAspectRatio />
+        </ListItemIcon>
+        <ListItemText inset primary={translate!("sidebar.postAd")} />
+      </MenuItem>
       <MenuItem onClick={() => showSendFeedback!()} style={{ color: "rgb(117, 117, 117)" }}>
         <ListItemIcon>
           <SvgFeedback />
@@ -326,7 +333,8 @@ const mapDispatchToProps = (dispatch: any, ownProps: IHomeComponentProps) => {
     },
     goTo: (url: string) => dispatch(push(url)),
     showSendFeedback: () => dispatch(globalActions.showSendFeedback()),
-    hideSendFeedback: () => dispatch(globalActions.hideSendFeedback())
+    hideSendFeedback: () => dispatch(globalActions.hideSendFeedback()),
+    showPostAd: () => dispatch(globalActions.showPostAd())
 
   };
 

@@ -78,6 +78,33 @@ export const dbSaveImage = (imageURL: string,imageFullPath: string) => {
 };
 
 /**
+ * Save advertisement image URL in the server
+ */
+export const dbSaveAdImage = (imageURL: string,imageFullPath: string) => {
+  return (dispatch: any, getState: Function) => {
+
+    const state: Map<string, any>  = getState();
+    let uid: string = state.getIn(["authorize", "uid"]);
+    let image: Image = {
+      creationDate: moment().unix(),
+      deleteDate: "",
+      URL: imageURL,
+      fullPath: imageFullPath,
+      ownerUserId: uid,
+      lastEditDate: 0,
+      deleted: false
+    };
+    return imageGalleryService.saveAdImage(uid,image)
+      .then((imagePath: string) => {
+          setAdImageURL("", image.URL);
+      })
+      .catch((error: SocialError) => {
+        dispatch(globalActions.showMessage(error.message));
+      });
+  };
+};
+
+/**
  * Delete an image from database
  * @param  {string} id of image
  */
@@ -112,6 +139,28 @@ export const dbUploadImage = (image: any, imageName: string) => {
     .then((result: FileResult) => {
       dispatch(globalActions.progressChange(100, false));
       dispatch(dbSaveImage(result.fileURL,result.fileFullPath));
+      dispatch(globalActions.hideTopLoading());
+    })
+    .catch((error: SocialError) => {
+      dispatch(globalActions.showMessage(error.code));
+      dispatch(globalActions.hideTopLoading());
+    });
+  };
+};
+
+/**
+ * Upload advertisement image on the server
+ */
+export const dbUploadAdImage = (image: any, imageName: string) => {
+  return (dispatch: any, getState: Function) => {
+
+    return imageGalleryService
+    .uploadImage(image,imageName, (percentage: number) => {
+      dispatch(globalActions.progressChange(percentage, true));
+    })
+    .then( (result: FileResult) => {
+      dispatch(globalActions.progressChange(100, false));
+      dispatch(dbSaveAdImage(result.fileURL,result.fileFullPath));
       dispatch(globalActions.hideTopLoading());
     })
     .catch((error: SocialError) => {
@@ -188,6 +237,16 @@ export const setImageURL = (name: string, url: string) => {
     payload: { name, url }
   };
 
+};
+
+/**
+ * add an ad image
+ */
+export const setAdImageURL = (name: string, url: string) => {
+  return {
+    type: ImageGalleryActionType.SET_IMAGE_URL,
+    payload: { name, url }
+  };
 };
 
 /**
