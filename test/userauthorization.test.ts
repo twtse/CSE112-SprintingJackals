@@ -17,6 +17,15 @@ describe("User Authorization", function () {
         it("should login a user", function(){
             return authorizeService.login("clsun@ucsd.edu","cse112").should.eventually.be.fulfilled;
         });
+        it("should not login an invalid email", function(){
+            return authorizeService.login("clsun@ucsd","cse112").should.be.rejected;
+        });
+        it("should not login an unregistered email", function(){
+            return authorizeService.login("sgrjiorigoj@gmail.com","cse112").should.be.rejected;
+        });
+        it("should not login with the wrong password", function(){
+            return authorizeService.login("clsun@ucsd.edu","srgojisgjos").should.be.rejected;
+        });
     });
     describe("Logout of valid user", function() {
         it("should logout a valid user", function() { 
@@ -25,7 +34,7 @@ describe("User Authorization", function () {
     });
     describe("Reset password", function() {
         it("should reset password", function() {
-            return authorizeService.resetPassword("catherinesun31@gmail.com").should.be.eventually.fulfilled;
+            return authorizeService.resetPassword("catherinesun@ucsd.edu").should.be.eventually.fulfilled;
         });
     });
 });
