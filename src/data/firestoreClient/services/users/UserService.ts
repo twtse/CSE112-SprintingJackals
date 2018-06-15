@@ -49,6 +49,12 @@ export class UserService implements IUserService {
 	public changeUsername: (userId: string, newUsername: string)
         => Promise<string> = (userId, newUsername) => {
             return new Promise<string>(async (resolve, reject) => {
+                // Verify new username
+                const VALID_USERNAME = /^([a-zA-Z0-9_-]+)$/;
+                if (!VALID_USERNAME.test(newUsername)) {
+                    return reject("Usernames contain only alphanumeric characters or _ or -");
+                }
+
                 // Get user's old username
                 const oldIdRef = await db.doc(`usernames/allUsers/idToUser/${userId}`).get();
 
