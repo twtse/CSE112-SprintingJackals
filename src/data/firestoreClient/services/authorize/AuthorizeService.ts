@@ -226,7 +226,7 @@ export class AuthorizeService implements IAuthorizeService {
         }
       )
       .then(() => {
-          db.doc(`users/circles/default-circle`).set({
+          db.doc(`users/${userId}/circles/default-circle`).set({
               creationDate: moment().unix(),
               isSystem: true,
               name: "Following",
@@ -268,7 +268,7 @@ export class AuthorizeService implements IAuthorizeService {
         }
       )
       .then(() => {
-          db.doc(`users/circles/default-circle`).set({
+          db.doc(`users/${userId}/circles/default-circle`).set({
               creationDate: moment().unix(),
               isSystem: true,
               name: "Following",
