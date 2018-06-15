@@ -68,7 +68,7 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
 	handleFriendIdChange = (event: any) => {
 		const friendId = event.target.value;
 
-        if (friendId == null || friendId === "") {
+        if (friendId == null) {
             return;
         }
 
@@ -81,7 +81,7 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
     handleUsernameFieldChange = (event: any) => {
         const username = event.target.value;
 
-        if (username == null || username === "") {
+        if (username == null) {
             return;
         }
 
