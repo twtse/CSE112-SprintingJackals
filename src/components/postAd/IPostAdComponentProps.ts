@@ -13,6 +13,11 @@ export interface IPostAdComponentProps {
     classes?: any;
 
     /**
+     * Styles
+     */
+    imgUrl?: string;
+
+    /**
      * Translate to locale string
      */
     translate?: (state: any, param?: {}) => any;

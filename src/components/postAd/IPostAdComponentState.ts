@@ -1,7 +1,7 @@
 
 export interface IPostAdComponentState {
     /**
-     * Url for the selected image
+     * if an image is selected
      */
-    imgUrl: string;
+    imgSet: boolean;
 }

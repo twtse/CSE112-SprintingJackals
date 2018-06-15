@@ -96,7 +96,7 @@ export const dbSaveAdImage = (imageURL: string,imageFullPath: string) => {
     };
     return imageGalleryService.saveAdImage(uid,image)
       .then((imagePath: string) => {
-          setAdImageURL("", image.URL);
+          dispatch(setAdImageURL("", image.URL));
       })
       .catch((error: SocialError) => {
         dispatch(globalActions.showMessage(error.message));
@@ -244,7 +244,7 @@ export const setImageURL = (name: string, url: string) => {
  */
 export const setAdImageURL = (name: string, url: string) => {
   return {
-    type: ImageGalleryActionType.SET_IMAGE_URL,
+    type: ImageGalleryActionType.SET_AD_IMAGE_URL,
     payload: { name, url }
   };
 };

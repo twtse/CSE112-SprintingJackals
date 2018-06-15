@@ -1,6 +1,6 @@
 // - Import react components
 import React, {Component} from "react";
-import PropTypes from "prop-types";
+import PropTypes, {string} from "prop-types";
 import {connect} from "react-redux";
 import Button from "material-ui/Button";
 import SvgAddImage from "material-ui-icons/AddAPhoto";
@@ -67,7 +67,7 @@ export class PostAdComponent extends Component<IPostAdComponentProps, IPostAdCom
         },
         box: {
             width: 500,
-            height: 450,
+            height: 200,
         },
         uploadButton: {
             verticalAlign: "middle",
@@ -107,7 +107,7 @@ export class PostAdComponent extends Component<IPostAdComponentProps, IPostAdCom
         this.handleDeleteImage = this.handleDeleteImage.bind(this);
 
         this.state = {
-            imgUrl: ""
+            imgSet: false
         };
     }
 
@@ -118,7 +118,7 @@ export class PostAdComponent extends Component<IPostAdComponentProps, IPostAdCom
      */
     handleDeleteImage = (event: any) => {
         this.setState({
-            imgUrl: ""
+            imgSet: false
         });
     }
 
@@ -137,35 +137,9 @@ export class PostAdComponent extends Component<IPostAdComponentProps, IPostAdCom
      * @memberof ImageGallery
      */
     handleSendResizedImage = (event: any) => {
-        const {resizedImage, fileName} = event.detail;
-        this.dbUploadAdImage!(resizedImage, fileName);
-    }
-
-    /**
-     * Upload advertisement image on the server
-     */
-    dbUploadAdImage = (image: any, imageName: string) => {
-        const imageGalleryService: IImageGalleryService = provider.get<IImageGalleryService>(SocialProviderTypes.ImageGalleryService);
-
-        return (dispatch: any, getState: Function) => {
-
-            return imageGalleryService
-                .uploadImage(image,imageName, (percentage: number) => {
-                    dispatch(globalActions.progressChange(percentage, true));
-                })
-                .then(async (result: FileResult) => {
-                    dispatch(globalActions.progressChange(100, false));
-                    dispatch(dbSaveAdImage(result.fileURL,result.fileFullPath));
-                    dispatch(globalActions.hideTopLoading());
-                    await this.setState({
-                        imgUrl: result.fileURL
-                    });
-                })
-                .catch((error: SocialError) => {
-                    dispatch(globalActions.showMessage(error.code));
-                    dispatch(globalActions.hideTopLoading());
-                });
-        };
+        const { resizedImage, fileName } = event.detail;
+        const {uploadImage} = this.props;
+        uploadImage!(resizedImage,fileName);
     }
 
     /**
@@ -175,50 +149,28 @@ export class PostAdComponent extends Component<IPostAdComponentProps, IPostAdCom
         const extension = FileAPI.getExtension(event.target.files[0].name);
         let fileName = (`${uuid()}.${extension}`);
         let image = FileAPI.constraintImage(event.target.files[0], fileName);
+
+        this.setState({
+            imgSet: true
+        });
     }
 
-    advertiseImg = (imgSet: boolean) => {
+    advertiseImg = () => {
         const {translate, hidePostAd} = this.props;
-
-        if (imgSet) {
+        if (this.props.imgUrl!) {
             return (
                 <GridListTile>
-                    <div>
-                        <div style={{overflowY: "hidden", overflowX: "auto"}}>
-                            <Img fileName={this.state.imgUrl} style={{width: "100%", height: "auto"}}/>
-                        </div>
+                <div>
+                    <div style={{overflowY: "hidden", overflowX: "auto"}}>
+                        <Img fileName={this.props.imgUrl!} style={{width: "100%", height: "auto"}}/>
                     </div>
-                    <GridListTileBar
-                        title={<SvgDelete style={this.styles.deleteImage as any}
-                                          onClick={evt => this.handleDeleteImage(evt)}/>}
-                        titlePosition="top"
-                    />
-                </GridListTile>);
-        } else {
-            return (
-                <GridListTile key="upload-image-gallery">
-                    <div style={{
-                        display: "flex",
-                        backgroundColor: "rgba(222, 222, 222, 0.52)",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        height: "100%"
-                    }}>
-                        <input
-                            accept="image/*"
-                            style={this.styles.uploadInput as any}
-                            id="raised-button-file"
-                            onChange={this.onFileChange}
-                            type="file"
-                        />
-                        <label htmlFor="raised-button-file">
-                            <Button variant="raised" component="span" style={this.styles.uploadButton as any}>
-                                {translate!("imageGallery.uploadButton")}
-                            </Button>
-                        </label>
-                    </div>
-                </GridListTile>
+                </div>
+                <GridListTileBar
+                    title={<SvgDelete style={this.styles.deleteImage as any}
+                                      onClick={evt => this.handleDeleteImage(evt)}/>}
+                    titlePosition="top"
+                />
+            </GridListTile>
             );
         }
     }
@@ -228,11 +180,11 @@ export class PostAdComponent extends Component<IPostAdComponentProps, IPostAdCom
 
         return (
             <div style={{
-                    position: "fixed",
-                    zIndex: 1101,
-                    right: "10%",
-                    top: "50%",
-                    transform: "translate(0, -50%)"
+                position: "fixed",
+                zIndex: 1101,
+                right: "10%",
+                top: "50%",
+                transform: "translate(0, -50%)"
             }}>
                 <Paper className="paper">
                     <div className="close">
@@ -246,7 +198,29 @@ export class PostAdComponent extends Component<IPostAdComponentProps, IPostAdCom
                         <GridList
                             cellHeight={180}
                         >
-                            {this.advertiseImg(this.state.imgUrl !== "")}
+                            <GridListTile key="upload-image-gallery">
+                                <div style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    height: "100%"
+                                }}>
+                                    <input
+                                        accept="image/*"
+                                        style={this.styles.uploadInput as any}
+                                        id="raised-button-file"
+                                        onChange={this.onFileChange}
+                                        type="file"
+                                    />
+                                    <label htmlFor="raised-button-file">
+                                        <Button variant="raised" component="span" style={this.styles.uploadButton as any}>
+                                            {translate!("imageGallery.uploadButton")}
+                                        </Button>
+                                    </label>
+                                </div>
+                            </GridListTile>
+                            {this.advertiseImg()}
                         </GridList>
                     </div>
                 </Paper>
@@ -282,8 +256,7 @@ const mapStateToProps = (state: Map<string, any>) => {
         translate: getTranslate(state.get("locale")),
         images: state.getIn(["imageGallery", "images"]),
         avatar: currentUser ? currentUser.avatar : "",
-        imgUrl: state.getIn(["imageGallery", "adImageURLList"]),
-
+        imgUrl: state.getIn(["imageGallery", "adImageURL"])
     };
 };
 

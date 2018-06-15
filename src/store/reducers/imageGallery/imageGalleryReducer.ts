@@ -41,7 +41,7 @@ export let imageGalleryReducer = (state = Map(new ImageGalleryState()), action: 
 
     case ImageGalleryActionType.SET_AD_IMAGE_URL:
       return state
-        .setIn(["adImageURLList", payload.name], payload.url);
+        .set("adImageURL", payload.url);
 
     case ImageGalleryActionType.SEND_IMAGE_REQUEST:
       return state
