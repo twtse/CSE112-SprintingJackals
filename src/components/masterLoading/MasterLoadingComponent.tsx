@@ -30,7 +30,7 @@ export default class MasterLoadingComponent extends Component<IMasterLoadingComp
           </Grid>
           <Grid item style={{ zIndex: 1 }}>
             <Typography variant="title" color="primary" style={{ marginLeft: "15px" }} >
-              Unexpected Error Happened ...
+              Unexpected Error Happened ... You May Have To Delete Cookies
           </Typography>
           </Grid>
         </Grid>
