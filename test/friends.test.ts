@@ -78,15 +78,19 @@ describe("Friends", function(){
         it("should dispatch a CLEAR_ALL_CIRCLES action on circle store clear", function(){
             const action = CircleActions.clearAllCircles();
             return action.type.should.equal(CircleActionType.CLEAR_ALL_CIRCLES);
+        });
         it("should dispatch an OPEN_CIRCLE_SETTINGS action to fetch circle data", function(){
             const action = CircleActions.openCircleSettings(testCircle.id);
             return action.type.should.equal(CircleActionType.OPEN_CIRCLE_SETTINGS);
+        });
         it("should dispatch a CLOSE_CIRCLE_SETTINGS action to close circle data", function(){
             const action = CircleActions.closeCircleSettings(testCircle.id);
-            return action.type.should.equal(CircleActionType.CLOSE_CIRCLE_SETTINGS);
+            return action.type.should.equal(CircleActionType.CLOSE_CIRCLE_SETTINGS)
+        });
         it("should dispatch an ADD_FOLLOWING_USER action on friend add", function(){
             const action = CircleActions.addFollowingUser(testTie);
             return action.type.should.equal(CircleActionType.ADD_FOLLOWING_USER);
+        });
         it("should dispatch an UPDATE_USER_TIE action on friendship creation");
         // What do these do?!
         it("should dispatch an ADD_USER_TIE_LIST action on multiple friendship changes");
