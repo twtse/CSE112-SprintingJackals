@@ -76,7 +76,7 @@ export const dbLogin = (email: string, password: string) => {
       dispatch(globalActions.showNotificationSuccess());
       dispatch(login(result.uid, result.emailVerified));
       dispatch(push("/"));
-    }, (error: SocialError) => dispatch(globalActions.showMessage(error.code)));
+  }, (error: SocialError) => dispatch(globalActions.showMessage("Your login credentials were incorrect.")));
   };
 };
 
@@ -89,7 +89,8 @@ export const dbLogout = () => {
       dispatch(logout());
       dispatch(push("/login"));
 
-    }, (error: SocialError) => dispatch(globalActions.showMessage(error.code)));
+  }, (error: SocialError) => dispatch(
+      globalActions.showMessage("We encountered an error while logging you out. Please try again.")));
   };
 
 };
@@ -108,8 +109,8 @@ export const dbSendEmailVerfication = () => {
     })
       .catch((error: SocialError) => {
         // An error happened.
-        dispatch(globalActions.showMessage(error.code));
-
+        dispatch(globalActions.showMessage(
+            "We encountered an error while sending your email verification. Please try again"));
       });
   };
 };
@@ -134,7 +135,7 @@ export const dbSignup = (user: UserRegisterModel) => {
       dispatch(dbSendEmailVerfication());
       dispatch(push("/emailVerification"));
     })
-      .catch((error: SocialError) => dispatch(globalActions.showMessage(error.code)));
+      .catch((error: SocialError) => dispatch(globalActions.showMessage("We could not create an account with those credentials. Have you registered with this email before?")));
   };
 
 };
@@ -184,7 +185,7 @@ export const dbResetPassword = (email: string) => {
     })
       .catch((error: SocialError) => {
         // An error happened.
-        dispatch(globalActions.showMessage(error.code));
+        dispatch(globalActions.showMessage("We encountered an error while resetting your password. Please try again."));
 
       });
   };
@@ -205,7 +206,7 @@ export const dbLoginWithOAuth = (type: OAuthType) => {
     })
       .catch((error: SocialError) => {
         // An error happened.
-        dispatch(globalActions.showMessage(error.code));
+        dispatch(globalActions.showMessage("We encountered an error while logging in with OAuth. Please try again."));
 
       });
   };

@@ -125,7 +125,7 @@ export const hideMessage = () => {
  */
 export const showMessage = (message: string) => {
   if (!message || message === "" || (message && message.trim() === "")) {
-    message = "Bad request";
+    message = "Oops! Our servers encountered an issue. Please try again.";
   }
   return {
     type: GlobalActionType.SHOW_MESSAGE_GLOBAL,

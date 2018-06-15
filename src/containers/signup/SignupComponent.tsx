@@ -125,10 +125,7 @@ export class SignupComponent extends Component<ISignupComponentProps, ISignupCom
     // Validate full name
     let fullNameCheck = fullNameInput.trim().toLowerCase();
 
-    if (fullNameCheck.indexOf("test") > -1
-      || fullNameCheck.indexOf("demo") > -1
-      || fullNameCheck.indexOf("asd") > -1
-      || fullNameCheck.length < 4) {
+    if (fullNameCheck.length < 4) {
       this.setState({
         fullNameInputError: translate!("signup.validNameError")
       });

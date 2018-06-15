@@ -128,7 +128,7 @@
          "emailLabel": "Email",
          "passwordLabel": "Password",
          "confirmPasswordLabel": "Confirm Password",
-         "validNameError": "Please enter a valid name.",
+         "validNameError": "Names must be at least four characters.",
          "validEmailError": "Please enter a valid email.",
          "emailRequiredError": "This field is required.",
          "passwordRequiredError": "This field is required.",
