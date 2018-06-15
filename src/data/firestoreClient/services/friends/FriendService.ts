@@ -90,9 +90,16 @@ export class FriendService implements IFriendService {
 
     sendFriendRequest(userId: string, friendId: string) {
         return new Promise<string>( async (resolve, reject) => {
+            // Make the friend ID lowercase
+            friendId = friendId.toLowerCase();
+            if (friendId.trim() === "") {
+                return reject("Please enter a valid username: [name]#XXXX");
+            }
+
             // See if the userId is a username#discriminator combo
             const usernameCombo = await
                 db.doc(`usernames/allUsers/userToId/${friendId}`).get();
+
             // If the BattleTag exists, dereference their user ID
             if (usernameCombo.exists) {
                 friendId = usernameCombo.get("id");
@@ -101,9 +108,12 @@ export class FriendService implements IFriendService {
             // Verify that the friend ID belongs to a valid user
             const friend = await db.collection("userInfo").doc(friendId).get();
 
-            // If the friend does not exist, error
+            // If the friend does not exist, exit
+            // NOTE: we don't want to reject the promise, as rejecting will show
+            // an error message and we don't want to inform the user that the
+            // username does not exist
             if (!friend.exists) {
-                reject("User ID " + friendId + " does not exist.");
+                return resolve();
             }
 
             // Generate a request ID
@@ -171,7 +181,7 @@ export class FriendService implements IFriendService {
                     // Delete the friend request
                     request.ref.delete()
                         .then(() => resolve())
-                        .catch(err => reject("Error occurred: " + err));
+                        .catch(err => console.log("Error occurred: " + err));
                 } else {
                     // If the friend request didn't exist, create one
                     // (ie if this user was the first to initiate a request)
@@ -180,7 +190,7 @@ export class FriendService implements IFriendService {
                         timestamp: moment().unix()
                     })
                     .then(() => resolve())
-                    .catch(() => reject("An unknown error occurred"));
+                    .catch(() => console.log("An unknown error occurred"));
                 }
             });
         });

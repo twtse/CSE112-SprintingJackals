@@ -94,7 +94,7 @@ const styles = (theme: any) => ({
 
 const ONE_DAY = 86400;
 const THREE_DAY = ONE_DAY * 3;
-const TEN_DAY = THREE_DAY * 10;
+const TEN_DAY = ONE_DAY * 10;
 const INF_DAY = -1;
 const times = [ONE_DAY, THREE_DAY, TEN_DAY, INF_DAY];
 const timeText = ["1d", "3d", "10d", "∞"];
@@ -458,7 +458,7 @@ export class PostWriteComponent extends Component<IPostWriteComponentProps, IPos
 		}}>{this.props.ownerDisplayName}</span><span style={{
 				fontWeight: 400,
 				fontSize: "10px"
-			}}> | {translate!("post.public")}</span>
+			}}></span>
 			</div>
 		);
 
@@ -607,8 +607,7 @@ export class PostWriteComponent extends Component<IPostWriteComponentProps, IPos
 													</i>
 												</IconButton>
 
-												{timeText[timeIdx]}
-
+												<span style={{paddingTop: "12px", paddingLeft: "8px"}}>{timeText[timeIdx]}</span>
 											</div>
 										</div>
 									</div>
