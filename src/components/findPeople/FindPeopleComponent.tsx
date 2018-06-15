@@ -8,6 +8,7 @@ import TextField, { TextFieldProps } from "material-ui/TextField";
 import InfiniteScroll from "react-infinite-scroller";
 import { getTranslate, getActiveLanguage } from "react-localize-redux";
 import { Map } from "immutable";
+import {CopyToClipboard} from "react-copy-to-clipboard";
 
 // - Import app components
 import UserBoxList from "components/userBoxList";
@@ -18,6 +19,7 @@ import { FriendService } from "data/firestoreClient/services/friends";
 
 // - Import actions
 import * as userActions from "store/actions/userActions";
+import * as globalActions from "store/actions/globalActions";
 import { IFindPeopleComponentProps } from "./IFindPeopleComponentProps";
 import { IFindPeopleComponentState } from "./IFindPeopleComponentState";
 import { UserTie } from "core/domain/circles/userTie";
@@ -43,9 +45,11 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
 
 		// Default state
 		this.state = {
-			friendIdString: "",
+            friendIdString: "",
             newUsernameString: "",
-            username: ""
+            username: "",
+            friendFieldError: false,
+            usernameFieldError: false
 		};
 
         userService.getUsername(this.props.userId)
@@ -64,24 +68,26 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
 	handleFriendIdChange = (event: any) => {
 		const friendId = event.target.value;
 
-        if (friendId == null || friendId === "") {
+        if (friendId == null) {
             return;
         }
 
 		this.setState({
-			friendIdString: friendId
+			friendIdString: friendId,
+            friendFieldError: false
 		});
 	}
 
     handleUsernameFieldChange = (event: any) => {
         const username = event.target.value;
 
-        if (username == null || username === "") {
+        if (username == null) {
             return;
         }
 
         this.setState({
-            newUsernameString: username
+            newUsernameString: username,
+            usernameFieldError: false
         });
     }
 
@@ -89,7 +95,16 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
 		const { friendIdString } = this.state;
 		const friendService: IFriendService = provider.get<IFriendService>(SocialProviderTypes.FriendService);
 
-		friendService.sendFriendRequest(this.props.userId, friendIdString);
+		friendService.sendFriendRequest(this.props.userId, friendIdString)
+            .then(() => {
+                this.props.sendMessage!("Friend request sent to " + friendIdString);
+            })
+            .catch(err => {
+                this.setState({
+                    friendFieldError: true
+                });
+                this.props.sendMessage!(err);
+            });
 	}
 
     handleChangeUsername = () => {
@@ -101,11 +116,20 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
                 this.setState({
                     username: newUsername
                 });
+                this.props.sendMessage!("Username changed to " + newUsername);
             })
             .catch(err => {
-                // Throw an error?
-                console.error(err);
+                // Display the error to the user
+                this.setState({
+                    usernameFieldError: true
+                });
+                this.props.sendMessage!(err);
             });
+    }
+
+    handleCopy = () => {
+        const {sendMessage} = this.props;
+        sendMessage!("Username copied to clipboard!");
     }
 
 	/**
@@ -138,39 +162,54 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
 		};
 
 		return (
-            
-			<div className="friend_bars">
-				{"To add a friend, you must both enter each other's secret username below."}
-				<TextField
-					id="friend-id-field"
-					style={textFieldStyle}
-					margin="normal"
-					type="string"
-					placeholder="Friend Username"
-					onChange={this.handleFriendIdChange}>
-				</TextField>
-				
-				<Button style={buttonStyle} variant="raised" onClick={this.handleAddFriend}>
-					Add as Friend
-                </Button>
-				<br/>
-                {this.state.username === "" ?
-                "Set your username below to give to your friends!" :
-                "Your username is " + this.state.username + ". Share this with your friends!"
-                }
+            <Paper elevation={0} className="animate2-top10"
+              style={{ position: "relative", margin: "auto", padding: "48px 40px 36px",
+                        display: "block", width: "50%", minHeight: 250,
+                        maxWidth: 450, minWidth: 250, textAlign: "center"}}>
+                <div style={{textAlign: "center"}}>
+                    {this.state.username === "" ?
+                    <span>Set your username below to give to your friends!</span> :
+                    <span>Your username is&nbsp;
+                        <CopyToClipboard
+                            text={this.state.username}
+                            onCopy={this.handleCopy}>
+                            <span style={{cursor: "pointer"}}><b>{this.state.username}</b></span>
+                        </CopyToClipboard>.
+                        Share this with your friends!
+                    </span>
+                    }
+                </div>
+    			<div className="friend_bars">
+    				{"To add a friend, you must both enter each other's secret username below."}
+    				<TextField
+    					id="friend-id-field"
+    					style={textFieldStyle}
+    					margin="normal"
+    					type="string"
+    					placeholder="Friend Username"
+    					onChange={this.handleFriendIdChange}
+                        error={this.state.friendFieldError}>
+    				</TextField>
 
-				<TextField
-					id="username-field"
-					style={textFieldStyle}
-					margin="normal"
-					type="string"
-					placeholder="Change Username"
-					onChange={this.handleUsernameFieldChange}>
-				</TextField>
-				<Button style={buttonStyle} variant="raised" onClick={this.handleChangeUsername}>
-					Change Username
-                </Button>
-			</div>
+    				<Button style={buttonStyle} variant="raised" onClick={this.handleAddFriend}>
+    					Add as Friend
+                    </Button>
+    				<br/>
+
+    				<TextField
+    					id="username-field"
+    					style={textFieldStyle}
+    					margin="normal"
+    					type="string"
+    					placeholder="Change Username"
+    					onChange={this.handleUsernameFieldChange}
+                        error={this.state.usernameFieldError}>
+    				</TextField>
+    				<Button style={buttonStyle} variant="raised" onClick={this.handleChangeUsername}>
+    					Change Username
+                    </Button>
+    			</div>
+            </Paper>
 		);
 	}
 }
@@ -183,7 +222,8 @@ export class FindPeopleComponent extends Component<IFindPeopleComponentProps, IF
  */
 const mapDispatchToProps = (dispatch: any, ownProps: IFindPeopleComponentProps) => {
 	return {
-		loadPeople: (page: number, limit: number) => dispatch(userActions.dbGetPeopleInfo(page, limit))
+		loadPeople: (page: number, limit: number) => dispatch(userActions.dbGetPeopleInfo(page, limit)),
+        sendMessage: (message: string) => dispatch(globalActions.showMessage(message))
 	};
 };
 
@@ -200,9 +240,9 @@ const mapStateToProps = (state: any, ownProps: IFindPeopleComponentProps) => {
 	const info: Map<string, UserTie> = state.getIn(["user", "info"]);
 	return {
         userId: uid,
-		translate: getTranslate(state.get("locale")),
-		peopleInfo: info,
-		hasMorePeople
+		    translate: getTranslate(state.get("locale")),
+		    peopleInfo: info,
+		    hasMorePeople
 	};
 };
 
