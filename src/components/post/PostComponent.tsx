@@ -423,7 +423,7 @@ export class PostComponent extends Component<IPostComponentProps, IPostComponent
 			<Card key={`post-component-${id}`}>
 				<CardHeader
 					title={<NavLink to={`/${ownerUserId}`}>{ownerDisplayName}</NavLink>}
-					subheader={creationDate ? moment.unix(creationDate!).fromNow() + " | " + translate!("post.public")
+					subheader={creationDate ? moment.unix(creationDate!).fromNow() 
 						+ (time > 0 ? " | " + getTimeRemaining(time) : "")
 						:
 						<LinearProgress color="primary"/>}

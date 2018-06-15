@@ -65,7 +65,7 @@ export interface IHomeHeaderComponentProps {
    * Material ui theme style
    */
   classes?: any;
-    
+
   /**
    * Theme
    */
