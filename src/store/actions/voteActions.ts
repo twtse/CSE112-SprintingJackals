@@ -53,7 +53,7 @@ export const dbAddVote = (postId: string,ownerPostUserId: string) => {
       if (uid !== ownerPostUserId) {
         dispatch(notifyActions.dbAddNotification(
           {
-            description: "Vote on your post.",
+            description: "Loved your post!",
             url: `/${ownerPostUserId}/posts/${postId}`,
             notifyRecieverUserId: ownerPostUserId,notifierUserId: uid,
             isSeen: false

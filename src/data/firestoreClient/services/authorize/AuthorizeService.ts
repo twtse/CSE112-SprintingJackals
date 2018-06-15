@@ -226,10 +226,18 @@ export class AuthorizeService implements IAuthorizeService {
         }
       )
       .then(() => {
-        resolve(new RegisterUserResult(userId));
-      })
-      .catch((error: any) => reject(new SocialError(error.name, "firestore/storeUserInformation : " + error.message)));
-    });
+          db.doc(`users/${userId}/circles/default-circle`).set({
+              creationDate: moment().unix(),
+              isSystem: true,
+              name: "Following",
+              ownerId: userId
+          })
+          .then(() => {
+            resolve(new RegisterUserResult(userId));
+          })
+          .catch((error: any) => reject(new SocialError(error.name, "firestore/storeUserInformation : " + error.message)));
+      });
+      });
   }
 
   /**
@@ -259,9 +267,17 @@ export class AuthorizeService implements IAuthorizeService {
         }
       )
       .then(() => {
-        resolve(new RegisterUserResult(userId));
-      })
-      .catch((error: any) => reject(new SocialError(error.name, error.message)));
+          db.doc(`users/${userId}/circles/default-circle`).set({
+              creationDate: moment().unix(),
+              isSystem: true,
+              name: "Following",
+              ownerId: userId
+          })
+          .then(() => {
+            resolve(new RegisterUserResult(userId));
+          })
+          .catch((error: any) => reject(new SocialError(error.name, error.message)));
+      });
     });
   }
 }

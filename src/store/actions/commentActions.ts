@@ -63,7 +63,7 @@ export const dbAddComment = (ownerPostUserId: string, newComment: Comment, callB
         if (ownerPostUserId && ownerPostUserId !== uid) {
           dispatch(notifyActions.dbAddNotification(
             {
-              description: "Add comment on your post.",
+              description: "Added a comment on your post.",
               url: `/${ownerPostUserId}/posts/${comment.postId}`,
               notifyRecieverUserId: ownerPostUserId, notifierUserId: uid,
               isSeen: false
