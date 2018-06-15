@@ -191,7 +191,7 @@ export class HomeHeaderComponent extends Component<IHomeHeaderComponentProps, IH
           </Typography>
           <div className="homeHeader__title-root">
           <Hidden smDown>
-           <div className={classNames({"homeHeader__title-left": anchor === "left", "homeHeader__title-right": anchor === "right" })}>{this.props.title}</div> 
+           <div className={classNames({"homeHeader__title-left": anchor === "left", "homeHeader__title-right": anchor === "right" })}>{this.props.title}</div>
            </Hidden>
           </div>
 
@@ -266,6 +266,7 @@ const mapStateToProps = (state: Map<string,any>, ownProps: IHomeHeaderComponentP
       .filter((notification) => !notification.get("isSeen", false)).count()
     : 0;
     const user = state.getIn(["user", "info", uid], {});
+    console.log(user);
   return {
     translate: getTranslate(state.get("locale")),
     avatar: user.avatar || "",
