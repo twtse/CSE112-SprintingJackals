@@ -13,6 +13,7 @@ import {Map} from "immutable";
 
 import MasterLoading from "src/components/masterLoading";
 import SendFeedback from "src/components/sendFeedback";
+import PostAd from "src/components/postAd";
 import MasterRouter from "src/routes/MasterRouter";
 import { IMasterComponentProps } from "./IMasterComponentProps";
 import { IMasterComponentState } from "./IMasterComponentState";
@@ -117,7 +118,7 @@ export class MasterComponent extends Component<IMasterComponentProps, IMasterCom
    */
   public render () {
 
-    const { progress, global, loaded, guest, uid, sendFeedbackStatus, hideMessage } = this.props;
+    const { progress, global, loaded, guest, uid, sendFeedbackStatus, postAdStatus, hideMessage } = this.props;
     const { loading, isVerifide } = this.state;
 
     return (
@@ -127,6 +128,7 @@ export class MasterComponent extends Component<IMasterComponentProps, IMasterCom
                 <title>Peterbook</title>
             </Helmet>
        {sendFeedbackStatus ? <SendFeedback /> : ""}
+       {postAdStatus ? <PostAd /> : ""}
         <div className="master__progress" style={{ display: (progress.visible ? "block" : "none") }}>
           <LinearProgress variant="determinate" value={progress.percent} />
         </div>
@@ -195,9 +197,10 @@ const mapDispatchToProps = (dispatch: any, ownProps: IMasterComponentProps) => {
 const mapStateToProps = (state: Map<string, any>) => {
   const  authorize = Map(state.get("authorize", {})).toJS();
   const global = Map(state.get("global", {})).toJS();
-  const { sendFeedbackStatus, progress } = global;
+  const { sendFeedbackStatus, progress, postAdStatus } = global;
   return {
     sendFeedbackStatus,
+    postAdStatus,
     progress,
     guest: authorize.guest,
     uid: authorize.uid,

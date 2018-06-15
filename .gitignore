@@ -70,3 +70,6 @@ public/*
 .idea/
 
 .vs/
+
+.firebaserc
+.travis.yml # only because I'm lazy

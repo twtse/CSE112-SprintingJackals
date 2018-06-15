@@ -54,6 +54,14 @@ export const globalReducer = (state = Map(new GlobalState()), action: IGlobalAct
       return state
         .set("sendFeedbackStatus", false);
 
+    case GlobalActionType.SHOW_POST_AD:
+      return state
+        .set("postAdStatus", true);
+
+    case GlobalActionType.HIDE_POST_AD:
+      return state
+        .set("postAdStatus", false);
+
     case GlobalActionType.HIDE_TOP_LOADING:
       const queueTopLoading = Number(state.get("topLoadingQueue")) > 0 ? (Number(state.get("topLoadingQueue")) - 1) : 0;
       return state
