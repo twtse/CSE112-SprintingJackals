@@ -5,4 +5,8 @@ export interface IFindPeopleComponentState {
     newUsernameString: string;
 
     username: string;
+
+    friendFieldError: boolean;
+    
+    usernameFieldError: boolean;
 }
