@@ -89,9 +89,12 @@ export class FriendService implements IFriendService {
 	}
 
     sendFriendRequest(userId: string, friendId: string) {
+        friendId = friendId.toLowerCase();
+        
         return new Promise<string>( async (resolve, reject) => {
             // See if the userId is a username#discriminator combo
             const usernameCombo = await
+
                 db.doc(`usernames/allUsers/userToId/${friendId}`).get();
             // If the BattleTag exists, dereference their user ID
             if (usernameCombo.exists) {
