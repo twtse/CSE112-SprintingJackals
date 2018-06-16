@@ -60,12 +60,19 @@ export class PostAdComponent extends Component<IPostAdComponentProps, IPostAdCom
             justifyContent: "space-around"
         },
         box: {
-            width: 500,
-            height: 200,
+            width: 320,
+            height: 325,
+            justifyContent: "center",
+            alignItems: "center",
         },
         uploadButton: {
             verticalAlign: "middle",
             fontWeight: 400
+        },
+        formButton: {
+            verticalAlign: "middle",
+            fontWeight: 300,
+            marginLeft: "26px",
         },
         uploadInput: {
             cursor: "pointer",
@@ -86,6 +93,10 @@ export class PostAdComponent extends Component<IPostAdComponentProps, IPostAdCom
             marginRight: "5px",
             cursor: "pointer",
             color: "white"
+        },
+        formBox: {
+            padding: "0px 26px",
+            align: "center",
         }
     };
 
@@ -182,25 +193,43 @@ export class PostAdComponent extends Component<IPostAdComponentProps, IPostAdCom
         }
     }
 
+    handleClose = () => {
+        const {hidePostAd, resetAdImgUrl} = this.props;
+        resetAdImgUrl!();
+        hidePostAd!();
+    }
+
     advertiseForm = () => {
-        const {translate} = this.props;
+        const {translate, hidePostAd} = this.props;
 
         return (
-            <div className="main-box">
-                <form>
-                    <label>Company Name</label>
-                    <input type="text" value={this.state.companyName} onChange={this.handleCompanyName}/>
-                    <label>Phone Number</label>
-                    <input type="text" value={this.state.phoneNum} onChange={this.handlePhoneNum}/>
-                    <label>Website</label>
-                    <input type="text" value={this.state.website} onChange={this.handleWebsite}/>
+            <div style={this.styles.formBox}>
+                <form style={{width: "90%"}}>
+                    <TextField
+                        placeholder={translate!("postAd.entityName")}
+                        onChange={this.handleCompanyName}
+                        autoFocus
+                        fullWidth={true}
+                    /><br />
+                    <TextField
+                        placeholder={translate!("postAd.phoneNum")}
+                        onChange={this.handlePhoneNum}
+                        autoFocus
+                        fullWidth={true}
+                    /><br />
+                    <TextField
+                        placeholder={translate!("postAd.website")}
+                        onChange={this.handleWebsite}
+                        autoFocus
+                        fullWidth={true}
+                    /><br />
                 </form>
             </div>
         );
     }
 
     advertiseImg = () => {
-        const {translate, hidePostAd} = this.props;
+        const {translate} = this.props;
         if (this.props.imgUrl!) {
             return (
                 <GridListTile>
@@ -235,7 +264,7 @@ export class PostAdComponent extends Component<IPostAdComponentProps, IPostAdCom
                         />
                         <label htmlFor="raised-button-file">
                             <Button variant="raised" component="span" style={this.styles.uploadButton as any}>
-                                {translate!("imageGallery.uploadButton")}
+                                {translate!("postAd.uploadButton")}
                             </Button>
                         </label>
                     </div>
@@ -258,17 +287,29 @@ export class PostAdComponent extends Component<IPostAdComponentProps, IPostAdCom
                 <Paper className="paper">
                     <div className="close">
                         <Tooltip title="Cancel" placement="bottom-start">
-                            <IconButton onClick={() => hidePostAd!()}>
+                            <IconButton onClick={() => this.handleClose()}>
                                 <SvgClose/>
                             </IconButton>
                         </Tooltip>
                     </div>
                     <div style={this.styles.box}>
-                        <GridList
-                            cellHeight={180}
-                        >
+                        {this.advertiseForm()}
+                        <GridList cellHeight={180} style={{
+                            marginLeft: "26px"
+                        }}>
                             {this.advertiseImg()}
                         </GridList>
+
+                        <label htmlFor="raised-button-file">
+                            <Button variant="raised" component="span" onClick={() => this.handleClose()} style={this.styles.formButton as any}>
+                                {translate!("postAd.submitButton")}
+                            </Button>
+                        </label>
+                        <label htmlFor="raised-button-file">
+                            <Button variant="raised" component="span" onClick={() => this.handleClose()} style={this.styles.formButton as any}>
+                                {translate!("postAd.cancelButton")}
+                            </Button>
+                        </label>
                     </div>
                 </Paper>
             </div>
@@ -287,6 +328,7 @@ const mapDispatchToProps = (dispatch: any, ownProps: IPostAdComponentProps) => {
         uploadImage: (image: any, imageName: string) => dispatch(imageGalleryActions.dbUploadAdImage(image, imageName)),
         progressChange: (percent: number, status: boolean) => dispatch(globalActions.progressChange(percent, status)),
         hidePostAd: () => dispatch(globalActions.hidePostAd()),
+        resetAdImgUrl: () => dispatch(imageGalleryActions.setAdImageURL("", ""))
     };
 };
 

@@ -37,6 +37,14 @@
          "googlePlusButton": "Share in Google+"
 
      },
+     "postAd": {
+         "entityName": "Entity Name",
+         "phoneNum": "Phone Number",
+         "website": "Website",
+         "uploadButton": "UPLOAD IMAGE",
+         "cancelButton": "CANCEL",
+         "submitButton": "SUBMIT"
+     },
      "imageGallery": {
          "uploadButton": "UPLOAD",
          "cancelButton": "CANCEL"
