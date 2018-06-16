@@ -28,12 +28,12 @@ describe("User Authorization", function () {
         });
     });
     describe("Logout of valid user", function() {
-        it("should logout a valid user", function() { 
+        it("should logout a valid user", function() {
             return authorizeService.logout().should.eventually.be.fulfilled;
         });
     });
     describe("Reset password", function() {
-        it("should reset password", function() {
+        it.skip("should reset password", function() {
             return authorizeService.resetPassword("catherinesun@ucsd.edu").should.be.eventually.fulfilled;
         });
     });
