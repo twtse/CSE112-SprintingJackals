@@ -28,6 +28,11 @@ export interface IPostAdComponentProps {
     hidePostAd?: () => any;
 
     /**
+     * Reset the url for ad image
+     */
+    resetAdImgUrl?: () => any;
+
+    /**
      * Upload image to the server
      *
      * @memberof IImageGalleryComponentProps
